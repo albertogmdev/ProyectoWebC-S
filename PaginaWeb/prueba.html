@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title> Fichar </title>
+    <meta charset="UTF-8">
+    <meta name="title" content="Fichar">
+    <script type="text/javascript" src="./js/formularioFichar.js"></script>
+  </head>
+  <body>
+    <div class="titulo">
+        <h1> FICHAR </h1>
+    </div>
+    <div class="formulario">
+        <form id="ficharEmpleado" action="" method="get" onsubmit=hola()>
+            <label>Hora entrada:</label><br>
+            <input type="datetime-local" id="entrada" required><br><br>
+            <label>Hora salida:</label><br>
+            <input type="datetime-local" id="salida" required><br><br>
+            <label>Introduzca el número de proyectos:</label><br>
+            <input type="text" id="numeroProyectos" required onblur=ficharProyectos()>
+
+            <div id="generar"></div><br><br>
+            
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+        </form>
+    </div>
+  </body>
+</html>
