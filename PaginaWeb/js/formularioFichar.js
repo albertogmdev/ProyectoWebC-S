@@ -14,15 +14,18 @@ function ficharProyectos(){
         var generateHere = document.getElementById("generar");
         generateHere.innerHTML = codigoHTML+'<br>';
 
-        enviar();
+        //enviar();
     }
 }
 
 function enviar(){
     var numero = parseInt(document.getElementById("numeroProyectos").value);
-    console.log(numero+1);
+    var arrayElementos = [];
 
     for(var i = 1; i < numero+1; i++){
-        console.log("hola");
+        var nombre = "numeroProyecto"+(i).toString()
+        console.log(nombre)
+        var elemento = document.getElementById(nombre)
+        console.log(elemento);
     }
 }
