@@ -83,8 +83,7 @@ body,html{
     height: 210px;
     content: '';
     display: block;
-    background: rgba(255,255,255,0.7);
-    transform: rotate(45deg);
+    background: rgba(255,255,255,0.3);
     top: -60px;
     position: absolute;
     transition: none;
