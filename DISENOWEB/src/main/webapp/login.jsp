@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center form_container">
-                            <form id="inicioSesion" action="" method="get" onsubmit=inicioSesion()>
+                            <form id="inicioSesion" action="Validar" method="POST">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
@@ -42,7 +42,8 @@
                                     <input type="password" name="password" id="password" class="form-control input_pass" placeholder="Contraseña" required>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3 login_container">
-                                    <button type="button" name="button" id="login" class="btn login_btn">Iniciar sesion</button>
+                                  <!--  <button type="button" name="button" id="login" class="btn login_btn">Iniciar sesion</button>!-->
+                                  <input type="submit" name="accion" value="Iniciar sesion" class="btn login_btn">
                                 </div>
                             </form>
                         </div>
