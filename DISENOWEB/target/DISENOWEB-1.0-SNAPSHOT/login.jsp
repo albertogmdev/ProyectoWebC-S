@@ -42,7 +42,7 @@
                                     <input type="password" name="password" id="password" class="form-control input_pass" placeholder="Contraseña" required>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3 login_container">
-                                    <button type="button" name="button" id="login" class="btn login_btn">Entrar</button>
+                                    <button type="button" name="button" id="login" class="btn login_btn">Iniciar sesion</button>
                                 </div>
                             </form>
                         </div>

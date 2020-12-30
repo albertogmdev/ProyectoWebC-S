@@ -46,7 +46,8 @@ body,html{
 	text-align: center;
 	width: 100%;
 	overflow: hidden;
-	color: white;
+        color:black;
+        font-weight: 500;
 	cursor: pointer;
 	text-decoration: none;
 	transition: all ease 0.5s;
@@ -91,7 +92,7 @@ body,html{
     cursor: pointer;
 }
 .login_btn:before{left: -48%;}
-.login_btn:hover{text-shadow: 0 1px 1px rgba(0,0,0,0.5);background:#D80041;color: wheat;}
+.login_btn:hover{text-shadow: 0 1px 1px rgba(0,0,0,0.5);background:#D80041;color:white;}
 .login_btn:hover:after,
 .login_btn:hover:before{transform: rotate(45deg), scaleX(130%);background: rgba(255,255,255,0.1);transition: all ease 0.5s;}
 .login_btn:hover:after{right: 130%;}
