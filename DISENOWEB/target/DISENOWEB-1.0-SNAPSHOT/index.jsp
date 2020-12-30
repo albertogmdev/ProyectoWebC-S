@@ -19,7 +19,7 @@
                 <a href="./calendario.jsp"> CALENDARIO </a><br>
                 <a href="./diaLibre.jsp"> DIA-LIBRE-EMPLEADO </a><br>
                 <a href="./fichar.jsp"> FICHAR-EMPLEADO </a><br>
-                <a href="./gestionEmpleado"> GESTION-EMPLEADO </a><br>
+                <a href="./gestionEmpleado.jsp"> GESTION-EMPLEADO </a><br>
             </nav> 
         </div>
         <div class="footer-index">
