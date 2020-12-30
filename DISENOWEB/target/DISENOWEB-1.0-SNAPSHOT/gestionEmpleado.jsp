@@ -1,3 +1,5 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -26,7 +28,6 @@
             <input type="reset" value="Borrar">
         </form>
     </div>
-
     <div class="titulo">
         <h1> DAR BAJA </h1>
     </div>

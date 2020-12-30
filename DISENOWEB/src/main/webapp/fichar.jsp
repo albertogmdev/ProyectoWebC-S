@@ -1,3 +1,10 @@
+<%-- 
+    Document   : fichar
+    Created on : 30-dic-2020, 18:20:34
+    Author     : Alberto
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
   <head>
