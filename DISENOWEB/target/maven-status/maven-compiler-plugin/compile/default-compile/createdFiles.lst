@@ -1,2 +1,2 @@
-com/mycompany/disenoweb/JAXRSConfiguration.class
-com/mycompany/disenoweb/resources/JavaEE8Resource.class
+com\mycompany\disenoweb\resources\JavaEE8Resource.class
+com\mycompany\disenoweb\JAXRSConfiguration.class
