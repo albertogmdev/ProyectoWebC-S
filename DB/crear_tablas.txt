@@ -1,0 +1,75 @@
+CREATE TABLE IF NOT EXISTS EmpleadoRRHH(
+	IdEmpleadoRRHH INT NOT NULL,
+    Nombre VARCHAR(45) NOT NULL,
+    Apellidos VARCHAR(45) NOT NULL,
+    Telefono INT NOT NULL,
+    Correo VARCHAR(45),
+    Contrasenia VARCHAR(45),
+    PRIMARY KEY(IdEmpleadoRRHH)
+)ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS DiaLibre(
+	Fecha DATE NOT NULL,
+    Motivo VARCHAR(120),
+    Aprobado BOOL NOT NULL,
+    Tramitado BOOL NOT NULL,
+    PRIMARY KEY(Fecha)    
+)ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS Empresa(
+	IdEmpresa INT NOT NULL,
+    Nombre VARCHAR(45) NOT NULL,
+    Calle VARCHAR(45) NOT NULL,
+    CodigoPostal INT NOT NULL,
+    Correo VARCHAR(45),
+    Telefono INT NOT NULL,
+    PRIMARY KEY(IdEmpresa)
+)ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS Proyecto(
+	IdProyecto INT NOT NULL,
+    PRIMARY KEY(IdProyecto),
+    Empresa_IdEmpresa INT NOT NULL,
+    CONSTRAINT FKProyecto_empresa
+    FOREIGN KEY(Empresa_IdEmpresa)
+    REFERENCES Empresa(IdEmpresa)
+)ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS EmpleadoEmpresa(
+	IdEmpleadoEmpresa INT NOT NULL,
+    Nombre VARCHAR(45) NOT NULL,
+    Apellidos VARCHAR(45) NOT NULL,
+    Telefono INT NOT NULL,
+    Correo VARCHAR(45),
+    Contrasenia VARCHAR(45),
+    PRIMARY KEY(IdEmpleadoEmpresa),
+    DiaLibre_Fecha DATE,
+    CONSTRAINT FKEmpleadoEmpresa_DiaLibre
+    FOREIGN KEY(DiaLibre_fecha)
+    REFERENCES DiaLibre(Fecha)
+    
+)ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS Calendario(
+	Fecha DATE NOT NULL,
+    HoraEntrada TIME NOT NULL,
+    HoraSalida TIME NOT NULL,
+    PRIMARY KEY(Fecha),
+    IdEmpleadoEmpresa INT NOT NULL UNIQUE, #creo una clave foranea para relacion 1 a 1 con EmpleadoEmpresa pero al ser unica no se puede repetir
+    FOREIGN KEY (IdEmpleadoEmpresa)
+    REFERENCES EmpleadoEmpresa(IdEmpleadoEmpresa)
+)ENGINE=INNODB;
+
+
+
+CREATE TABLE IF NOT EXISTS Proyecto_Empleado(
+	proyecto_id_proyecto INT NOT NULL,
+	empleado_id_empleado INT NOT NULL,
+    PRIMARY KEY (proyecto_id_proyecto,empleado_id_empleado),
+    CONSTRAINT fkempleado_proyecto_empleado
+    FOREIGN KEY(empleado_id_empleado)
+    REFERENCES EmpleadoRRHH(IdEmpleadoRRHH),
+    CONSTRAINT fkproyecto_empleado_proyecto
+    FOREIGN KEY(proyecto_id_proyecto)
+    REFERENCES Proyecto(IdProyecto)
+)ENGINE=INNODB;
