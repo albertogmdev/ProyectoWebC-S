@@ -6,17 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import util.ConexionDb;
+import util.ConexionBd;
 
 /**
  *
  * @author Alberto
  */
-public class ConsultaDb {
+public class ConsultaBd {
     private Connection conexion;
     
-    public ConsultaDb(){
-        conexion = ConexionDb.getConexion();
+    public ConsultaBd(){
+        conexion = ConexionBd.getConexion();
     }
     
     //EN ESTA CLASE PONER TODAS LAS CONSULTAS QUE SE PUEDEN HACER EN LA BASE DE DATOS

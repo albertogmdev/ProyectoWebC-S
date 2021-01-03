@@ -28,12 +28,12 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center form_container">
-                            <form id="inicioSesion" action="Validar" method="POST">
+                            <form id="inicioSesion" action="login" method="POST">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
                                     </div>
-                                    <input type="text" name="usuario" id="usuario" class="form-control input_user" placeholder="Usuario"required>
+                                    <input type="text" name="usuario" id="usuario" class="form-control input_user" placeholder="Email" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <div class="input-group-append">
