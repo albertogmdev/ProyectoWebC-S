@@ -21,7 +21,7 @@ import logica.Usuario;
 public class ConsultaBd {
     private Connection conexion;
     
-    public String getTipoUsuario(String correo){
+    public String getTipoUsuario(String correo, String contrasenna){
         
         String tipo = "";
         
@@ -30,14 +30,20 @@ public class ConsultaBd {
             Statement s = conexion.createStatement();
             ResultSet rsEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo="+ correo +";");
 
-            if(rsEmpleado.getRow() == 0){ //Si la consulta es vacia no sera empleado
+            //Si la consulta es vacia no sera empleado
+            if(rsEmpleado.getRow() == 0){ 
                 ResultSet rsUsuario = s.executeQuery("select * from EmpleadoEmpresa where Correo="+ correo +";");
-                
-                if(rsUsuario.getRow() == 0){ tipo = "error"; } //Si no es ni usuario ni empleado es error
-                else{ tipo = "usuario"; }
-                
-            }else{ 
-                tipo = "empleado"; 
+                //Si no es ni usuario ni empleado es error
+                if(rsUsuario.getRow() == 0){ tipo = "error"; }
+                else{ 
+                    //Comprobamos que la contraseña es correcta
+                    if(rsUsuario.getString("Contrasenia").equalsIgnoreCase(contrasenna)){ tipo = "usuario"; }
+                    else{ tipo = "error"; }
+                }
+            }else{
+                //Comprobamos que la contraseña es correcta
+                if(rsEmpleado.getString("Contrasenia").equalsIgnoreCase(contrasenna)){ tipo = "empleado"; }
+                else{ tipo = "error"; }
             }
             conexion.close();
         }catch(SQLException error){

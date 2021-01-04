@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logica.Empleado;
 import logica.Empresa;
-import logica.ProyectoEmpleado;
 import logica.Usuario;
 import util.Log;
 import util.ConsultaBd;
@@ -88,7 +87,7 @@ public class LoginController extends HttpServlet {
         String usuarioLogin = request.getParameter("usuario");
         String contrasennaLogin = request.getParameter("password");
         
-        String tipo = consulta.getTipoUsuario(usuarioLogin);
+        String tipo = consulta.getTipoUsuario(usuarioLogin, contrasennaLogin);
         
         if(tipo.equalsIgnoreCase("empleado")){
             siguientePagina = LOGIN_EMPLEADO;
