@@ -1,12 +1,13 @@
+util\ConexionBd.class
 com\mycompany\disenoweb\resources\JavaEE8Resource.class
 logica\Usuario.class
 util\Log.class
+util\ConsultaBd.class
 Controlador\Validar.class
 logica\Empleado.class
-util\ConsultaDb.class
 com\mycompany\disenoweb\JAXRSConfiguration.class
+controller\LoginController.class
 logica\ProyectoEmpleado.class
 logica\Proyecto.class
 Controlador\Controlador.class
-util\ConexionDb.class
 logica\Empresa.class

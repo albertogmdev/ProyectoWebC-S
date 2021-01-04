@@ -37,4 +37,12 @@ public class ConexionBd {
             return conexion;
         }
     }
+    
+    public void desconectar(){
+        try{
+            conexion.close();
+        }catch(SQLException error){
+            Log.logDb.error("ERROR SQL: "+ error);
+        }
+    }
 }

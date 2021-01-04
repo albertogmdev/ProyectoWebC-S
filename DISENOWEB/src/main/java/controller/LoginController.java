@@ -34,7 +34,6 @@ public class LoginController extends HttpServlet {
     
     public LoginController(){
         super();
-        consulta = new ConsultaBd();
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -89,44 +88,26 @@ public class LoginController extends HttpServlet {
         String usuarioLogin = request.getParameter("usuario");
         String contrasennaLogin = request.getParameter("password");
         
-        String tipo = "";
-        //HACER FUNCION EN ConsultaBd que retorne una variable tipo
-        //  - "empleado" si el usuario es empleado
-        //  - "usuario" si el usuario es un usuario de la app
-        //  - "error" si no se ha encontrado el usuario introducido
-        //      (se podria hacer tambien con admin)
+        String tipo = consulta.getTipoUsuario(usuarioLogin);
+        
         if(tipo.equalsIgnoreCase("empleado")){
             siguientePagina = LOGIN_EMPLEADO;
             //Creamos el empleado
-            Empleado empleado = new Empleado();
-            empleado.setEmail(usuarioLogin);
-            empleado.setContrasenna(contrasennaLogin);
-            //PARA ESTOS DATOS HABRIA QUE HACER UNA CONSULTA A LA BD
-            empleado.setIdEmpleado(999999999);
-            empleado.setNombre("NOMBRE");
-            empleado.setApellidos("APELLIDOS");
-            empleado.setTelefono(1);
-            //******************************************************
+            Empleado empleado = consulta.getEmpleado(usuarioLogin);
+            System.out.println(empleado.toString());
             request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
             Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
+            Log.log.info("INFO USUARIO - "+ empleado.toString());
         }else if(tipo.equalsIgnoreCase("usuario")){
             siguientePagina = LOGIN_USUARIO;
             //Creamos el usuario
-            Usuario usuario = new Usuario();
-            usuario.setEmail(usuarioLogin);
-            usuario.setContrasenna(contrasennaLogin);
-            //PARA ESTOS DATOS HABRIA QUE HACER UNA CONSULTA A LA BD
-            usuario.setIdUsuario(999999999);
-            usuario.setNombre("NOMBRE");
-            usuario.setApellidos("APELLIDOS");
-            Empresa empresa = new Empresa();
-            usuario.setEmpresa(empresa);
-            usuario.setTelefono(999999999);
-            List<ProyectoEmpleado> proyectosList = new ArrayList<ProyectoEmpleado>();
-            usuario.setProyectosList(proyectosList);
-            //******************************************************
+            Usuario usuario = consulta.getUsuario(usuarioLogin);
+            System.out.println(usuario.toString());
+            System.out.println(usuario.getEmpresa().toString());
+            System.out.println(usuario.getProyectosList().toString());
             request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
             Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
+            Log.log.info("INFO USUARIO - "+ usuario.toString());
         }else{
             siguientePagina = ERROR;
             Log.log.error("ERROR: Usuario no encontrado en la base de datos");
