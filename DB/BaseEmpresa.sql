@@ -1,21 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS  pruebas DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-CREATE TABLE IF NOT EXISTS EmpleadoRRHH(
-	IdEmpleadoRRHH INT NOT NULL,
-    Nombre VARCHAR(45) NOT NULL,
-    Apellidos VARCHAR(45) NOT NULL,
-    Telefono INT NOT NULL,
-    Correo VARCHAR(45),
-    Contrasenia VARCHAR(45),
-    PRIMARY KEY(IdEmpleadoRRHH)
-)ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS DiaLibre(
-	Fecha DATE NOT NULL,
-    Motivo VARCHAR(120),
-    Aprobado BOOL NOT NULL,
-    Tramitado BOOL NOT NULL,
-    PRIMARY KEY(Fecha)    
-)ENGINE=INNODB;
 CREATE DATABASE IF NOT EXISTS base_empresa;
 
 #drop table ____ para borrar tablas
@@ -99,6 +81,7 @@ CREATE TABLE IF NOT EXISTS Calendario(
 
 
 CREATE TABLE IF NOT EXISTS Proyecto_Empleado(
+	Horas INT,
 	proyecto_id_proyecto INT NOT NULL,
 	empleado_correo VARCHAR(45) NOT NULL,
     PRIMARY KEY (proyecto_id_proyecto,empleado_correo),
