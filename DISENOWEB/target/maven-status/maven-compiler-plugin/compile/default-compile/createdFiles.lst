@@ -5,6 +5,7 @@ util\Log.class
 util\ConsultaBd.class
 Controlador\Validar.class
 logica\Empleado.class
+util\Pruebas.class
 com\mycompany\disenoweb\JAXRSConfiguration.class
 controller\LoginController.class
 logica\ProyectoEmpleado.class

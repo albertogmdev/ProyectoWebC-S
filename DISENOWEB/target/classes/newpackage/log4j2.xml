@@ -2,11 +2,11 @@
 <Configuration status="info">
     <Appenders>				
         <!-- LOG -->
-        <RollingFile name="LogFile" fileName="/var/log/tomcat9/logmvc.log"
-                             filePattern="/var/log/tomcat9/mvc-%d{yyyy}-%i.log.gz">
+        <RollingFile name="LogFile" fileName="/log/LogBD.log"
+                             filePattern="/log/mvc-%d{yyyy}-%i.log.gz">
             <PatternLayout
                 pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-30l %logger{36} ### %msg"
-                header="-- MVC EXAMPLE --" />
+                header="-- LOG APLICACION --" />
             <Policies>
                 <TimeBasedTriggeringPolicy />
                 <SizeBasedTriggeringPolicy size="10 MB" />
@@ -14,11 +14,11 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>		
         <!-- LOGDB -->
-        <RollingFile name="LogFileDB" fileName="/var/log/tomcat9/logdbmvc.log"
-                             filePattern="/var/log/tomcat9/mvc-%d{yyyy}-%i.logdb.gz">
+        <RollingFile name="LogFileDB" fileName="/log/LogBD.log"
+                             filePattern="/log/mvc-%d{yyyy}-%i.logdb.gz">
             <PatternLayout
                 pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-30l %logger{36} ### %msg"
-                header="-- MVC EXAMPLE --" />
+                header="-- LOG BASE DE DATOS --" />
             <Policies>
                 <TimeBasedTriggeringPolicy />
                 <SizeBasedTriggeringPolicy size="10 MB" />
@@ -37,3 +37,6 @@
         </Logger>	    
     </Loggers>
 </Configuration>
+<root>
+    
+</root>
