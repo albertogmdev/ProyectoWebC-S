@@ -59,7 +59,7 @@ public class ConsultaBd {
         try{
             conexion = ConexionBd.getConexion();
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from EmpleadoEmpresa where Correo="+ correo +";");
+            ResultSet rs = s.executeQuery("select * from EmpleadoEmpresa where Correo='"+ correo +"';");
             
             while(rs.next()){
                 usuario.setEmail(correo);
@@ -72,13 +72,14 @@ public class ConsultaBd {
                 //y como solo puede trabajar en una empresa, cogemos el objeto empresa que realiza ese proyecto
                 //No puede ser vacia la lista ya que para trabajar en una empresa tienes que estar minimo
                 //en un proyecto
-                List<ProyectoEmpleado> lista = getListaProyectos(correo);
-                usuario.setProyectosList(lista);
-                usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
+                //List<ProyectoEmpleado> lista = getListaProyectos(correo);
+                //usuario.setProyectosList(lista);
+                //usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
             }
             
             conexion.close();
         }catch(SQLException error){
+            System.out.println("ERROR SQL: "+ error);
             Log.logDb.error("ERROR SQL: "+ error);
         }
         
@@ -90,7 +91,7 @@ public class ConsultaBd {
         try{
             conexion = ConexionBd.getConexion();
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from EmpleadoRRHH where Correo="+ correo +";");
+            ResultSet rs = s.executeQuery("select * from EmpleadoRRHH where Correo='"+ correo +"';");
             
             while(rs.next()){
                 empleado.setEmail(correo);
@@ -137,7 +138,7 @@ public class ConsultaBd {
         try{
             conexion = ConexionBd.getConexion();
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from Proyecto_Empleado where empleado_correo="+ correo +";");
+            ResultSet rs = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='"+ correo +"';");
             
             while(rs.next()){
                 ProyectoEmpleado proyecto = new ProyectoEmpleado();
