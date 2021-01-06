@@ -11,23 +11,34 @@
     <title> Fichar </title>
     <meta charset="UTF-8">
     <meta name="title" content="Fichar">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <br><br>
     <div class="titulo">
-        <h1> FICHAR </h1>
+        <h1 class="text-center"> FICHAR </h1>
     </div>
-    <div class="formulario">
+        <br><br>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="formulario justify-content-center">
         <form id="ficharEmpleado" action="" method="get" onsubmit=ficharEmpleado()>
-            <label>Hora entrada:</label><br>
-            <input type="datetime-local" id="entrada" required><br><br>
-            <label>Hora salida:</label><br>
-            <input type="datetime-local" id="salida" required><br><br>
-            <label>Proyecto:</label><br>
-            <input type="text" id="proyecto" placeholder="Introduzca ID proyecto" required><br><br>
+            <label>Hora entrada:</label>
+            <input class="form-control" type="datetime-local" id="entrada" required><br><br>
+            <label>Hora salida:</label>
+            <input class="form-control" type="datetime-local" id="salida" required><br><br>
+            <label>Proyecto:</label>
+            <input class="form-control" type="text" id="proyecto" placeholder="Introduzca ID proyecto" required><br><br>
             
-            <input type="submit" value="Enviar">
-            <input type="reset" value="Borrar">
+            <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;">
+            <input class="btn btn-danger float-right" type="reset" value="Borrar" style="margin:5px;">
         </form>
     </div>
+        </div>
+    </div>
+    
   </body>
 </html>
