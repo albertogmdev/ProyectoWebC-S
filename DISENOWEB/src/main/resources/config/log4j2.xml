@@ -2,8 +2,8 @@
 <Configuration status="info">
     <Appenders>				
         <!-- LOG -->
-        <RollingFile name="LogFile" fileName="/log/LogBD.log"
-                             filePattern="/log/mvc-%d{yyyy}-%i.log.gz">
+        <RollingFile name="LogFile" fileName="C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB/log/LogBD.log"
+                             filePattern="/log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.logBd.gz">
             <PatternLayout
                 pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-30l %logger{36} ### %msg"
                 header="-- LOG APLICACION --" />
@@ -14,8 +14,8 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>		
         <!-- LOGDB -->
-        <RollingFile name="LogFileDB" fileName="/log/LogBD.log"
-                             filePattern="/log/mvc-%d{yyyy}-%i.logdb.gz">
+        <RollingFile name="LogFileDB" fileName="C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB/log/LogBD.log"
+                             filePattern="/log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.logBd.gz">
             <PatternLayout
                 pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-30l %logger{36} ### %msg"
                 header="-- LOG BASE DE DATOS --" />
@@ -29,11 +29,11 @@
     <Loggers>
         <!-- LOG -->
         <Logger name="log" additivity="FALSE" level="INFO">
-            <AppenderRef ref="LogFile" level="INFO" />
+            <AppenderRef ref="LogFile"/>
         </Logger>
         <!-- LOGDB -->
         <Logger name="logdb" additivity="FALSE" level="INFO">
-            <AppenderRef ref="LogFileDB" level="INFO" />
+            <AppenderRef ref="LogFileDB"/>
         </Logger>	    
     </Loggers>
 </Configuration>
