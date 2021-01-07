@@ -44,7 +44,7 @@ public class ConsultaBd {
                 }
             }
         }catch(SQLException error){
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
             tipo = "error";
         }
         
@@ -76,7 +76,7 @@ public class ConsultaBd {
             
         }catch(SQLException error){
             System.out.println("ERROR SQL: "+ error);
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
         }
         
         return usuario;
@@ -99,7 +99,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
         }
         
         return empleado;
@@ -122,7 +122,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
         }
         return empresa;
     }
@@ -143,7 +143,7 @@ public class ConsultaBd {
             }
   
         }catch(SQLException error){
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
         }
         return lista;
     }
@@ -161,7 +161,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            Log.logDb.error("ERROR SQL: "+ error);
+            //Log.logDb.error("ERROR SQL: "+ error);
         }
         
         return proyecto;

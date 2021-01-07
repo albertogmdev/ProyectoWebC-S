@@ -5,9 +5,6 @@
  */
 package util;
 
-import controller.LoginController;
-import logica.Usuario;
-
 /**
  *
  * @author Alberto
@@ -24,7 +21,5 @@ public class Pruebas {
         System.out.println(tipo2);
         String tipo3 = consulta.getTipoUsuario("alicianuñez@correo.com", "1aaa234");
         System.out.println(tipo3);
-        System.setProperty("log4j.configurationFile","../../resources/config/log4j2.xml");
-        Log.log.error("HOLA");
     }
 }
