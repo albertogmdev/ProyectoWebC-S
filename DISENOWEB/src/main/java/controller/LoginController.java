@@ -84,7 +84,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
         
         String siguientePagina = "";
         String action = request.getParameter("action");
@@ -123,10 +123,11 @@ public class LoginController extends HttpServlet {
                 //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
         }
         
+        
+        }
         //Mirar la forma de seguir con el objeto creado de empledo o usuario
         RequestDispatcher view = request.getRequestDispatcher(siguientePagina);
         view.forward(request, response);
-        }
     }
 
     /**
