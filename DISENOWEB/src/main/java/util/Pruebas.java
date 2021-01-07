@@ -5,6 +5,7 @@
  */
 package util;
 
+import controller.LoginController;
 import logica.Usuario;
 
 /**
@@ -14,10 +15,14 @@ import logica.Usuario;
 public class Pruebas {
     public static void main(String[] args) {
         ConsultaBd consulta = new ConsultaBd();
-        Usuario usuario = consulta.getUsuario("alicianuñez@correo.com");
-        System.out.println(usuario.getEmail());
-        System.out.println(usuario.getNombre());
-        System.out.println(usuario.getApellidos());
-        System.out.println(usuario.getContrasenna());
+        
+        String tipo = consulta.getTipoUsuario("alicianuñez@correo.com", "1234");
+        System.out.println(tipo);
+        String tipo1 = consulta.getTipoUsuario("carmenlozano@correo.com", "5678");
+        System.out.println(tipo1);
+        String tipo2 = consulta.getTipoUsuario("1", "1234");
+        System.out.println(tipo2);
+        String tipo3 = consulta.getTipoUsuario("alicianuñez@correo.com", "1aaa234");
+        System.out.println(tipo3);
     }
 }

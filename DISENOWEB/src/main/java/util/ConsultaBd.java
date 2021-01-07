@@ -28,24 +28,21 @@ public class ConsultaBd {
         try{
             conexion = ConexionBd.getConexion();
             Statement s = conexion.createStatement();
-            ResultSet rsEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo="+ correo +";");
+            ResultSet rsEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo='"+ correo +"';");
 
-            //Si la consulta es vacia no sera empleado
-            if(rsEmpleado.getRow() == 0){ 
-                ResultSet rsUsuario = s.executeQuery("select * from EmpleadoEmpresa where Correo="+ correo +";");
-                //Si no es ni usuario ni empleado es error
-                if(rsUsuario.getRow() == 0){ tipo = "error"; }
-                else{ 
-                    //Comprobamos que la contraseña es correcta
-                    if(rsUsuario.getString("Contrasenia").equalsIgnoreCase(contrasenna)){ tipo = "usuario"; }
-                    else{ tipo = "error"; }
-                }
-            }else{
-                //Comprobamos que la contraseña es correcta
+            if(rsEmpleado.next()){ 
                 if(rsEmpleado.getString("Contrasenia").equalsIgnoreCase(contrasenna)){ tipo = "empleado"; }
                 else{ tipo = "error"; }
+            }else{
+                ResultSet rsUsuario = s.executeQuery("select * from EmpleadoEmpresa where Correo='"+ correo +"';");  //Si no es ni usuario ni empleado es error
+                
+                if(rsUsuario.next()){
+                    if(rsUsuario.getString("Contrasenia").equalsIgnoreCase(contrasenna)){ tipo = "usuario"; }
+                    else{ tipo = "error"; } }
+                else{ 
+                    tipo = "error";
+                }
             }
-            conexion.close();
         }catch(SQLException error){
             Log.logDb.error("ERROR SQL: "+ error);
             tipo = "error";
@@ -77,7 +74,6 @@ public class ConsultaBd {
                 //usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
             }
             
-            conexion.close();
         }catch(SQLException error){
             System.out.println("ERROR SQL: "+ error);
             Log.logDb.error("ERROR SQL: "+ error);
@@ -102,7 +98,6 @@ public class ConsultaBd {
                 empleado.setTelefono(rs.getInt("Telefono"));
             }
             
-            conexion.close();
         }catch(SQLException error){
             Log.logDb.error("ERROR SQL: "+ error);
         }
@@ -126,7 +121,6 @@ public class ConsultaBd {
                 empresa.setTelefono(rs.getInt("Telefono"));
             }
             
-            conexion.close();
         }catch(SQLException error){
             Log.logDb.error("ERROR SQL: "+ error);
         }
@@ -148,7 +142,6 @@ public class ConsultaBd {
                 lista.add(proyecto);
             }
   
-            conexion.close();
         }catch(SQLException error){
             Log.logDb.error("ERROR SQL: "+ error);
         }
@@ -167,7 +160,6 @@ public class ConsultaBd {
                 proyecto.setEmpresa(getEmpresa(rs.getInt("Empresa_IdEmpresa")));
             }
             
-            conexion.close();
         }catch(SQLException error){
             Log.logDb.error("ERROR SQL: "+ error);
         }

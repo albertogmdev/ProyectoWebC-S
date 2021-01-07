@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
     private static final String LOGIN_EMPLEADO = "/index.jsp"; //PAGINA PRINCIPAL EMPLEADO
     private static final String ERROR = "/index.jsp"; //CUANDO NO SE PUEDE LOGEAR VOLVEMOS A LA MISMA PAGINA
                                                      //podriamos poner la misma pag pero con un mensaje de error
-    private ConsultaBd consulta;
+    private ConsultaBd consulta = new ConsultaBd();
     private Log log;
     
     public LoginController(){
@@ -64,13 +64,15 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
+        //processRequest(request, response);
 
         String action = request.getParameter("action");
         if (action.equalsIgnoreCase("usuarios")) {
             Usuario usuario = consulta.getUsuario("alicianuñez@correo.com");
             request.setAttribute("usuario", usuario);
         }
+        RequestDispatcher view = request.getRequestDispatcher("./newjsp.jsp");
+        view.forward(request, response);
     }
 
     /**
@@ -84,13 +86,13 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        
         
         String siguientePagina = "";
         String action = request.getParameter("action");
         System.out.println("LLEGA 1");
         if(action.equalsIgnoreCase("login")){
-            Log.log.info("LoginController DoPost - parámetro["+ action +"]");
+            //Log.log.info("LoginController DoPost - parámetro["+ action +"]");
             System.out.println("Llega 2");
         
             String usuarioLogin = request.getParameter("usuario");
@@ -105,8 +107,8 @@ public class LoginController extends HttpServlet {
                 Empleado empleado = consulta.getEmpleado(usuarioLogin);
                 System.out.println(empleado.toString());
                 request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
-                Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                Log.log.info("INFO USUARIO - "+ empleado.toString());
+                //Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                //Log.log.info("INFO USUARIO - "+ empleado.toString());
             }else if(tipo.equalsIgnoreCase("usuario")){
                 siguientePagina = LOGIN_USUARIO;
                 //Creamos el usuario
@@ -115,11 +117,11 @@ public class LoginController extends HttpServlet {
                 System.out.println(usuario.getEmpresa().toString());
                 System.out.println(usuario.getProyectosList().toString());
                 request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
-                Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                Log.log.info("INFO USUARIO - "+ usuario.toString());
+                //Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                //Log.log.info("INFO USUARIO - "+ usuario.toString());
             }else{
                 siguientePagina = ERROR;
-                Log.log.error("ERROR: Usuario no encontrado en la base de datos");
+                //Log.log.error("ERROR: Usuario no encontrado en la base de datos");
                 //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
         }
         
