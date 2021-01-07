@@ -24,8 +24,8 @@ import util.ConsultaBd;
 public class LoginController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static final String LOGIN_USUARIO = "/.jsp"; //PAGINA PRINCIPAL USUARIO
-    private static final String LOGIN_EMPLEADO = "/.jsp"; //PAGINA PRINCIPAL EMPLEADO
+    private static final String LOGIN_USUARIO = "/login.jsp"; //PAGINA PRINCIPAL USUARIO
+    private static final String LOGIN_EMPLEADO = "/index.jsp"; //PAGINA PRINCIPAL EMPLEADO
     private static final String ERROR = "/index.jsp"; //CUANDO NO SE PUEDE LOGEAR VOLVEMOS A LA MISMA PAGINA
                                                      //podriamos poner la misma pag pero con un mensaje de error
     private ConsultaBd consulta;
@@ -63,7 +63,14 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {     
+            throws ServletException, IOException {
+                processRequest(request, response);
+
+        String action = request.getParameter("action");
+        if (action.equalsIgnoreCase("usuarios")) {
+            Usuario usuario = consulta.getUsuario("alicianuñez@correo.com");
+            request.setAttribute("usuario", usuario);
+        }
     }
 
     /**
@@ -81,42 +88,45 @@ public class LoginController extends HttpServlet {
         
         String siguientePagina = "";
         String action = request.getParameter("action");
+        System.out.println("LLEGA 1");
+        if(action.equalsIgnoreCase("login")){
+            Log.log.info("LoginController DoPost - parámetro["+ action +"]");
+            System.out.println("Llega 2");
         
-        Log.log.info("LoginController DoPost - parámetro["+ action +"]");
-        
-        String usuarioLogin = request.getParameter("usuario");
-        String contrasennaLogin = request.getParameter("password");
-        
-        String tipo = consulta.getTipoUsuario(usuarioLogin, contrasennaLogin);
-        
-        if(tipo.equalsIgnoreCase("empleado")){
-            siguientePagina = LOGIN_EMPLEADO;
-            //Creamos el empleado
-            Empleado empleado = consulta.getEmpleado(usuarioLogin);
-            System.out.println(empleado.toString());
-            request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
-            Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
-            Log.log.info("INFO USUARIO - "+ empleado.toString());
-        }else if(tipo.equalsIgnoreCase("usuario")){
-            siguientePagina = LOGIN_USUARIO;
-            //Creamos el usuario
-            Usuario usuario = consulta.getUsuario(usuarioLogin);
-            System.out.println(usuario.toString());
-            System.out.println(usuario.getEmpresa().toString());
-            System.out.println(usuario.getProyectosList().toString());
-            request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
-            Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
-            Log.log.info("INFO USUARIO - "+ usuario.toString());
-        }else{
-            siguientePagina = ERROR;
-            Log.log.error("ERROR: Usuario no encontrado en la base de datos");
-            //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
+            String usuarioLogin = request.getParameter("usuario");
+            String contrasennaLogin = request.getParameter("password");
+
+            String tipo = consulta.getTipoUsuario(usuarioLogin, contrasennaLogin);
+            System.out.println("TIPO USUARIO - "+ tipo);
+
+            if(tipo.equalsIgnoreCase("empleado")){
+                siguientePagina = LOGIN_EMPLEADO;
+                //Creamos el empleado
+                Empleado empleado = consulta.getEmpleado(usuarioLogin);
+                System.out.println(empleado.toString());
+                request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
+                Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.info("INFO USUARIO - "+ empleado.toString());
+            }else if(tipo.equalsIgnoreCase("usuario")){
+                siguientePagina = LOGIN_USUARIO;
+                //Creamos el usuario
+                Usuario usuario = consulta.getUsuario(usuarioLogin);
+                System.out.println(usuario.toString());
+                System.out.println(usuario.getEmpresa().toString());
+                System.out.println(usuario.getProyectosList().toString());
+                request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
+                Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.info("INFO USUARIO - "+ usuario.toString());
+            }else{
+                siguientePagina = ERROR;
+                Log.log.error("ERROR: Usuario no encontrado en la base de datos");
+                //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
         }
         
         //Mirar la forma de seguir con el objeto creado de empledo o usuario
         RequestDispatcher view = request.getRequestDispatcher(siguientePagina);
         view.forward(request, response);
-        return;
+        }
     }
 
     /**

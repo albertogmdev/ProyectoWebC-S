@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +16,8 @@
     <body>
         <h1>PAGINA DE PRUEBA CON TODOS LOS LINKS</h1>
         <div class="nav-index">
+            <a href="LoginController?action=usuarios">NOMBRE</a> 
+            <h1><c:out value="${usuario.nombre}"/></h1>
             <nav>
                 <a href="./login.jsp"> LOGIN </a><br>
                 <a href="./calendario.jsp"> CALENDARIO </a><br>

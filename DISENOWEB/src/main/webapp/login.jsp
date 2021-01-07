@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center form_container">
-                            <form id="inicioSesion" action="LoginController" method="POST">
+                            <form id="inicioSesion" action="LoginController?action=login" method="POST">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
