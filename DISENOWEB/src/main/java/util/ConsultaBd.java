@@ -2,7 +2,6 @@
 package util;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,10 +19,12 @@ import logica.Usuario;
  */
 public class ConsultaBd {
     private Connection conexion;
+    private final LoggerBd logBd = Log.logBd.getInstance("logDb");
     
     public String getTipoUsuario(String correo, String contrasenna){
         
         String tipo = "";
+        logBd.getInstance().log("ERROR SQL: "+ "hOLAAAA");
         
         try{
             conexion = ConexionBd.getConexion();
@@ -44,7 +45,7 @@ public class ConsultaBd {
                 }
             }
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.getInstance().log("ERROR SQL: "+ error);
             tipo = "error";
         }
         
@@ -76,7 +77,7 @@ public class ConsultaBd {
             
         }catch(SQLException error){
             System.out.println("ERROR SQL: "+ error);
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
         
         return usuario;
@@ -99,7 +100,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
         
         return empleado;
@@ -122,7 +123,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
         return empresa;
     }
@@ -143,7 +144,7 @@ public class ConsultaBd {
             }
   
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
         return lista;
     }
@@ -161,7 +162,7 @@ public class ConsultaBd {
             }
             
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
         
         return proyecto;

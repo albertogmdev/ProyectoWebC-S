@@ -11,7 +11,15 @@ package util;
  */
 public class Pruebas {
     public static void main(String[] args) {
+        
         ConsultaBd consulta = new ConsultaBd();
+        
+        Log.log.log("hola");
+        Log.logBd.log("holaBd");
+        Log.log.log("que tal estas");
+        Log.logBd.log("que tal estasBd");
+        Log.log.log("cierro");
+        Log.logBd.log("cierroBd");
         
         String tipo = consulta.getTipoUsuario("alicianuñez@correo.com", "1234");
         System.out.println(tipo);

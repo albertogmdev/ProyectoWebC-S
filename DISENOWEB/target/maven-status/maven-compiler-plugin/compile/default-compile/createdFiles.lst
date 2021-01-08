@@ -3,12 +3,14 @@ com\mycompany\disenoweb\resources\JavaEE8Resource.class
 logica\Usuario.class
 util\Log.class
 util\ConsultaBd.class
+util\Logger.class
 Controlador\Validar.class
 logica\Empleado.class
 util\Pruebas.class
 com\mycompany\disenoweb\JAXRSConfiguration.class
 controller\LoginController.class
 logica\ProyectoEmpleado.class
+util\LoggerBd.class
 logica\Proyecto.class
 Controlador\Controlador.class
 logica\Empresa.class

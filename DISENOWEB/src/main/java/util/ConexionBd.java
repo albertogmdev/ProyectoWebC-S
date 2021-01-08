@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author Alberto
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 public class ConexionBd {
     
     private static Connection conexion = null;
+    private LoggerBd logBd = Log.logBd;
     
     public static Connection getConexion() {
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -21,20 +21,20 @@ public class ConexionBd {
         String user = "root";
         String password = "admin";
         String url = "jdbc:mysql://localhost:"+ puerto +"/"+ nombreBd +"?useTimezone=true&serverTimezone=UTC";
-        //Log.logDb.info("Inicio de conexion en puerto["+ puerto + "]");
+        //logBd.log("Inicio de conexion en puerto["+ puerto + "]");
         if (conexion != null){
-            //Log.logDb.info("Ya hay una conexion activa");
+            //logBd.log("Ya hay una conexion activa");
             return conexion;
         }
         else{
             try{
-                //Log.logDb.info("Conexion establecida en puerto["+ puerto +"]");
+                //Log.logBd.log("Conexion establecida en puerto["+ puerto +"]");
                 Class.forName(driver);
                 conexion = DriverManager.getConnection(url, user, password);
             }catch(ClassNotFoundException error){
-                //Log.logDb.error("ERROR CONEXION: "+ error);
+                //Log.logBd.log("ERROR CONEXION: "+ error);
             }catch(SQLException error){
-                //Log.logDb.error("ERROR SQL: "+ error);
+                //Log.logBd.log("ERROR SQL: "+ error);
             }
             return conexion;
         }
@@ -44,7 +44,7 @@ public class ConexionBd {
         try{
             conexion.close();
         }catch(SQLException error){
-            //Log.logDb.error("ERROR SQL: "+ error);
+            logBd.log("ERROR SQL: "+ error);
         }
     }
 }
