@@ -4,10 +4,11 @@
     Author     : MARINA
 --%>
 
+<%@page import="util.ConsultaBd"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="logica.Empleado"%>
-<%@page import="logicaDAO.EmpleadoDAO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -53,8 +54,8 @@
       </tr>
     </thead>
     <%
-        EmpleadoDAO emp=new EmpleadoDAO();
-        List<Empleado> lista_empleados=emp.mostrarEmp();
+        ConsultaBd emp=new ConsultaBd();
+        List<Empleado> lista_empleados=emp.mostrarEmpleados();
         Iterator<Empleado> iterador=lista_empleados.iterator();
         Empleado e=null;
         while(iterador.hasNext()){

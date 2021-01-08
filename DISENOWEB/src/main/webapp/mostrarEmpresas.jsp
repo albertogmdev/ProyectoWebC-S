@@ -4,11 +4,12 @@
     Author     : MARINA
 --%>
 
+<%@page import="util.ConsultaBd"%>
 <%@page import="logica.Empresa"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="logica.Empleado"%>
 <%@page import="java.util.List"%>
-<%@page import="logicaDAO.EmpresaDAO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -53,7 +54,7 @@
       </tr>
     </thead>
      <%
-        EmpresaDAO empresa=new EmpresaDAO();
+        ConsultaBd empresa=new ConsultaBd();
         List<Empresa> lista_empresas=empresa.mostrarEmpresa();
         Iterator<Empresa> iterador=lista_empresas.iterator();
         Empresa e=null;

@@ -4,10 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="util.ConsultaBd"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="logica.Proyecto"%>
 <%@page import="java.util.List"%>
-<%@page import="logicaDAO.ProyectoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -48,7 +48,7 @@
       </tr>
     </thead>
     <%
-        ProyectoDAO proyecto=new ProyectoDAO();
+        ConsultaBd proyecto=new ConsultaBd();
         List<Proyecto> lista_proyectos=proyecto.mostrarProyecto();
         Iterator<Proyecto> iterador=lista_proyectos.iterator();
         Proyecto p=null;
