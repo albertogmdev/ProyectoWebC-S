@@ -20,9 +20,6 @@ import logica.Usuario;
 public class ConsultaBd {
 
     private Connection conexion;
-    ConexionBd con = new ConexionBd();
-    ResultSet resultado;
-    PreparedStatement consulta;
 
     public String getTipoUsuario(String correo, String contrasenna) {
 
@@ -33,19 +30,19 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rsEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
+            ResultSet resultadoEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
             Log.logBd.log("Realizada consulta");
-            if (rsEmpleado.next()) {
-                if (rsEmpleado.getString("Contrasenia").equalsIgnoreCase(contrasenna)) {
+            if (resultadoEmpleado.next()) {
+                if (resultadoEmpleado.getString("Contrasenia").equalsIgnoreCase(contrasenna)) {
                     tipo = "empleado";
                 } else {
                     tipo = "error";
                 }
             } else {
-                ResultSet rsUsuario = s.executeQuery("select * from EmpleadoEmpresa where Correo='" + correo + "';");  //Si no es ni usuario ni empleado es error
+                ResultSet resultadoUsuario = s.executeQuery("select * from EmpleadoEmpresa where Correo='" + correo + "';");  //Si no es ni usuario ni empleado es error
 
-                if (rsUsuario.next()) {
-                    if (rsUsuario.getString("Contrasenia").equalsIgnoreCase(contrasenna)) {
+                if (resultadoUsuario.next()) {
+                    if (resultadoUsuario.getString("Contrasenia").equalsIgnoreCase(contrasenna)) {
                         tipo = "usuario";
                     } else {
                         tipo = "error";
@@ -59,23 +56,27 @@ public class ConsultaBd {
             tipo = "error";
         }
 
+        Log.logBd.log("Consulta realizada con éxito");
         return tipo;
     }
 
     public Usuario getUsuario(String correo) {
         Usuario usuario = new Usuario();
+        Log.logBd.log("CONSULTA - getUsuario");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from EmpleadoEmpresa where Correo='" + correo + "';");
+            ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where Correo='" + correo + "';");
+            Log.logBd.log("Realizada consulta");
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 usuario.setEmail(correo);
-                usuario.setContrasenna(rs.getString("Contrasenia"));
-                usuario.setIdUsuario(rs.getInt("IdEmpleadoEmpresa"));
-                usuario.setNombre(rs.getString("Nombre"));
-                usuario.setApellidos(rs.getString("Apellidos"));
-                usuario.setTelefono(rs.getInt("Telefono"));
+                usuario.setContrasenna(resultado.getString("Contrasenia"));
+                usuario.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
+                usuario.setNombre(resultado.getString("Nombre"));
+                usuario.setApellidos(resultado.getString("Apellidos"));
+                usuario.setTelefono(resultado.getInt("Telefono"));
                 //Para meter la empresa al usuario cogemos el primer proyecto en el que participe,
                 //y como solo puede trabajar en una empresa, cogemos el objeto empresa que realiza ese proyecto
                 //No puede ser vacia la lista ya que para trabajar en una empresa tienes que estar minimo
@@ -90,106 +91,124 @@ public class ConsultaBd {
             Log.logBd.log("ERROR SQL: " + error);
         }
 
+        Log.logBd.log("Consulta realizada con éxito");
         return usuario;
     }
 
     public Empleado getEmpleado(String correo) {
         Empleado empleado = new Empleado();
+        Log.logBd.log("CONSULTA - getEmpleado");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
+            ResultSet resultado = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
+            Log.logBd.log("Realizada consulta");
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 empleado.setEmail(correo);
-                empleado.setContrasenna(rs.getString("Contrasenia"));
-                empleado.setIdEmpleado(rs.getInt("IdEmpleadoRRHH"));
-                empleado.setNombre(rs.getString("Nombre"));
-                empleado.setApellidos(rs.getString("Apellidos"));
-                empleado.setTelefono(rs.getInt("Telefono"));
+                empleado.setContrasenna(resultado.getString("Contrasenia"));
+                empleado.setIdEmpleado(resultado.getInt("IdEmpleadoRRHH"));
+                empleado.setNombre(resultado.getString("Nombre"));
+                empleado.setApellidos(resultado.getString("Apellidos"));
+                empleado.setTelefono(resultado.getInt("Telefono"));
             }
-
         } catch (SQLException error) {
             Log.logBd.log("ERROR SQL: " + error);
         }
-
+        
+        Log.logBd.log("Consulta realizada con éxito");
         return empleado;
     }
 
     public Empresa getEmpresa(int idEmpresa) {
         Empresa empresa = new Empresa();
+        Log.logBd.log("CONSULTA - getEmpresa");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from Empresa where IdEmpresa=" + idEmpresa + ";");
+            ResultSet resultado = s.executeQuery("select * from Empresa where IdEmpresa=" + idEmpresa + ";");
+            Log.logBd.log("Realizada consulta");
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 empresa.setIdEmpresa(idEmpresa);
-                empresa.setNombre(rs.getString("Nombre"));
-                empresa.setDireccion(rs.getString("Calle"));
-                empresa.setCodigoPostal(rs.getInt("CodigoPostal"));
-                empresa.setCorreo(rs.getString("Correo"));
-                empresa.setTelefono(rs.getInt("Telefono"));
+                empresa.setNombre(resultado.getString("Nombre"));
+                empresa.setDireccion(resultado.getString("Calle"));
+                empresa.setCodigoPostal(resultado.getInt("CodigoPostal"));
+                empresa.setCorreo(resultado.getString("Correo"));
+                empresa.setTelefono(resultado.getInt("Telefono"));
             }
-
         } catch (SQLException error) {
             Log.logBd.log("ERROR SQL: " + error);
         }
+        
+        Log.logBd.log("Consulta realizada con éxito");
         return empresa;
     }
 
     public List<ProyectoEmpleado> getListaProyectos(String correo) {
         List<ProyectoEmpleado> lista = new ArrayList<>();
+        Log.logBd.log("CONSULTA - getListaProyectos");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='" + correo + "';");
+            ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='" + correo + "';");
+            Log.logBd.log("Realizada consulta");
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 ProyectoEmpleado proyecto = new ProyectoEmpleado();
 
-                proyecto.setHoras(rs.getInt("Horas"));
-                proyecto.setProyecto(getProyecto(rs.getInt("proyecto_id_proyecto")));
+                proyecto.setHoras(resultado.getInt("Horas"));
+                proyecto.setProyecto(getProyecto(resultado.getInt("proyecto_id_proyecto")));
+                
                 lista.add(proyecto);
             }
-
         } catch (SQLException error) {
             Log.logBd.log("ERROR SQL: " + error);
         }
+        
+        Log.logBd.log("Consulta realizada con éxito");
         return lista;
     }
 
     public Proyecto getProyecto(int idProyecto) {
         Proyecto proyecto = new Proyecto();
+        Log.logBd.log("CONSULTA - getProyecto");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from Proyecto where IdProyecto=" + idProyecto + ";");
+            ResultSet resultado = s.executeQuery("select * from Proyecto where IdProyecto=" + idProyecto + ";");
+            Log.logBd.log("Realizada consulta");
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 proyecto.setIdProyecto(idProyecto);
-                proyecto.setEmpresa(getEmpresa(rs.getInt("Empresa_IdEmpresa")));
+                proyecto.setEmpresa(getEmpresa(resultado.getInt("Empresa_IdEmpresa")));
             }
-
         } catch (SQLException error) {
             Log.logBd.log("ERROR SQL: " + error);
         }
-
+        
+        Log.logBd.log("Consulta realizada con éxito");
         return proyecto;
     }
 
     public List mostrarEmpleados() {
-
         ArrayList<Empleado> lista_empleados = new ArrayList<>();
-        String sql = "select * from empleadoempresa";
-
+        Log.logBd.log("CONSULTA - mostrarEmpleados");
         try {
-            conexion = con.getConexion();
-            consulta = conexion.prepareStatement(sql);
-            resultado = consulta.executeQuery();
+            conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from empleadoempresa");
+            Log.logBd.log("Realizada consulta");
+            
             while (resultado.next()) {
                 Empleado empleado = new Empleado();
                 Empresa empresa = new Empresa();
+                
                 empleado.setIdEmpleado(resultado.getInt("IdEmpleadoEmpresa"));
                 empleado.setNombre(resultado.getString("Nombre"));
                 empleado.setApellidos(resultado.getString("Apellidos"));
@@ -197,75 +216,73 @@ public class ConsultaBd {
                 empleado.setTelefono(resultado.getInt("Telefono"));
                 empleado.setContrasenna(resultado.getString("Contrasenia"));
                 empleado.setEmpresa(empresa);
+                
                 lista_empleados.add(empleado);
             }
-
-        } catch (Exception e) {
-
+        } catch (SQLException error) {
+            Log.logBd.log("ERROR SQL: " + error);
         }
-
+        
+        Log.logBd.log("Consulta realizada con éxito");
         return lista_empleados;
-
     }
     
     public List mostrarEmpresa() {
-
         ArrayList<Empresa> lista_empresas = new ArrayList<>();
-        String sql = "select * from empresa";
-
+        Log.logBd.log("CONSULTA - mostrarEmpresa");
         try {
-            conexion = con.getConexion();
-            consulta = conexion.prepareStatement(sql);
-            resultado = consulta.executeQuery();
+            conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from empresa");
+            Log.logBd.log("Realizada consulta");
+            
             while (resultado.next()) {
                 Empresa empresa = new Empresa();
+                
                 empresa.setCodigoPostal(resultado.getInt("CodigoPostal"));
                 empresa.setCorreo(resultado.getString("Correo"));
                 empresa.setDireccion(resultado.getString("Calle"));
                 empresa.setIdEmpresa(resultado.getInt("IdEmpresa"));
                 empresa.setNombre(resultado.getString("Nombre"));
                 empresa.setTelefono(resultado.getInt("Telefono"));
+                
                 lista_empresas.add(empresa);
-
             }
-
-        } catch (Exception e) {
-
+        } catch (SQLException error) {
+            Log.logBd.log("ERROR SQL: " + error);
         }
 
+        Log.logBd.log("Consulta realizada con éxito");
         return lista_empresas;
-
     }
     
      public List mostrarProyecto() {
         ArrayList<Proyecto> lista_proyectos = new ArrayList<>();
-        String sql = "select * from proyecto";
-        
-
+        Log.logBd.log("CONSULTA - mostrarProyecto");
         try {
-            conexion = con.getConexion();
-            consulta = conexion.prepareStatement(sql);
-            resultado = consulta.executeQuery();
+            conexion = ConexionBd.getConexion();
+            Log.logBd.log("Realizada conexion");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from proyecto");
+            Log.logBd.log("Realizada consulta");
+            
             while (resultado.next()) {
                 Proyecto proyecto = new Proyecto();
                 Empresa empresa = new Empresa();
+                
                 proyecto.setIdProyecto(resultado.getInt("IdProyecto"));
                 empresa.setIdEmpresa(resultado.getInt("Empresa_IdEmpresa"));
                 proyecto.setEmpresa(empresa);
                 
-                
-                
-               
                 lista_proyectos.add(proyecto);
-
             }
-
-        } catch (Exception e) {
-
+        } catch (SQLException error) {
+            Log.logBd.log("ERROR SQL: " + error);
         }
 
+        Log.logBd.log("Consulta realizada con éxito");
         return lista_proyectos;
-        
     }
 
     //EN ESTA CLASE PONER TODAS LAS CONSULTAS QUE SE PUEDEN HACER EN LA BASE DE DATOS
