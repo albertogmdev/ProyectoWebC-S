@@ -16,7 +16,8 @@ public final class LoggerBd {
     private static final LoggerBd instancia = new LoggerBd();
 
     private String nombreLog = "simplelog";
-    protected String env = System.getProperty("user.dir");
+    //Directorio base del proyecto en Tomcat
+    protected String env = System.getProperty("catalina.base");
     private static File logFile;
 
     public static LoggerBd getInstance(){
@@ -44,15 +45,15 @@ public final class LoggerBd {
         int h = calendario.get(Calendar.HOUR_OF_DAY);
         int m = calendario.get(Calendar.MINUTE);
         int s = calendario.get(Calendar.SECOND);
-        String hora = String.format("%02d_%02d_%02d", h, m, s);
-        //Creamos el log con la hora
+        String hora = String.format("%02d··%02d··%02d", h, m, s);
+        //Creamos el nombre del log con la hora
         nombreLog = '[' +hora + ']' + nombreLog + ".log";
         
         String ruta = env + "\\logs\\" + directorio.getName() + "\\" + nombreLog;
         LoggerBd.logFile = new File(ruta);
         try{
             if(logFile.createNewFile()){
-                System.err.println("INFO: Creating new log file");	
+                System.err.println("INFO: Creacion de nuevo log");	
             }
         }catch(IOException e){
             System.out.println("ERROR:" + e.getMessage());
@@ -61,11 +62,7 @@ public final class LoggerBd {
     }
 
     private LoggerBd(){
-        if (instancia != null){
-                //Prevent Reflection
-            throw new IllegalStateException("Cannot instantiate a new singleton instance of log");
-        }
-        this.crearLogFile();
+        
     }
 
     public void log(String mensaje){
@@ -77,9 +74,5 @@ public final class LoggerBd {
         }catch(IOException e){
             System.err.println("ERROR: No se pudo escribir en el archivo");
         }
-    }
-    
-    public void setNombre(String nombre){
-        this.nombreLog = nombre;
     }
 }

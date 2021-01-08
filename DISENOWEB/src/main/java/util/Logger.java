@@ -16,7 +16,8 @@ public final class Logger {
     private static final Logger instancia = new Logger();
 
     private String nombreLog = "simplelog";
-    protected String env = System.getProperty("user.dir");
+    //Directorio base del proyecto en Tomcat
+    protected String env = System.getProperty("catalina.base");
     private static File logFile;
 
     public static Logger getInstance(){
@@ -34,25 +35,25 @@ public final class Logger {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendario = Calendar.getInstance();
         
-        //Crea el directorio si no existe
+        //Crea el directorio si no existe        
         File directorio = new File(env + "/logs/log" + dateFormat.format(calendario.getTime()));
         if(!directorio.exists()){
-            System.err.println("INFO: Creamos el directorio " + env);
+            System.err.println("INFO: Creamos el directorio en" + env);
             directorio.mkdir();
         }
         
         int h = calendario.get(Calendar.HOUR_OF_DAY);
         int m = calendario.get(Calendar.MINUTE);
         int s = calendario.get(Calendar.SECOND);
-        String hora = String.format("%02d_%02d_%02d", h, m, s);
-        //Creamos el log con la hora
+        String hora = String.format("%02d··%02d··%02d", h, m, s);
+        //Creamos el nombre del log con la hora
         nombreLog = '[' +hora + ']' + nombreLog + ".log";
         
         String ruta = env + "\\logs\\" + directorio.getName() + "\\" + nombreLog;
         Logger.logFile = new File(ruta);
         try{
             if(logFile.createNewFile()){
-                System.err.println("INFO: Creating new log file");	
+                System.err.println("INFO: Creacion de un log");	
             }
         }catch(IOException e){
             System.out.println("ERROR:" + e.getMessage());
@@ -61,24 +62,17 @@ public final class Logger {
     }
 
     private Logger(){
-        if (instancia != null){
-                //Prevent Reflection
-            throw new IllegalStateException("Cannot instantiate a new singleton instance of log");
-        }
-        this.crearLogFile();
+        
     }
 
     public void log(String mensaje){
         try{
             FileWriter salida = new FileWriter(Logger.logFile, true);
             salida.write(mensaje.toCharArray());
+            salida.write("\n");
             salida.close();
         }catch(IOException e){
             System.err.println("ERROR: No se pudo escribir en el archivo");
         }
-    }
-    
-    public void setNombre(String nombre){
-        this.nombreLog = nombre;
     }
 }

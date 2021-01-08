@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logica.Empleado;
 import logica.Usuario;
-import util.Logger;
 import util.ConsultaBd;
 import util.Log;
 
@@ -22,12 +21,10 @@ public class LoginController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private static final String LOGIN_USUARIO = "/login.jsp"; //PAGINA PRINCIPAL USUARIO
-    private static final String LOGIN_EMPLEADO = "/index.jsp"; //PAGINA PRINCIPAL EMPLEADO
+    private static final String LOGIN_EMPLEADO = "/inicioRRHH.jsp"; //PAGINA PRINCIPAL EMPLEADO
     private static final String ERROR = "/index.jsp"; //CUANDO NO SE PUEDE LOGEAR VOLVEMOS A LA MISMA PAGINA
                                                      //podriamos poner la misma pag pero con un mensaje de error
     private ConsultaBd consulta = new ConsultaBd();
-    
-    private Logger log = Logger.getInstance();
     
     public LoginController(){
         super();
@@ -89,31 +86,31 @@ public class LoginController extends HttpServlet {
         String siguientePagina = "";
         String action = request.getParameter("action");
         if(action.equalsIgnoreCase("login")){
-            Logger.getInstance().log("LoginController DoPost - parámetro["+ action +"]");
+            Log.log.log("LoginController DoPost - parámetro["+ action +"]");
         
             String usuarioLogin = request.getParameter("usuario");
             String contrasennaLogin = request.getParameter("password");
 
             String tipo = consulta.getTipoUsuario(usuarioLogin, contrasennaLogin);
-            System.out.println("TIPO USUARIO - "+ tipo);
+            Log.log.log("Tipo de usuario ["+ tipo +"]");
 
             if(tipo.equalsIgnoreCase("empleado")){
                 siguientePagina = LOGIN_EMPLEADO;
                 //Creamos el empleado
                 Empleado empleado = consulta.getEmpleado(usuarioLogin);
                 request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
-                log.log("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                log.log("INFO USUARIO - "+ empleado.toString());
+                Log.log.log("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.log("INFO USUARIO - "+ empleado.toString());
             }else if(tipo.equalsIgnoreCase("usuario")){
                 siguientePagina = LOGIN_USUARIO;
                 //Creamos el usuario
                 Usuario usuario = consulta.getUsuario(usuarioLogin);
                 request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
-                log.log("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                log.log("INFO USUARIO - "+ usuario.toString());
+                Log.log.log("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.log("INFO USUARIO - "+ usuario.toStringPrueba());
             }else{
                 siguientePagina = ERROR;
-                log.log("ERROR: Usuario no encontrado en la base de datos");
+                Log.log.log("ERROR: Usuario no encontrado en la base de datos");
                 //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
         }
         

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 public class ConexionBd {
     
     private static Connection conexion = null;
-    private LoggerBd logBd = Log.logBd;
     
     public static Connection getConexion() {
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -21,9 +20,9 @@ public class ConexionBd {
         String user = "root";
         String password = "admin";
         String url = "jdbc:mysql://localhost:"+ puerto +"/"+ nombreBd +"?useTimezone=true&serverTimezone=UTC";
-        //logBd.log("Inicio de conexion en puerto["+ puerto + "]");
+        //Log.logBd.log("Inicio de conexion en puerto["+ puerto + "]");
         if (conexion != null){
-            //logBd.log("Ya hay una conexion activa");
+            //Log.logBd.log("Ya hay una conexion activa");
             return conexion;
         }
         else{
@@ -44,7 +43,7 @@ public class ConexionBd {
         try{
             conexion.close();
         }catch(SQLException error){
-            logBd.log("ERROR SQL: "+ error);
+            Log.logBd.log("ERROR SQL: "+ error);
         }
     }
 }
