@@ -4,6 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="logica.Proyecto"%>
+<%@page import="java.util.List"%>
+<%@page import="logicaDAO.ProyectoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -43,17 +47,26 @@
         
       </tr>
     </thead>
+    <%
+        ProyectoDAO proyecto=new ProyectoDAO();
+        List<Proyecto> lista_proyectos=proyecto.mostrarProyecto();
+        Iterator<Proyecto> iterador=lista_proyectos.iterator();
+        Proyecto p=null;
+        while(iterador.hasNext()){
+            p=iterador.next();
+        
+    
+    
+    
+    %>
     <tbody> <!-- cambiar para que se actualice dinamicamente -->
       <tr>
-        <td>0001</td>
-        <td>Energia SA</td>
+        <td><%= p.getIdProyecto() %></td>
+        <td><%= p.getEmpresa().getIdEmpresa() %></td>
         
       </tr>
-      <tr>
-        <td>0002</td>
-        <td>Telepizza</td>
-        
-      </tr>
+       <% } %>
+     
     </tbody>
   </table>
   <div class="col-md-12 text-right">

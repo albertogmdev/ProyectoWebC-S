@@ -4,6 +4,11 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Empresa"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="logica.Empleado"%>
+<%@page import="java.util.List"%>
+<%@page import="logicaDAO.EmpresaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -47,24 +52,30 @@
         
       </tr>
     </thead>
+     <%
+        EmpresaDAO empresa=new EmpresaDAO();
+        List<Empresa> lista_empresas=empresa.mostrarEmpresa();
+        Iterator<Empresa> iterador=lista_empresas.iterator();
+        Empresa e=null;
+        while(iterador.hasNext()){
+            e=iterador.next();
+        
+    
+    
+    
+    %>
     <tbody> <!-- cambiar para que se actualice dinamicamente -->
       <tr>
-        <td>03145676L</td>
-        <td>Universidad de Alcalá</td>
-        <td>C/ izquierda, 12</td>
-        <td>19171</td>
-        <td>john@example.com</td>
-        <td>677678998</td>
+        <td><%= e.getIdEmpresa() %></td>
+        <td><%= e.getNombre() %></td>
+        <td><%= e.getDireccion() %></td>
+        <td><%= e.getCodigoPostal() %></td>
+        <td><%= e.getCorreo() %></td>
+        <td><%= e.getTelefono() %></td>
       </tr>
-      <tr>
-        <td>03145676L</td>
-        <td>Universidad de Alcalá</td>
-        <td>C/ izquierda, 12</td>
-        <td>19171</td>
-        <td>john@example.com</td>
-        <td>677678998</td>
-      </tr>
+        <% } %>
     </tbody>
+  
   </table>
   <div class="col-md-12 text-right">
                 <button type="button" class="btn btn-danger text-right" style="height:40px">

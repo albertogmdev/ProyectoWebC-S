@@ -13,6 +13,15 @@ public class Empleado {
     private String apellidos;
     private int telefono;
     private String email;
+    private Empresa empresa;
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
     public int getIdEmpleado() {
         return idEmpleado;

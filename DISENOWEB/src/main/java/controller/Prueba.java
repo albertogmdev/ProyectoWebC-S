@@ -1,12 +1,13 @@
-  /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ccris
  */
-@WebServlet(name = "Validar", urlPatterns = {"/Validar"})
-public class Validar extends HttpServlet {
+@WebServlet(name = "Prueba", urlPatterns = {"/Prueba"})
+public class Prueba extends HttpServlet {
+    String mostrarEmpleados="mostrarEmpleados.jsp";
+    String mostrarEmpresas="mostrarEmpresas.jsp";
+    String mostrarProyectos="mostrarProyectos.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,10 @@ public class Validar extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Validar</title>");            
+            out.println("<title>Servlet Prueba</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Validar at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Prueba at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +62,21 @@ public class Validar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acceso="";
+        String op=request.getParameter("accion");
+        if(op.equalsIgnoreCase("mostrarEmpleados")){
+            acceso=mostrarEmpleados;
+        }
+        else if(op.equalsIgnoreCase("mostrarEmpresas")){
+            acceso=mostrarEmpresas;
+            
+        }
+        else if(op.equalsIgnoreCase("mostrarProyectos")){
+            acceso=mostrarProyectos;
+        }
+        RequestDispatcher vista=request.getRequestDispatcher(acceso);
+        vista.forward(request, response);
+        
     }
 
     /**
@@ -72,16 +90,7 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accion=request.getParameter("accion"); //accion es el nombre del boton que está realizando la acción (mirar index)
-        if(accion.equalsIgnoreCase("Iniciar sesion")){ //si se pulsa "iniciar sesion" entonces obtenemos los parametros ingresador por el usuario
-            String usuario=request.getParameter("usuario"); //son los nombres de los campos del formulario, es decir, son los datos que el usuario ingresa para iniciar sesion
-            String password=request.getParameter("password");
-        }
-        else{
-            
-        }
-        
-       /// processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

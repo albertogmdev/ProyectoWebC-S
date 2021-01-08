@@ -4,6 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="logica.Empleado"%>
+<%@page import="logicaDAO.EmpleadoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -48,23 +52,29 @@
         
       </tr>
     </thead>
+    <%
+        EmpleadoDAO emp=new EmpleadoDAO();
+        List<Empleado> lista_empleados=emp.mostrarEmp();
+        Iterator<Empleado> iterador=lista_empleados.iterator();
+        Empleado e=null;
+        while(iterador.hasNext()){
+            e=iterador.next();
+        
+    
+    
+    
+    %>
     <tbody> <!-- cambiar para que se actualice dinamicamente -->
       <tr>
-        <td>03145676L</td>
-        <td>John</td>
-        <td>Doe</td>
-        <td>UAH</td>
-        <td>john@example.com</td>
-        <td>677678998</td>
+        <td><%= e.getIdEmpleado() %></td>
+        <td><%= e.getNombre() %></td>
+        <td><%= e.getApellidos()  %></td>
+        <td><% %></td>
+        <td><%= e.getEmail() %></td>
+        <td><%= e.getTelefono() %></td>
       </tr>
-      <tr>
-        <td>000000016L</td>
-        <td>Carmen</td>
-        <td>Perez</td>
-        <td>Telefonica</td>
-        <td>ejemplo@example.com</td>
-        <td>677678998</td>
-      </tr>
+      <% } %>
+     
     </tbody>
   </table>
     <div class="col-md-12 text-right">

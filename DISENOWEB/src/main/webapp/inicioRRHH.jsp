@@ -45,13 +45,16 @@
         <br><br><br>
         <div class="row">
             <div class="col-md-4 d-flex justify-content-center">
-                <a href="mostrarEmpleados.jsp"><span class="fa fa-users" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
+               <!-- <a href="mostrarEmpleados.jsp"><span class="fa fa-users" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>-->
+            <a href="Prueba?accion=mostrarEmpleados"><span class="fa fa-users" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
             </div>
             <div class="col-md-4 d-flex justify-content-center">
-                <a href="mostrarProyectos.jsp"><span class="fa fa-paperclip" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
+               <!-- <a href="mostrarProyectos.jsp"><span class="fa fa-paperclip" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>-->
+           <a href="Prueba?accion=mostrarProyectos"><span class="fa fa-paperclip" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
             </div>
             <div class="col-md-4 d-flex justify-content-center">
-                <a href="mostrarEmpresas.jsp"><span class="fa fa-building" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
+               <!-- <a href="mostrarEmpresas.jsp"><span class="fa fa-building" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>-->
+               <a href="Prueba?accion=mostrarEmpresas"><span class="fa fa-building" style="font-size:180px;color: #bd043b;text-align:center;"></span></a>
             </div>
         </div>
     </div>
