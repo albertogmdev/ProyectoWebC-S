@@ -175,7 +175,12 @@ public class ConsultaBd {
 
     public Proyecto getProyecto(int idProyecto) {
         Proyecto proyecto = new Proyecto();
+
         Log.logBd.info("CONSULTA - getProyecto");
+
+        
+    
+
         try {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion");
@@ -283,6 +288,61 @@ public class ConsultaBd {
 
         Log.logBd.info("Consulta realizada con éxito");
         return lista_proyectos;
+    }
+     
+     public boolean darAlta(Usuario u) {
+         ConexionBd cn = new ConexionBd();
+         Connection con;
+         PreparedStatement ps;
+         if(getUsuario(u.getEmail()).getEmail()==u.getEmail()){
+             return false;
+             
+         }
+         else{
+             
+        try {
+            con=cn.getConexion();
+            ps=con.prepareStatement("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('"+u.getIdUsuario()+"','"+u.getNombre()+"','"+u.getApellidos()+"','"+u.getTelefono()+"','"+u.getEmail()+"','"+u.getContrasenna()
+                    +"')");
+            
+            ps.executeUpdate();
+            
+            
+            
+        } catch (SQLException error) {
+           
+        }
+
+       
+        
+             return true;
+         }
+
+        
+        
+       
+       
+    }
+      public Usuario generarId(Usuario u) {
+        
+        try {
+            conexion = ConexionBd.getConexion();
+            
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select max(IdEmpleadoEmpresa) from EmpleadoEmpresa");
+           
+            
+            while (resultado.next()) {
+                int num=resultado.getInt("max(IdEmpleadoEmpresa)");
+                u.setIdUsuario(num+1);
+               
+            }
+        } catch (SQLException error) {
+            
+        }
+
+       
+        return u;
     }
 
     //EN ESTA CLASE PONER TODAS LAS CONSULTAS QUE SE PUEDEN HACER EN LA BASE DE DATOS

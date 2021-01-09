@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logica.Usuario;
+import util.ConsultaBd;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Prueba extends HttpServlet {
     String mostrarEmpleados="mostrarEmpleados.jsp";
     String mostrarEmpresas="mostrarEmpresas.jsp";
     String mostrarProyectos="mostrarProyectos.jsp";
+    String verDarAlta="darAlta.jsp";
+    String verDarBaja="darBaja.jsp"; 
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -74,6 +78,14 @@ public class Prueba extends HttpServlet {
         else if(op.equalsIgnoreCase("mostrarProyectos")){
             acceso=mostrarProyectos;
         }
+        else if(op.equalsIgnoreCase("agregar")){
+            acceso=verDarAlta;
+            
+        }
+        
+        else if(op.equalsIgnoreCase("eliminar")){
+            acceso=verDarBaja;
+        }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
         
@@ -90,7 +102,46 @@ public class Prueba extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         String acceso="";
+        String op=request.getParameter("accion");
+        if(op.equalsIgnoreCase("Enviar")){
+            Usuario u=new Usuario();
+            ConsultaBd b=new ConsultaBd();
+            u=b.generarId(u);
+            
+            
+            ConsultaBd consulta=new ConsultaBd();
+            //String dni=request.getParameter("tdni");
+            String nombre=request.getParameter("tnombre");
+            String apellidos=request.getParameter("tapellidos");
+            String telefono=request.getParameter("ttelefono");
+            String correo=request.getParameter("tcorreo");
+            String pass=request.getParameter("tpassword");
+           // u.setIdUsuario(Integer.parseInt(dni));
+            u.setNombre(nombre);
+            u.setApellidos(apellidos);
+            u.setTelefono(Integer.parseInt(telefono));
+            u.setEmail(correo);
+            u.setContrasenna(pass);
+            boolean agregar=consulta.darAlta(u);
+           
+            if(agregar==false){///si el usuario ya existe tendria q salir un mensaje de error (cambiar)
+                acceso=mostrarProyectos;
+                
+            
+            }
+            else{ acceso=mostrarEmpleados;}
+           
+            
+                   
+            
+        }
+        else if(op.equalsIgnoreCase("Borrar")){
+            acceso=verDarAlta;
+        }
+         RequestDispatcher vista=request.getRequestDispatcher(acceso);
+        vista.forward(request, response);
+        
     }
 
     /**

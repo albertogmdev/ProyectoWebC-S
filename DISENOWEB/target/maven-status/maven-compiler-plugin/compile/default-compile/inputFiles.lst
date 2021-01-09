@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\util\Logger.java
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\util\Log.java
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\com\mycompany\disenoweb\JAXRSConfiguration.java
@@ -13,3 +14,20 @@ C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\ja
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\logica\Proyecto.java
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\controller\LoginController.java
 C:\Users\Alberto\OneDrive\Documentos\GitHub\ProyectoWebC-S\DISENOWEB\src\main\java\util\LoggerBd.java
+=======
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\Pruebas.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\LoggerBd.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\controller\LoginController.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\logica\Empresa.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\logica\Proyecto.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\controller\Prueba.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\com\mycompany\disenoweb\resources\JavaEE8Resource.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\Log.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\logica\Empleado.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\logica\ProyectoEmpleado.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\com\mycompany\disenoweb\JAXRSConfiguration.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\ConexionBd.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\ConsultaBd.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\util\Logger.java
+C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB\src\main\java\logica\Usuario.java
+>>>>>>> Stashed changes

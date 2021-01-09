@@ -5,8 +5,7 @@
  */
 package util;
 
-import logica.Empresa;
-import logica.Proyecto;
+import logica.Usuario;
 
 /**
  *
@@ -32,13 +31,13 @@ public class Pruebas {
         System.out.println(tipo2);
         String tipo3 = consulta.getTipoUsuario("alicianuñez@correo.com", "1aaa234");
         System.out.println(tipo3);*/
-        Empresa emp= new Empresa();
-        emp.setIdEmpresa(234234);
-        Proyecto p=new Proyecto();
-        p.setEmpresa(emp);
+      
+       Usuario u=new Usuario();
+       ConsultaBd c = new ConsultaBd();
+       u.setApellidos("asdasd");
+      System.out.println(c.getUsuario("1"));
+       
         
-        System.out.println(emp.getIdEmpresa());
-        System.out.println(p.getEmpresa().getIdEmpresa());
         
     }
 }
