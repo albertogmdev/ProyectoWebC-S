@@ -20,7 +20,7 @@ import util.Log;
 public class LoginController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static final String LOGIN_USUARIO = "/login.jsp"; //PAGINA PRINCIPAL USUARIO
+    private static final String LOGIN_USUARIO = "/inicioUser.jsp"; //PAGINA PRINCIPAL USUARIO
     private static final String LOGIN_EMPLEADO = "/inicioRRHH.jsp"; //PAGINA PRINCIPAL EMPLEADO
     private static final String ERROR = "/index.jsp"; //CUANDO NO SE PUEDE LOGEAR VOLVEMOS A LA MISMA PAGINA
                                                      //podriamos poner la misma pag pero con un mensaje de error
