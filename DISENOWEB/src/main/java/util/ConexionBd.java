@@ -43,7 +43,7 @@ public class ConexionBd {
         try{
             conexion.close();
         }catch(SQLException error){
-            Log.logBd.log("ERROR SQL: "+ error);
+            Log.logBd.error("ERROR SQL: "+ error);
         }
     }
 }

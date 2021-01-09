@@ -86,31 +86,31 @@ public class LoginController extends HttpServlet {
         String siguientePagina = "";
         String action = request.getParameter("action");
         if(action.equalsIgnoreCase("login")){
-            Log.log.log("LoginController DoPost - parámetro["+ action +"]");
+            Log.log.info("LoginController DoPost - parámetro["+ action +"]");
         
             String usuarioLogin = request.getParameter("usuario");
             String contrasennaLogin = request.getParameter("password");
 
             String tipo = consulta.getTipoUsuario(usuarioLogin, contrasennaLogin);
-            Log.log.log("Tipo de usuario ["+ tipo +"]");
+            Log.log.info("Tipo de usuario ["+ tipo +"]");
 
             if(tipo.equalsIgnoreCase("empleado")){
                 siguientePagina = LOGIN_EMPLEADO;
                 //Creamos el empleado
                 Empleado empleado = consulta.getEmpleado(usuarioLogin);
                 request.setAttribute("usuario", empleado);//No se si sirve para guardar al empleado en las demas pags
-                Log.log.log("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                Log.log.log("INFO USUARIO - "+ empleado.toString());
+                Log.log.info("Empleado va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.info("INFO USUARIO - "+ empleado.toString());
             }else if(tipo.equalsIgnoreCase("usuario")){
                 siguientePagina = LOGIN_USUARIO;
                 //Creamos el usuario
                 Usuario usuario = consulta.getUsuario(usuarioLogin);
                 request.setAttribute("usuario", usuario); //No se si sirve para guardar al usuario en las demas pags
-                Log.log.log("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
-                Log.log.log("INFO USUARIO - "+ usuario.toStringPrueba());
+                Log.log.info("Usuario va a iniciar sesion - usuario["+ usuarioLogin +"]");
+                Log.log.info("INFO USUARIO - "+ usuario.toStringPrueba());
             }else{
                 siguientePagina = ERROR;
-                Log.log.log("ERROR: Usuario no encontrado en la base de datos");
+                Log.log.error("ERROR: Usuario no encontrado en la base de datos");
                 //¿PONER ALGO MAS PARA CONTROLAR EL ERROR O MOSTRAR EL ERROR AL USUARIO?
         }
         

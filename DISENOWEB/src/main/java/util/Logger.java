@@ -64,11 +64,33 @@ public final class Logger {
     private Logger(){
         
     }
-
-    public void log(String mensaje){
+    
+    public void info(String mensaje){
         try{
             FileWriter salida = new FileWriter(Logger.logFile, true);
-            salida.write(mensaje.toCharArray());
+            salida.write("[INFO] "+ mensaje);
+            salida.write("\n");
+            salida.close();
+        }catch(IOException e){
+            System.err.println("ERROR: No se pudo escribir en el archivo");
+        }
+    }
+    
+    public void error(String mensaje){
+        try{
+            FileWriter salida = new FileWriter(Logger.logFile, true);
+            salida.write("[ERROR] "+ mensaje);
+            salida.write("\n");
+            salida.close();
+        }catch(IOException e){
+            System.err.println("ERROR: No se pudo escribir en el archivo");
+        }
+    }
+    
+    public void warn(String mensaje){
+        try{
+            FileWriter salida = new FileWriter(Logger.logFile, true);
+            salida.write("[WARN] "+ mensaje);
             salida.write("\n");
             salida.close();
         }catch(IOException e){
