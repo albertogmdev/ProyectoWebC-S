@@ -176,9 +176,9 @@ public class ConsultaBd {
     public Proyecto getProyecto(int idProyecto) {
         Proyecto proyecto = new Proyecto();
 
+
         Log.logBd.info("CONSULTA - getProyecto");
 
-        
     
 
         try {
@@ -299,22 +299,18 @@ public class ConsultaBd {
              
          }
          else{
-             
+
+
         try {
             con=cn.getConexion();
             ps=con.prepareStatement("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('"+u.getIdUsuario()+"','"+u.getNombre()+"','"+u.getApellidos()+"','"+u.getTelefono()+"','"+u.getEmail()+"','"+u.getContrasenna()
-                    +"')");
-            
+                    +"')");           
             ps.executeUpdate();
-            
-            
-            
+                                
         } catch (SQLException error) {
            
         }
-
-       
-        
+    
              return true;
          }
 
@@ -327,10 +323,14 @@ public class ConsultaBd {
         
         try {
             conexion = ConexionBd.getConexion();
+
             
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select max(IdEmpleadoEmpresa) from EmpleadoEmpresa");
            
+
+           
+
             
             while (resultado.next()) {
                 int num=resultado.getInt("max(IdEmpleadoEmpresa)");
@@ -338,10 +338,11 @@ public class ConsultaBd {
                
             }
         } catch (SQLException error) {
-            
+
         }
 
-       
+        
+
         return u;
     }
 
