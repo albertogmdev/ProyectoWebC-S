@@ -116,7 +116,7 @@ public class ConsultaBd {
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
         }
-        
+
         Log.logBd.info("Consulta realizada con éxito");
         return empleado;
     }
@@ -142,7 +142,7 @@ public class ConsultaBd {
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
         }
-        
+
         Log.logBd.info("Consulta realizada con éxito");
         return empresa;
     }
@@ -162,13 +162,13 @@ public class ConsultaBd {
 
                 proyecto.setHoras(resultado.getInt("Horas"));
                 proyecto.setProyecto(getProyecto(resultado.getInt("proyecto_id_proyecto")));
-                
+
                 lista.add(proyecto);
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
         }
-        
+
         Log.logBd.info("Consulta realizada con éxito");
         return lista;
     }
@@ -176,10 +176,7 @@ public class ConsultaBd {
     public Proyecto getProyecto(int idProyecto) {
         Proyecto proyecto = new Proyecto();
 
-
         Log.logBd.info("CONSULTA - getProyecto");
-
-    
 
         try {
             conexion = ConexionBd.getConexion();
@@ -195,7 +192,7 @@ public class ConsultaBd {
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
         }
-        
+
         Log.logBd.info("Consulta realizada con éxito");
         return proyecto;
     }
@@ -209,11 +206,11 @@ public class ConsultaBd {
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from empleadoempresa");
             Log.logBd.info("Realizada consulta");
-            
+
             while (resultado.next()) {
                 Empleado empleado = new Empleado();
                 Empresa empresa = new Empresa();
-                
+
                 empleado.setIdEmpleado(resultado.getInt("IdEmpleadoEmpresa"));
                 empleado.setNombre(resultado.getString("Nombre"));
                 empleado.setApellidos(resultado.getString("Apellidos"));
@@ -221,17 +218,17 @@ public class ConsultaBd {
                 empleado.setTelefono(resultado.getInt("Telefono"));
                 empleado.setContrasenna(resultado.getString("Contrasenia"));
                 empleado.setEmpresa(empresa);
-                
+
                 lista_empleados.add(empleado);
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
         }
-        
+
         Log.logBd.info("Consulta realizada con éxito");
         return lista_empleados;
     }
-    
+
     public List mostrarEmpresa() {
         ArrayList<Empresa> lista_empresas = new ArrayList<>();
         Log.logBd.info("CONSULTA - mostrarEmpresa");
@@ -241,17 +238,17 @@ public class ConsultaBd {
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from empresa");
             Log.logBd.info("Realizada consulta");
-            
+
             while (resultado.next()) {
                 Empresa empresa = new Empresa();
-                
+
                 empresa.setCodigoPostal(resultado.getInt("CodigoPostal"));
                 empresa.setCorreo(resultado.getString("Correo"));
                 empresa.setDireccion(resultado.getString("Calle"));
                 empresa.setIdEmpresa(resultado.getInt("IdEmpresa"));
                 empresa.setNombre(resultado.getString("Nombre"));
                 empresa.setTelefono(resultado.getInt("Telefono"));
-                
+
                 lista_empresas.add(empresa);
             }
         } catch (SQLException error) {
@@ -261,8 +258,8 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito");
         return lista_empresas;
     }
-    
-     public List mostrarProyecto() {
+
+    public List mostrarProyecto() {
         ArrayList<Proyecto> lista_proyectos = new ArrayList<>();
         Log.logBd.info("CONSULTA - mostrarProyecto");
         try {
@@ -271,15 +268,15 @@ public class ConsultaBd {
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from proyecto");
             Log.logBd.info("Realizada consulta");
-            
+
             while (resultado.next()) {
                 Proyecto proyecto = new Proyecto();
                 Empresa empresa = new Empresa();
-                
+
                 proyecto.setIdProyecto(resultado.getInt("IdProyecto"));
                 empresa.setIdEmpresa(resultado.getInt("Empresa_IdEmpresa"));
                 proyecto.setEmpresa(empresa);
-                
+
                 lista_proyectos.add(proyecto);
             }
         } catch (SQLException error) {
@@ -289,59 +286,81 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito");
         return lista_proyectos;
     }
-     
-     public boolean darAlta(Usuario u) {
-         ConexionBd cn = new ConexionBd();
-         Connection con;
-         PreparedStatement ps;
-         if(getUsuario(u.getEmail()).getEmail()==u.getEmail()){
-             return false;
-             
-         }
-         else{
 
+    public boolean darAlta(Usuario u) {
+        ConexionBd cn = new ConexionBd();
+        Connection con;
+        PreparedStatement ps;
+        if (getUsuario(u.getEmail()).getEmail() == u.getEmail()) {
+            return false;
+        } else {
+            try {
+                con = cn.getConexion();
+                ps = con.prepareStatement("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + u.getIdUsuario() + "','" + u.getNombre() + "','" + u.getApellidos() + "','" + u.getTelefono() + "','" + u.getEmail() + "','" + u.getContrasenna()
+                        + "')");
+                ps.executeUpdate();
+
+            } catch (SQLException error) {
+
+            }
+
+            return true;
+        }
+
+    }
+
+    public boolean darBaja(int id) {
+
+        Usuario u = new Usuario();
+         PreparedStatement ps;
 
         try {
-            con=cn.getConexion();
-            ps=con.prepareStatement("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('"+u.getIdUsuario()+"','"+u.getNombre()+"','"+u.getApellidos()+"','"+u.getTelefono()+"','"+u.getEmail()+"','"+u.getContrasenna()
-                    +"')");           
-            ps.executeUpdate();
-                                
-        } catch (SQLException error) {
+            conexion = ConexionBd.getConexion();
+            Statement s = conexion.createStatement();
            
-        }
-    
-             return true;
-         }
+            ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
+            while (resultado.next()) {
+                u.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
 
-        
-        
-       
-       
+            }
+
+        } catch (SQLException e) {
+
+        }
+        if (u.getIdUsuario() == id) {
+            try {
+               
+                ps=conexion.prepareStatement("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
+                ps.executeUpdate();
+
+            } catch (SQLException e) {
+
+            }
+
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
-      public Usuario generarId(Usuario u) {
-        
+
+    public Usuario generarId(Usuario u) {
+
         try {
             conexion = ConexionBd.getConexion();
 
-            
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select max(IdEmpleadoEmpresa) from EmpleadoEmpresa");
-           
 
-           
-
-            
             while (resultado.next()) {
-                int num=resultado.getInt("max(IdEmpleadoEmpresa)");
-                u.setIdUsuario(num+1);
-               
+                int num = resultado.getInt("max(IdEmpleadoEmpresa)");
+                u.setIdUsuario(num + 1);
+
             }
         } catch (SQLException error) {
 
         }
-
-        
 
         return u;
     }

@@ -33,12 +33,13 @@
           <div class="col-4">  
             <h1 class="text-center"> Dar de baja </h1>
             <div class="formularioBaja">
-                <form id="bajaEmpleado" action="" method="get">
-                    <label>DNI:</label><br>
-                    <input class="form-control" type="text" id="DNI" placeholder="Introduzca DNI" required><br><br>
+                <form id="bajaEmpleado" action="Prueba" method="post">
+                    <label>ID:</label><br>
+                    <input class="form-control" type="text" name="txtdni" id="DNI" placeholder="Introduzca ID" required><br><br>
 
-                    <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;">
-                    <input class="btn btn-danger float-right" type="reset" value="Borrar" style="margin:5px;">
+                    <input class="btn btn-danger float-right" type="submit" name="accion" value="Eliminar" style="margin:5px;">
+                     <input class="btn btn-danger float-right" type="reset" name="accion" value="Cancelar" style="margin:5px;">
+                    
                 </form>
             </div>
           </div>

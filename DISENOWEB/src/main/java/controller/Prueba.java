@@ -86,6 +86,12 @@ public class Prueba extends HttpServlet {
         else if(op.equalsIgnoreCase("eliminar")){
             acceso=verDarBaja;
         }
+         else if(op.equalsIgnoreCase("Borrar")){
+            acceso=verDarAlta;
+        }
+        else if(op.equalsIgnoreCase("Cancelar")){
+            acceso=verDarBaja;
+        }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
         
@@ -110,20 +116,20 @@ public class Prueba extends HttpServlet {
             u=b.generarId(u);
             
             
-            ConsultaBd consulta=new ConsultaBd();
-            //String dni=request.getParameter("tdni");
+            
+
             String nombre=request.getParameter("tnombre");
             String apellidos=request.getParameter("tapellidos");
             String telefono=request.getParameter("ttelefono");
             String correo=request.getParameter("tcorreo");
             String pass=request.getParameter("tpassword");
-           // u.setIdUsuario(Integer.parseInt(dni));
+         
             u.setNombre(nombre);
             u.setApellidos(apellidos);
             u.setTelefono(Integer.parseInt(telefono));
             u.setEmail(correo);
             u.setContrasenna(pass);
-            boolean agregar=consulta.darAlta(u);
+            boolean agregar=b.darAlta(u);
            
             if(agregar==false){///si el usuario ya existe tendria q salir un mensaje de error (cambiar)
                 acceso=mostrarProyectos;
@@ -136,9 +142,28 @@ public class Prueba extends HttpServlet {
                    
             
         }
-        else if(op.equalsIgnoreCase("Borrar")){
-            acceso=verDarAlta;
+       
+        else if(op.equalsIgnoreCase("Eliminar")){
+          //  Usuario u = new Usuario();
+             ConsultaBd b=new ConsultaBd();
+             int id=Integer.parseInt(request.getParameter("txtdni"));
+             
+             boolean baja=b.darBaja(id);
+             if(baja==true){
+                 
+                  acceso=mostrarEmpleados;
+                 
+             }
+             else{///mostrar ventana (cambiar)
+                 acceso=mostrarProyectos;
+                 
+             }
+            
+           
+            
         }
+       
+        
          RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
         
