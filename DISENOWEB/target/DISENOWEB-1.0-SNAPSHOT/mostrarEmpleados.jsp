@@ -95,7 +95,7 @@
                 <button type="button" onclick="location.href='Prueba?accion=eliminar';" class="btn btn-danger text-right" style="height:40px">
                     Eliminar
                 </button>
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
+                <button type="button" onclick="";class="btn btn-danger text-right" style="height:40px">
                     Editar
                 </button>
             </div>

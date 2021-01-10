@@ -59,7 +59,7 @@
     
     
     %>
-    <tbody> <!-- cambiar para que se actualice dinamicamente -->
+    <tbody> 
       <tr>
         <td><%= p.getIdProyecto() %></td>
         <td><%= p.getEmpresa().getIdEmpresa() %></td>

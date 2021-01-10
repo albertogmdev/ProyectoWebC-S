@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,15 +51,15 @@
                     <!--<label>DNI:</label><br>
                     <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
                     <label>Nombre:</label><br>
-                    <input class="form-control" type="text" name="tnombre" id="nombre" placeholder="Introduzca nombre" required><br><br>
+                    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Introduzca nombre" required><br>
                     <label>Apellidos:</label><br>
-                    <input class="form-control" type="text" name="tapellidos" id="apellidos" placeholder="Introduzca apellidos" required><br><br>                     
+                    <input class="form-control" type="text" name="apellidos" id="apellidos" placeholder="Introduzca apellidos" required><br>                    
                     <label>Telefono:</label><br>
-                    <input class="form-control" type="text"  name="ttelefono" id="telefono" placeholder="Introduzca telefono" required><br><br>
+                    <input class="form-control" type="text"  name="telefono" id="telefono" placeholder="Introduzca telefono" required><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" name="tcorreo" type="text" id="correo" placeholder="Introduzca correo" required><br><br>
+                    <input class="form-control" name="tcorreo" type="text" id="correo" placeholder="Introduzca correo" required><br>
                     <label>Contraseña:</label><br>
-                    <input class="form-control" type="text"  name="tpassword" id="contraseña" placeholder="Introduzca contraseña" required><br><br>
+                    <input class="form-control" type="text"  name="password" id="contraseña" placeholder="Introduzca contraseña" required><br><br>
 
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Enviar" style="margin:5px;">
                     <input class="btn btn-danger float-right" type="reset"  name="accion" value="Borrar" style="margin:5px;">
