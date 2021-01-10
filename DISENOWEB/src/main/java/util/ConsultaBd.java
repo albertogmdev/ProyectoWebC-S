@@ -154,7 +154,7 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo=" + correo);
+            ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='" + correo+ "';");
             Log.logBd.info("Realizada consulta");
 
             while (resultado.next()) {
