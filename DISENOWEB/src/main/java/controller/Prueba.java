@@ -114,16 +114,11 @@ public class Prueba extends HttpServlet {
             Usuario u=new Usuario();
             ConsultaBd b=new ConsultaBd();
             u=b.generarId(u);
-            
-            
-            
-
             String nombre=request.getParameter("tnombre");
             String apellidos=request.getParameter("tapellidos");
             String telefono=request.getParameter("ttelefono");
             String correo=request.getParameter("tcorreo");
             String pass=request.getParameter("tpassword");
-         
             u.setNombre(nombre);
             u.setApellidos(apellidos);
             u.setTelefono(Integer.parseInt(telefono));
@@ -132,11 +127,20 @@ public class Prueba extends HttpServlet {
             boolean agregar=b.darAlta(u);
            
             if(agregar==false){///si el usuario ya existe tendria q salir un mensaje de error (cambiar)
+                boolean v=false;
+                request.setAttribute("mensaje", v);
                 acceso=mostrarProyectos;
                 
             
             }
-            else{ acceso=mostrarEmpleados;}
+            else{ 
+                
+                boolean v=true;
+                request.setAttribute("mensaje", v);
+                
+                acceso=mostrarEmpleados;
+            
+            }
            
             
                    
@@ -156,6 +160,7 @@ public class Prueba extends HttpServlet {
              }
              else{///mostrar ventana (cambiar)
                  acceso=mostrarProyectos;
+                 
                  
              }
             

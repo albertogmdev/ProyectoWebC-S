@@ -4,6 +4,7 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Usuario"%>
 <%@page import="util.ConsultaBd"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -55,22 +56,25 @@
                 </thead>
                 <%
                     ConsultaBd emp = new ConsultaBd();
-                    List<Empleado> lista_empleados = emp.mostrarEmpleados();
-                    Iterator<Empleado> iterador = lista_empleados.iterator();
-                    Empleado e = null;
+                    List<Usuario> lista_empleados = emp.mostrarEmpleados();
+                    Iterator<Usuario> iterador = lista_empleados.iterator();
+                    Usuario u = null;
                     while (iterador.hasNext()) {
-                        e = iterador.next();
+                        u = iterador.next();
 
 
                 %>
                 <tbody> <!-- cambiar para que se actualice dinamicamente -->
                     <tr>
-                        <td><%= e.getIdEmpleado()%></td>
-                        <td><%= e.getNombre()%></td>
-                        <td><%= e.getApellidos()%></td>
-                        <td><%%></td>
-                        <td><%= e.getEmail()%></td>
-                        <td><%= e.getTelefono()%></td>
+                        <td><%= u.getIdUsuario()%></td>
+                        <td><%= u.getNombre()%></td>
+                        <td><%= u.getApellidos()%></td>
+                        <%String nombre="";
+                       // nombre=u.getEmpresa().getNombre();
+                        %>
+                        <td><%= nombre %></td>
+                        <td><%= u.getEmail()%></td>
+                        <td><%= u.getTelefono()%></td>
                     </tr>
                     <% }%>
 

@@ -1,6 +1,7 @@
 
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class Usuario {
     private String apellidos;
     private int telefono;
     private String email;
-    private List<ProyectoEmpleado> proyectosList; //POSIBLEMENTE HAYA QUE INICIALIZAR
+    private List<ProyectoEmpleado> proyectosList= new ArrayList<>(); //POSIBLEMENTE HAYA QUE INICIALIZAR
 
     public int getIdUsuario() {
         return idUsuario;

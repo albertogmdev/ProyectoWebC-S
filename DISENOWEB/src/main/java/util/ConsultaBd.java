@@ -154,7 +154,7 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion");
             Statement s = conexion.createStatement();
-            ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='" + correo + "';");
+            ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo=" + correo);
             Log.logBd.info("Realizada consulta");
 
             while (resultado.next()) {
@@ -198,7 +198,7 @@ public class ConsultaBd {
     }
 
     public List mostrarEmpleados() {
-        ArrayList<Empleado> lista_empleados = new ArrayList<>();
+        ArrayList<Usuario> lista_empleados = new ArrayList<>();
         Log.logBd.info("CONSULTA - mostrarEmpleados");
         try {
             conexion = ConexionBd.getConexion();
@@ -208,18 +208,23 @@ public class ConsultaBd {
             Log.logBd.info("Realizada consulta");
 
             while (resultado.next()) {
-                Empleado empleado = new Empleado();
-                Empresa empresa = new Empresa();
+                Usuario u = new Usuario();
 
-                empleado.setIdEmpleado(resultado.getInt("IdEmpleadoEmpresa"));
-                empleado.setNombre(resultado.getString("Nombre"));
-                empleado.setApellidos(resultado.getString("Apellidos"));
-                empleado.setEmail(resultado.getString("Correo"));
-                empleado.setTelefono(resultado.getInt("Telefono"));
-                empleado.setContrasenna(resultado.getString("Contrasenia"));
-                empleado.setEmpresa(empresa);
-
-                lista_empleados.add(empleado);
+                u.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
+                u.setNombre(resultado.getString("Nombre"));
+                u.setApellidos(resultado.getString("Apellidos"));
+                u.setEmail(resultado.getString("Correo"));
+                u.setTelefono(resultado.getInt("Telefono"));
+                u.setContrasenna(resultado.getString("Contrasenia"));
+                List<ProyectoEmpleado> lista = getListaProyectos(resultado.getString("Correo"));
+                u.setProyectosList(lista);
+                
+               if(u.getProyectosList().size()>0){
+                   u.setEmpresa(u.getProyectosList().get(0).getProyecto().getEmpresa());
+                   
+               }
+              
+                lista_empleados.add(u);
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
@@ -312,12 +317,12 @@ public class ConsultaBd {
     public boolean darBaja(int id) {
 
         Usuario u = new Usuario();
-         PreparedStatement ps;
+        PreparedStatement ps;
 
         try {
             conexion = ConexionBd.getConexion();
             Statement s = conexion.createStatement();
-           
+
             ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
             while (resultado.next()) {
                 u.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
@@ -329,8 +334,8 @@ public class ConsultaBd {
         }
         if (u.getIdUsuario() == id) {
             try {
-               
-                ps=conexion.prepareStatement("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
+
+                ps = conexion.prepareStatement("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
                 ps.executeUpdate();
 
             } catch (SQLException e) {
