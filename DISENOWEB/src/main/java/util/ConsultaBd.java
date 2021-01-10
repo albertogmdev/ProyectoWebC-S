@@ -208,23 +208,23 @@ public class ConsultaBd {
             Log.logBd.info("Realizada consulta");
 
             while (resultado.next()) {
-                Usuario u = new Usuario();
+                Usuario usuario = new Usuario();
 
-                u.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
-                u.setNombre(resultado.getString("Nombre"));
-                u.setApellidos(resultado.getString("Apellidos"));
-                u.setEmail(resultado.getString("Correo"));
-                u.setTelefono(resultado.getInt("Telefono"));
-                u.setContrasenna(resultado.getString("Contrasenia"));
+                usuario.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
+                usuario.setNombre(resultado.getString("Nombre"));
+                usuario.setApellidos(resultado.getString("Apellidos"));
+                usuario.setEmail(resultado.getString("Correo"));
+                usuario.setTelefono(resultado.getInt("Telefono"));
+                usuario.setContrasenna(resultado.getString("Contrasenia"));
                 List<ProyectoEmpleado> lista = getListaProyectos(resultado.getString("Correo"));
-                u.setProyectosList(lista);
+                usuario.setProyectosList(lista);
                 
-               if(u.getProyectosList().size()>0){
-                   u.setEmpresa(u.getProyectosList().get(0).getProyecto().getEmpresa());
-                   
+
+               if(usuario.getProyectosList().size()>0){
+                   usuario.setEmpresa(usuario.getProyectosList().get(0).getProyecto().getEmpresa());
                }
-              
-                lista_empleados.add(u);
+               
+               lista_empleados.add(usuario);
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL: " + error);
@@ -376,7 +376,7 @@ public class ConsultaBd {
     //Modificar usuario
     //Buscar usuario por id
     //Buscar empresa
-    //Lista usuarios
+    //Lista usuario
     //Lista de empresas
     //...
 }

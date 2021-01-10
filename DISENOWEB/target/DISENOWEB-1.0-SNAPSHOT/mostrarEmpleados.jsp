@@ -4,6 +4,7 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Empresa"%>
 <%@page import="logica.Usuario"%>
 <%@page import="util.ConsultaBd"%>
 <%@page import="java.util.Iterator"%>
@@ -69,8 +70,14 @@
                         <td><%= u.getIdUsuario()%></td>
                         <td><%= u.getNombre()%></td>
                         <td><%= u.getApellidos()%></td>
-                        <%String nombre="";
-                       // nombre=u.getEmpresa().getNombre();
+                        <%  String nombre="";
+                            Empresa empresa;
+                            empresa =u.getEmpresa();
+                            if(empresa == null){
+                                nombre = "Empleado no registrado correctamente";
+                            }else{
+                                nombre = empresa.getNombre();
+                            }
                         %>
                         <td><%= nombre %></td>
                         <td><%= u.getEmail()%></td>
