@@ -82,7 +82,6 @@ public class Prueba extends HttpServlet {
             acceso=verDarAlta;
             
         }
-        
         else if(op.equalsIgnoreCase("eliminar")){
             acceso=verDarBaja;
         }
@@ -92,9 +91,9 @@ public class Prueba extends HttpServlet {
         else if(op.equalsIgnoreCase("Cancelar")){
             acceso=verDarBaja;
         }
+        
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
-        
     }
 
     /**
@@ -108,7 +107,7 @@ public class Prueba extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String acceso="";
+        String acceso="";
         String op=request.getParameter("accion");
         if(op.equalsIgnoreCase("Enviar")){
             Usuario u=new Usuario();
@@ -130,48 +129,28 @@ public class Prueba extends HttpServlet {
                 boolean v=false;
                 request.setAttribute("mensaje", v);
                 acceso=mostrarProyectos;
-                
-            
             }
-            else{ 
-                
+            else{
                 boolean v=true;
                 request.setAttribute("mensaje", v);
-                
                 acceso=mostrarEmpleados;
-            
             }
-           
-            
-                   
-            
         }
-       
         else if(op.equalsIgnoreCase("Eliminar")){
           //  Usuario u = new Usuario();
-             ConsultaBd b=new ConsultaBd();
-             int id=Integer.parseInt(request.getParameter("txtdni"));
-             
-             boolean baja=b.darBaja(id);
-             if(baja==true){
-                 
-                  acceso=mostrarEmpleados;
-                 
-             }
-             else{///mostrar ventana (cambiar)
-                 acceso=mostrarProyectos;
-                 
-                 
-             }
-            
-           
-            
+            ConsultaBd b=new ConsultaBd();
+            int id=Integer.parseInt(request.getParameter("txtdni"));
+            boolean baja=b.darBaja(id);
+            if(baja==true){
+               acceso=mostrarEmpleados;
+            }
+            else{///mostrar ventana (cambiar)
+               acceso=mostrarProyectos;
+            }
         }
-       
         
-         RequestDispatcher vista=request.getRequestDispatcher(acceso);
+        RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
-        
     }
 
     /**

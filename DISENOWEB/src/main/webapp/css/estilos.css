@@ -43,17 +43,17 @@ vertical-center {
 }
 
 .login_btn{
-	position: relative;
-	border-radius: 6px;
-	text-align: center;
-	width: 100%;
-	overflow: hidden;
-        color:black;
-        font-weight: 500;
-	cursor: pointer;
-	text-decoration: none;
-	transition: all ease 0.5s;
-	background: #bd043b;
+    position: relative;
+    border-radius: 6px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    color:black;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.5s;
+    background: #bd043b;
 }
 
 .form_container{
@@ -79,23 +79,5 @@ vertical-center {
 }
 
 /* ANIMACION DEL BOTON LOGIN*/
-.login_btn:after,
-.login_btn:before{
-    width: 30px;
-    height: 210px;
-    content: '';
-    display: block;
-    background: rgba(255,255,255,0.3);
-    top: -60px;
-    position: absolute;
-    transition: none;
-    right:-45%;
-    cursor: pointer;
-}
-.login_btn:before{left: -48%;}
 .login_btn:hover{text-shadow: 0 1px 1px rgba(0,0,0,0.5);background:#D80041;color:white;}
-.login_btn:hover:after,
-.login_btn:hover:before{transform: rotate(45deg), scaleX(130%);background: rgba(255,255,255,0.1);transition: all ease 0.5s;}
-.login_btn:hover:after{right: 130%;}
-.login_btn:hover:before{left: 130%;}
 

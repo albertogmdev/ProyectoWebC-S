@@ -87,8 +87,4 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", contrasenna=" + contrasenna + ", empresa=" + empresa.getNombre() + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + ", proyectosList=" + proyectosList + '}';
     }
-    
-    public String toStringPrueba() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasenna=" + contrasenna + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + '}';
-    }
 }
