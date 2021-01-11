@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS Proyecto_Empleado(
     REFERENCES Proyecto(IdProyecto)
 )ENGINE=INNODB;
 
-INSERT INTO EmpleadoEmpresa VALUES ('0000','Pruebas', 'admin admin','000000000','adminadmin@correo.com','Pruebas',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0000','Pruebas', 'Pruebas Pruebas','000000000','pruebaspruebas@correo.com','Pruebas',null);
 
 INSERT INTO EmpleadoEmpresa VALUES ('0001','Francisco', 'Cabrera Sanchez','689447451','franciscocabrera@correo.com','1234',null);
 INSERT INTO EmpleadoEmpresa VALUES ('0002','Javier', 'Casas Vidal','784516211','javiercasas@correo.com','1234',null);
@@ -175,7 +175,7 @@ INSERT INTO proyecto  VALUES ('123443214','3458');
 INSERT INTO proyecto  VALUES ('098765456','3458');
 
 
-INSERT INTO EmpleadoRRHH VALUES ('0050','Julian', 'Perez Calvo','938189928','julianperez@correo.com','5678');
+INSERT INTO EmpleadoRRHH VALUES ('0050','Admin', 'Admin Admin','938189928','AdminAdmin@correo.com','RRHH');
 INSERT INTO EmpleadoRRHH VALUES ('0051','Mara', 'Lopez Blanco','682654848','maralopez@correo.com','5678');
 INSERT INTO EmpleadoRRHH VALUES ('0052','Miriam', 'Iglesias Lozano','166631649','miriamiglesias@correo.com','5678');
 INSERT INTO EmpleadoRRHH VALUES ('0053','Carmen', 'Lozano Soto','443799949','carmenlozano@correo.com','5678');
@@ -193,7 +193,7 @@ INSERT INTO Proyecto_Empleado  VALUES (null,'15695940','unaisoler@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'846825486','franciscocabrera@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'846825486','rubenlopez@correo.com');
 
-INSERT INTO Proyecto_Empleado  VALUES (null,'756497265','fernandocortes@correo.com');
+INSERT INTO Proyecto_Empleado  VALUES (null,'756497265','rubenramirez@correo.com');
 
 INSERT INTO Proyecto_Empleado  VALUES (null,'121246784','rubenlopez@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'121246784','unaisoler@correo.com');
