@@ -22,16 +22,14 @@ public class ConsultaBd {
     private Connection conexion;
 
     public String getTipoUsuario(String correo, String contrasenna) {
-
         String tipo = "";
-        Log.logBd.info("CONSULTA - getTipoUsuario");
-
+        Log.logBd.info("CONSULTA GetTipoUsuario");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - getTipoUsuario()");
             Statement s = conexion.createStatement();
             ResultSet resultadoEmpleado = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getTipoUsuario()");
             if (resultadoEmpleado.next()) {
                 if (resultadoEmpleado.getString("Contrasenia").equalsIgnoreCase(contrasenna)) {
                     tipo = "empleado";
@@ -52,23 +50,26 @@ public class ConsultaBd {
                 }
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getTipoUsuario(): " + error);
+            Log.logBd.error("                               SQL State - " + error.getSQLState());
+            Log.logBd.error("                               ErrorCode - " + error.getErrorCode());
+
             tipo = "error";
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getTipoUsuario()");
         return tipo;
     }
 
     public Usuario getUsuario(String correo) {
         Usuario usuario = new Usuario();
-        Log.logBd.info("CONSULTA - getUsuario");
+        Log.logBd.info("CONSULTA GetUsuario");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - getUsuario()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where Correo='" + correo + "';");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getUsuario()");
 
             while (resultado.next()) {
                 usuario.setEmail(correo);
@@ -77,33 +78,32 @@ public class ConsultaBd {
                 usuario.setNombre(resultado.getString("Nombre"));
                 usuario.setApellidos(resultado.getString("Apellidos"));
                 usuario.setTelefono(resultado.getInt("Telefono"));
-                //Para meter la empresa al usuario cogemos el primer proyecto en el que participe,
-                //y como solo puede trabajar en una empresa, cogemos el objeto empresa que realiza ese proyecto
-                //No puede ser vacia la lista ya que para trabajar en una empresa tienes que estar minimo
-                //en un proyecto
-                //List<ProyectoEmpleado> lista = getListaProyectos(correo);
-                //usuario.setProyectosList(lista);
-                //usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
+                List<ProyectoEmpleado> lista = getListaProyectos(correo);
+                usuario.setProyectosList(lista);
+                //Todos los usuarios estan en almenos un proyecto y solo estan en una empresa, por ello,
+                //cogemos la empresa del primer proyecto en el participe el usuario
+                usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
             }
 
         } catch (SQLException error) {
-            System.out.println("ERROR SQL: " + error);
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getUsuario(): " + error);
+            Log.logBd.error("                           SQL State - " + error.getSQLState());
+            Log.logBd.error("                           ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getUsuario()");
         return usuario;
     }
 
     public Empleado getEmpleado(String correo) {
         Empleado empleado = new Empleado();
-        Log.logBd.info("CONSULTA - getEmpleado");
+        Log.logBd.info("CONSULTA GetEmpleado");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - getEmpleado()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from EmpleadoRRHH where Correo='" + correo + "';");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getEmpleado()");
 
             while (resultado.next()) {
                 empleado.setEmail(correo);
@@ -114,22 +114,24 @@ public class ConsultaBd {
                 empleado.setTelefono(resultado.getInt("Telefono"));
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getEmpleado(): " + error);
+            Log.logBd.error("                            SQL State - " + error.getSQLState());
+            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getEmpleado()");
         return empleado;
     }
 
     public Empresa getEmpresa(int idEmpresa) {
         Empresa empresa = new Empresa();
-        Log.logBd.info("CONSULTA - getEmpresa");
+        Log.logBd.info("CONSULTA GetEmpresa");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - getEmpresa()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from Empresa where IdEmpresa=" + idEmpresa + ";");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getEmpresa()");
 
             while (resultado.next()) {
                 empresa.setIdEmpresa(idEmpresa);
@@ -140,22 +142,24 @@ public class ConsultaBd {
                 empresa.setTelefono(resultado.getInt("Telefono"));
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getEmpresa(): " + error);
+            Log.logBd.error("                           SQL State - " + error.getSQLState());
+            Log.logBd.error("                           ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getEmpresa()");
         return empresa;
     }
 
     public List<ProyectoEmpleado> getListaProyectos(String correo) {
         List<ProyectoEmpleado> lista = new ArrayList<>();
-        Log.logBd.info("CONSULTA - getListaProyectos");
+        Log.logBd.info("CONSULTA GetListaProyectos");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - getListaProyectos()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from Proyecto_Empleado where empleado_correo='" + correo+ "';");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getListaProyectos()");
 
             while (resultado.next()) {
                 ProyectoEmpleado proyecto = new ProyectoEmpleado();
@@ -166,46 +170,49 @@ public class ConsultaBd {
                 lista.add(proyecto);
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getListaProyectos(): " + error);
+            Log.logBd.error("                                  SQL State - " + error.getSQLState());
+            Log.logBd.error("                                  ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getListaProyectos()");
         return lista;
     }
 
     public Proyecto getProyecto(int idProyecto) {
         Proyecto proyecto = new Proyecto();
-
-        Log.logBd.info("CONSULTA - getProyecto");
-
+        Log.logBd.info("CONSULTA GetProyecto");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion- getProyecto()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from Proyecto where IdProyecto=" + idProyecto + ";");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - getProyecto()");
 
             while (resultado.next()) {
                 proyecto.setIdProyecto(idProyecto);
                 proyecto.setEmpresa(getEmpresa(resultado.getInt("Empresa_IdEmpresa")));
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en getProyecto(): " + error);
+            Log.logBd.error("                            SQL State - " + error.getSQLState());
+            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - getProyecto()");
+        
         return proyecto;
     }
 
     public List mostrarEmpleados() {
         ArrayList<Usuario> lista_empleados = new ArrayList<>();
-        Log.logBd.info("CONSULTA - mostrarEmpleados");
+        Log.logBd.info("CONSULTA MostrarEmpleados");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - mostrarEmpleados()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from empleadoempresa");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - mostrarEmpleados()");
 
             while (resultado.next()) {
                 Usuario usuario = new Usuario();
@@ -227,22 +234,24 @@ public class ConsultaBd {
                lista_empleados.add(usuario);
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en mostrarEmpleados(): " + error);
+            Log.logBd.error("                                 SQL State - " + error.getSQLState());
+            Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - mostrarEmpleados()");
         return lista_empleados;
     }
 
     public List mostrarEmpresa() {
         ArrayList<Empresa> lista_empresas = new ArrayList<>();
-        Log.logBd.info("CONSULTA - mostrarEmpresa");
+        Log.logBd.info("CONSULTA MostrarEmpresa");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - mostrarEmpresa()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from empresa");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - mostrarEmpresa()");
 
             while (resultado.next()) {
                 Empresa empresa = new Empresa();
@@ -257,22 +266,24 @@ public class ConsultaBd {
                 lista_empresas.add(empresa);
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en mostrarEmpresa(): " + error);
+            Log.logBd.error("                               SQL State - " + error.getSQLState());
+            Log.logBd.error("                               ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - mostrarEmpresa()");
         return lista_empresas;
     }
 
     public List mostrarProyecto() {
         ArrayList<Proyecto> lista_proyectos = new ArrayList<>();
-        Log.logBd.info("CONSULTA - mostrarProyecto");
+        Log.logBd.info("CONSULTA MostrarProyecto");
         try {
             conexion = ConexionBd.getConexion();
-            Log.logBd.info("Realizada conexion");
+            Log.logBd.info("Realizada conexion - mostrarProyecto()");
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select * from proyecto");
-            Log.logBd.info("Realizada consulta");
+            Log.logBd.info("Realizada consulta - mostrarProyecto()");
 
             while (resultado.next()) {
                 Proyecto proyecto = new Proyecto();
@@ -285,98 +296,159 @@ public class ConsultaBd {
                 lista_proyectos.add(proyecto);
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL: " + error);
+            Log.logBd.error("ERROR SQL en mostrarProyecto(): " + error);
+            Log.logBd.error("                                SQL State - " + error.getSQLState());
+            Log.logBd.error("                                ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito");
+        Log.logBd.info("Consulta realizada con éxito - mostrarProyecto()");
         return lista_proyectos;
     }
 
-    public boolean darAlta(Usuario u) {
-        ConexionBd cn = new ConexionBd();
-        Connection con;
-        PreparedStatement ps;
-        if (getUsuario(u.getEmail()).getEmail() == u.getEmail()) {
+    public boolean darAlta(Usuario usuario) {
+        Log.logBd.info("CONSULTA DarAlta");
+        if (getUsuario(usuario.getEmail()).getEmail().equalsIgnoreCase(usuario.getEmail())) {
             return false;
         } else {
             try {
-                con = cn.getConexion();
-                ps = con.prepareStatement("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + u.getIdUsuario() + "','" + u.getNombre() + "','" + u.getApellidos() + "','" + u.getTelefono() + "','" + u.getEmail() + "','" + u.getContrasenna()
-                        + "')");
-                ps.executeUpdate();
-
+                conexion = ConexionBd.getConexion();
+                Log.logBd.info("Realizada conexion - darAlta()");
+                Statement s = conexion.createStatement();
+                s.executeQuery("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + usuario.getIdUsuario() + "','" + usuario.getNombre() 
+                        + "','" + usuario.getApellidos() + "','" + usuario.getTelefono() + "','" + usuario.getEmail() + "','" + usuario.getContrasenna() +"')");
+                Log.logBd.info("Realizada consulta - darAlta()");
+                
             } catch (SQLException error) {
-
+                Log.logBd.error("ERROR SQL en darAlta(): " + error);
+                Log.logBd.error("                        SQL State - " + error.getSQLState());
+            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
             }
-
+            
+            Log.logBd.info("Consulta realizada con éxito - darAlta()");
             return true;
         }
-
     }
 
     public boolean darBaja(int id) {
-
-        Usuario u = new Usuario();
-        PreparedStatement ps;
-
+        boolean hecho = false;
+        Log.logBd.info("CONSULTA DarBaja");
         try {
             conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - darBaja()");
             Statement s = conexion.createStatement();
-
             ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
-            while (resultado.next()) {
-                u.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
 
-            }
-
-        } catch (SQLException e) {
-
-        }
-        if (u.getIdUsuario() == id) {
-            try {
-
-                ps = conexion.prepareStatement("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
-                ps.executeUpdate();
-
-            } catch (SQLException e) {
-
-            }
-
-            return true;
-
-        } else {
-            return false;
-        }
-
-    }
-
-    public Usuario generarId(Usuario u) {
-
-        try {
-            conexion = ConexionBd.getConexion();
-
-            Statement s = conexion.createStatement();
-            ResultSet resultado = s.executeQuery("select max(IdEmpleadoEmpresa) from EmpleadoEmpresa");
-
-            while (resultado.next()) {
-                int num = resultado.getInt("max(IdEmpleadoEmpresa)");
-                u.setIdUsuario(num + 1);
-
+            //Si existe le damos de baja
+            if(resultado.next()){
+                s.executeQuery("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
+                Log.logBd.info("Realizada consulta - darBaja()");
+            }else {
+                Log.logBd.error("Usuario no existe en la BD - darBaja()");
             }
         } catch (SQLException error) {
-
+            Log.logBd.error("ERROR SQL en darBaja(): " + error);
+            Log.logBd.error("                        SQL State - " + error.getSQLState());
+            Log.logBd.error("                        ErrorCode - " + error.getErrorCode());
         }
 
-        return u;
+        return hecho;
     }
 
-    //EN ESTA CLASE PONER TODAS LAS CONSULTAS QUE SE PUEDEN HACER EN LA BASE DE DATOS
-    //Alta usuario
-    //Baja usuario
-    //Modificar usuario
-    //Buscar usuario por id
-    //Buscar empresa
-    //Lista usuario
-    //Lista de empresas
-    //...
+    public Usuario generarId(Usuario usuario) {
+        Log.logBd.info("CONSULTA GenerarId");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - generarId()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select max(IdEmpleadoEmpresa) from EmpleadoEmpresa");
+            Log.logBd.info("Realizada consulta - generarId()");
+            
+            while (resultado.next()) {
+                int num = resultado.getInt("max(IdEmpleadoEmpresa)");
+                usuario.setIdUsuario(num + 1);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en generarId(): " + error);
+            Log.logBd.error("                          SQL State - " + error.getSQLState());
+            Log.logBd.error("                          ErrorCode - " + error.getErrorCode());
+        }
+        
+        Log.logBd.info("Consulta realizada con éxito - generarId()");
+        return usuario;
+    }
+    
+    public void modificarUsuario(int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna){
+        Log.logBd.info("CONSULTA ModificarUsuario");
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - modificarUsuario()");
+            Statement s = conexion.createStatement();
+            s.executeQuery("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
+            +", Correo='"+ correo +"', Contrasenia='"+ contrasenna +"' where IdEmpleadoEmpresa="+ idUsuario +";");
+            Log.logBd.info("Realizada consulta - modificarUsuario()");
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en modificarUsuario(): " + error);
+            Log.logBd.error("                                 SQL State - " + error.getSQLState());
+            Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
+        }
+    }
+    
+    public void modificarEmpresa(int idEmpresa, String nombre, String calle, int codigoPostal, String correo, int telefono){
+        Log.logBd.info("CONSULTA ModificarEmpresa");
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - modificarEmpresa()");
+            Statement s = conexion.createStatement();
+            s.executeQuery("update empresa set Nombre ='"+ nombre +"', Calle='"+ calle +"', CodigoPostal="+ codigoPostal
+            +", Correo='"+ correo +"', Telefono="+ telefono +" where IdEmpresa="+ idEmpresa +";");
+            Log.logBd.info("Realizada consulta - modificarEmpresa()");
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en modificarEmpresa(): " + error);
+            Log.logBd.error("                                 SQL State - " + error.getSQLState());
+            Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
+        }
+    }
+    
+    public boolean modificarProyecto(int idProyecto, int idEmpresa){
+        boolean hecho = false;
+        Log.logBd.info("CONSULTA ModificarProyecto");
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - modificarProyecto()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select Empresa_IdEmpresa from proyecto where IdProyecto="+ idProyecto +";");
+            
+            //Solo si la empresa a la que se quiere cambiar el proyecto es la diferente a la que esta el proyecto se modifica
+            if(resultado.getInt("Empresa_IdEmpresa") != idEmpresa){
+                s.executeQuery("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
+                hecho = true;
+                Log.logBd.info("Realizada consulta - modificarProyecto()");
+            }
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en modificarProyecto(): " + error);
+            Log.logBd.error("                                  SQL State - " + error.getSQLState());
+            Log.logBd.error("                                  ErrorCode - " + error.getErrorCode());
+        }
+        
+        return hecho;
+    }
+    
+    public void borrarProyecto(int idProyecto){
+        Log.logBd.info("CONSULTA BorrarProyecto");
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - borrarProyecto()");
+            Statement s = conexion.createStatement();
+            s.executeQuery("delete from proyecto where IdProyecto="+ idProyecto +";");
+            Log.logBd.info("Realizada consulta - borrarProyecto()");
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en borrarProyecto(): " + error);
+            Log.logBd.error("                               SQL State - " + error.getSQLState());
+            Log.logBd.error("                               ErrorCode - " + error.getErrorCode());
+        }
+    }
 }

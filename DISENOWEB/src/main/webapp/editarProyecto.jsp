@@ -39,13 +39,23 @@
     <!--end of Navigation bar-->
     <div class="row justify-content-center">
         <div class="col-4">
-            <h1 class="text-center"> Editar Proyecto</h1>
+            <h1 class="text-center"> Editar Proyecto</h1> <!--SE PODRIA PONER AQUI EL ID - EJ: Editar Proyecto 1453-->
             <div>
-                <%String s=(String)request.getAttribute("mensaje");
-              
-                boolean u=Boolean.valueOf(s);
+                <%
+                    String s=(String)request.getAttribute("mensaje");
+                    boolean u=Boolean.valueOf(s);
                 %>
                 
+                <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
+                    int idProyecto, int idEmpresa
+                    El nombre de la funcion es modificarProyecto()
+                    Habria que hacer que para elegir empresa saliera una un desplegable con las empresas <select>
+                    con todas las <option> que seran todas las empresas que se obtienen con mostrarEmpresa
+                    Una vez modificado si se cambia el proyecto de empresa, la funcion retornara true si se ha cambiado, 
+                    hay que borrar todas las entrada de la tabla proyecto_empleado con el id del proyecto, 
+                    funcion borrarProyecto(idProyecto), SOLO si la funcion modificarProyecto retorno true, es decir,
+                    que SI se ha modificado.
+                -->
 
                 <br><br>
                 <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="editarProyecto" method="post">

@@ -36,6 +36,7 @@
             $("#nav-placeholder").load("navbarRRHH.html");
         });
     </script>
+    
     <!--end of Navigation bar-->
     <div class="row justify-content-center">
         <div class="col-4">
@@ -46,7 +47,11 @@
                 boolean u=Boolean.valueOf(s);
                 %>
                 
-
+                <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
+                    int idEmpresa, String nombre, String calle, int codigoPostal, String correo, int telefono
+                    El nombre de la funcion es modificarEmpresa()
+                -->
+    
                 <br>
                 <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="editarEmpresa" method="post">
                     <!--<label>DNI:</label><br>

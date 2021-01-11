@@ -40,16 +40,20 @@
         <div class="col-4">
             <h1 class="text-center"> Editar Empleado</h1>
             <div>
-                <%String s=(String)request.getAttribute("mensaje");
-              
-                boolean u=Boolean.valueOf(s);
+                <%
+                    String s=(String)request.getAttribute("mensaje");
+                    boolean u=Boolean.valueOf(s);
                 %>
                 
-
+                <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
+                    int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna
+                    El nombre de la funcion es modificarUsuario()
+                -->
+                
                 <br>    
                 <form id="editarEmpleado" onsubmit="alerta(<%=s%>)" action="editarEmpleado" method="post">
                     <!--<label>DNI:</label><br>
-                    <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
+                    <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>->-->
                     <label>Nombre:</label><br>
                     <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
                     <label>Apellidos:</label><br>
