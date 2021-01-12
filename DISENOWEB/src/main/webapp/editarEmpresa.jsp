@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="util.Log"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -17,6 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="./js/alertas.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
 
@@ -39,9 +41,9 @@
         <div class="col-4">
             <h1 class="text-center"> Editar Empresa </h1>
             <div>
-                <%String s=(String)request.getAttribute("mensaje");
-              
-                boolean u=Boolean.valueOf(s);
+                <%
+                    String s=(String)request.getAttribute("mensaje");
+                    boolean u=Boolean.valueOf(s);
                 %>
                 
                 <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
@@ -53,7 +55,7 @@
                 <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpresa" method="POST">
                     <!-- EN EL ID EMPRESA HAY QUE PONER EL ID SEGUN LA EMPRESA SELECCIONADA con value = idEmpresa-->
                     <label>ID Empresa:</label><br>
-                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="1023" readonly><br><br>
+                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="1" r1eadonly><br><br>
                     <label>Nombre:</label><br>
                     <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
                     <label>Dirección:</label><br>

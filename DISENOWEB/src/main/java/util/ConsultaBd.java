@@ -383,11 +383,16 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - modificarUsuario()");
             Statement s = conexion.createStatement();
-            s.executeUpdate("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
+            int codigo = s.executeUpdate("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
             +", Correo='"+ correo +"', Contrasenia='"+ contrasenna +"' where IdEmpleadoEmpresa="+ idUsuario +";");
-            Log.logBd.info("Realizada consulta - modificarUsuario()");
-            hecho = true;
             
+            //Si la consulta se ha realizado correctamente
+            if(codigo == 1){
+                hecho = true;
+                Log.logBd.info("Realizada consulta - modificarUsuario()");
+            }else{
+                Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarUsuario() - cod."+ codigo);
+            }
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarUsuario(): " + error);
             Log.logBd.error("                                 SQL State - " + error.getSQLState());
@@ -404,10 +409,16 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - modificarEmpresa()");
             Statement s = conexion.createStatement();
-            s.executeUpdate("UPDATE empresa set Nombre ='"+ nombre +"', Calle='"+ calle +"', CodigoPostal="+ codigoPostal
+            int codigo = s.executeUpdate("UPDATE empresa set Nombre ='"+ nombre +"', Calle='"+ calle +"', CodigoPostal="+ codigoPostal
             +", Correo='"+ correo +"', Telefono="+ telefono +" where IdEmpresa="+ idEmpresa +";");
-            hecho = true;
             
+            //Si la consulta se ha realizado correctamente
+            if(codigo == 1){
+                hecho = true;
+                Log.logBd.info("Realizada consulta - modificarEmpresa()");
+            }else{
+                Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarEmpresa() - cod."+ codigo);
+            }
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarEmpresa(): " + error);
             Log.logBd.error("                                 SQL State - " + error.getSQLState());
@@ -428,11 +439,15 @@ public class ConsultaBd {
             
             //Solo si la empresa a la que se quiere cambiar el proyecto es la diferente a la que esta el proyecto se modifica
             if(resultado.getInt("Empresa_IdEmpresa") != idEmpresa){
-                s.executeUpdate("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
-                hecho = true;
-                Log.logBd.info("Realizada consulta - modificarProyecto()");
+                int codigo = s.executeUpdate("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
+                //Si la consulta se ha realizado correctamente
+                if(codigo == 1){
+                    hecho = true;
+                    Log.logBd.info("Realizada consulta - modificarProyecto()");
+                }else{
+                    Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarProyecto() - cod."+ codigo);
+                }
             }
-            
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarProyecto(): " + error);
             Log.logBd.error("                                  SQL State - " + error.getSQLState());
