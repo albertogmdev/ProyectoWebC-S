@@ -77,7 +77,15 @@ vertical-center {
     box-shadow: none;
     outline: 0px;
 }
-
+btn-circle.btn-sm { 
+            width: 30px; 
+            height: 30px; 
+            padding: 6px 0px; 
+            border-radius: 15px; 
+            font-size: 8px; 
+            text-align: center; 
+        } 
+        
 /* ANIMACION DEL BOTON LOGIN*/
 .login_btn:hover{text-shadow: 0 1px 1px rgba(0,0,0,0.5);background:#D80041;color:white;}
 

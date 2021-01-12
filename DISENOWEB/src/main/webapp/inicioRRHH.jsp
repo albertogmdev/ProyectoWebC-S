@@ -30,7 +30,7 @@
     </script>
 <!--end of Navigation bar-->
 
-    <div class="container" style="padding-top: 155px"">
+    <div class="container" style="padding-top: 155px">
         
         <div class="row">
             <div class="col-md-4">
