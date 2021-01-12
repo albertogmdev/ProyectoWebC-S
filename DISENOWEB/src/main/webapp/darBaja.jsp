@@ -33,7 +33,7 @@
           <div class="col-4">  
             <h1 class="text-center"> Dar de baja </h1>
             <div class="formularioBaja">
-                <form id="bajaEmpleado" action="Prueba" method="post">
+                <form id="bajaEmpleado" action="MainContoller" method="post">
                     <label>ID:</label><br>
                     <input class="form-control" type="text" name="txtdni" id="DNI" placeholder="Introduzca ID" required><br><br>
 

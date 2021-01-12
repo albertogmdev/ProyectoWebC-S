@@ -62,8 +62,6 @@
                     Usuario u = null;
                     while (iterador.hasNext()) {
                         u = iterador.next();
-
-
                 %>
                 <tbody> <!-- cambiar para que se actualice dinamicamente -->
                     <tr>
@@ -89,10 +87,10 @@
             </table>
             <div class="col-md-12 text-right">
 
-                <button type="button" onclick="location.href='Prueba?accion=agregar';" class="btn btn-danger text-right" style="height:40px">
+                <button type="button" onclick="location.href='MainContoller?accion=agregar';" class="btn btn-danger text-right" style="height:40px">
                     Añadir
                 </button>
-                <button type="button" onclick="location.href='Prueba?accion=eliminar';" class="btn btn-danger text-right" style="height:40px">
+                <button type="button" onclick="location.href='MainContoller?accion=eliminar';" class="btn btn-danger text-right" style="height:40px">
                     Eliminar
                 </button>
                 <button type="button" onclick="";class="btn btn-danger text-right" style="height:40px">

@@ -47,7 +47,7 @@
                 
 
 
-                <form id="altaEmpleado" onsubmit="alerta(<%=s%>)" action="Prueba" method="post">
+                <form id="altaEmpleado" onsubmit="alerta(<%=s%>)" action="MainContoller" method="post">
                     <!--<label>DNI:</label><br>
                     <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
                     <label>Nombre:</label><br>

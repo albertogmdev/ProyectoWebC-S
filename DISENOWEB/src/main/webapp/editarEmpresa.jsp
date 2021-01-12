@@ -61,9 +61,9 @@
                     <label>Dirección:</label><br>
                     <input class="form-control" type="text" name="apellidos" id="apellidos" value="Probador"><br>  
                     <label>Código Postal:</label><br>
-                    <input class="form-control" type="text"  name="password" id="contraseña"  value="prueba"><br>
+                    <input class="form-control" type="text"  name="password" id="contraseña" value="prueba"><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" name="tcorreo" type="text" id="correo"  value="prueba"><br>
+                    <input class="form-control" name="tcorreo" type="text" id="correo" value="prueba"><br>
                     <label>Telefono:</label><br>
                     <input class="form-control" type="text"  name="telefono" id="telefono"  value="600000006"><br><br>
                     

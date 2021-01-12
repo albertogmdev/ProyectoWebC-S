@@ -20,8 +20,8 @@ import util.ConsultaBd;
  *
  * @author ccris
  */
-@WebServlet(name = "Prueba", urlPatterns = {"/Prueba"})
-public class Prueba extends HttpServlet {
+@WebServlet(name = "MainContoller", urlPatterns = {"/MainContoller"})
+public class MainContoller extends HttpServlet {
     String mostrarEmpleados="mostrarEmpleados.jsp";
     String mostrarEmpresas="mostrarEmpresas.jsp";
     String mostrarProyectos="mostrarProyectos.jsp";
@@ -45,10 +45,10 @@ public class Prueba extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Prueba</title>");            
+            out.println("<title>Servlet MainContoller</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Prueba at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MainContoller at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
