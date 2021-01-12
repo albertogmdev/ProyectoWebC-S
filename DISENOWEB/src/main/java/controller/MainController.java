@@ -160,8 +160,6 @@ public class MainController extends HttpServlet {
             String correo = request.getParameter("correo");
             int telefono = Integer.parseInt(request.getParameter("telefono"));
             
-            Log.logBd.info(idEmpresa + " " + nombre + " " + calle + " " + codigoPostal + " " + correo + " " + telefono);
-            
             boolean exito = consulta.modificarEmpresa(idEmpresa, nombre, calle, codigoPostal, correo, telefono);
             
             if(exito){
