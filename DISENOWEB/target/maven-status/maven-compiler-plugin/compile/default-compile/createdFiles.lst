@@ -4,7 +4,6 @@ logica\Usuario.class
 util\Log.class
 util\ConsultaBd.class
 util\Logger.class
-controller\Prueba.class
 logica\Empleado.class
 util\Pruebas.class
 com\mycompany\disenoweb\JAXRSConfiguration.class

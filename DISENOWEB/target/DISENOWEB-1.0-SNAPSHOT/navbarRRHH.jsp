@@ -16,7 +16,7 @@
             <a class="navbar-brand">Gestión de personal</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="inicioRRHH.jsp">Inicio</a>
+                    <a class="nav-link" href="./inicioRRHH.jsp">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Peticiones</a>
@@ -26,8 +26,8 @@
                       Gestionar empleados
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="darAlta.jsp">Dar de alta</a>
-                      <a class="dropdown-item" href="darBaja.jsp">Dar de baja</a>
+                      <a class="dropdown-item" href="./darAlta.jsp">Dar de alta</a>
+                      <a class="dropdown-item" href="./darBaja.jsp">Dar de baja</a>
                     </div>
                 </li>
             </ul>

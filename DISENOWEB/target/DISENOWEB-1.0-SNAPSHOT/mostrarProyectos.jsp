@@ -26,62 +26,58 @@
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
     <body style="height: 1500px; padding-top: 5rem;">
-    <div id="nav-placeholder">
-
-    </div>
-
-    <script>
-    $(function(){
-    $("#nav-placeholder").load("navbarRRHH.html");
-    });
-    </script>
-<!--end of Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+        $(function(){
+        $("#nav-placeholder").load("navbarRRHH.html");
+        });
+        </script>
+    <!--end of Navigation bar-->
         <div class="container">
-  <h2>Proyectos</h2> 
-  <br>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Empresa</th>
-        
-      </tr>
-    </thead>
-    <%
-        ConsultaBd proyecto=new ConsultaBd();
-        List<Proyecto> lista_proyectos=proyecto.mostrarProyecto();
-        Iterator<Proyecto> iterador=lista_proyectos.iterator();
-        Proyecto p=null;
-        while(iterador.hasNext()){
-            p=iterador.next();
-        
-    
-    
-    
-    %>
-    <tbody> 
-      <tr>
-        <td><%= p.getIdProyecto() %></td>
-        <td><%= p.getEmpresa().getIdEmpresa() %></td>
-        
-      </tr>
-       <% } %>
-     
-    </tbody>
-  </table>
-  <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
+            <h2>Proyectos</h2> 
+            <br>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Empresa</th>
+                    </tr>
+                </thead>
+                <%
+                    ConsultaBd proyecto=new ConsultaBd();
+                    List<Proyecto> lista_proyectos=proyecto.mostrarProyecto();
+                    Iterator<Proyecto> iterador=lista_proyectos.iterator();
+                    Proyecto p=null;
+                    while(iterador.hasNext()){
+                        p=iterador.next();
+                %>
+                <tbody> 
+                  <tr>
+                    <td><%= p.getIdProyecto() %></td>
+                    <td><%= p.getEmpresa().getIdEmpresa() %></td>
+
+                  </tr>
+                   <% } %>
+
+                </tbody>
+            </table>
+            <div class="col-md-12 text-right">
+                <a href="./editarProyecto.jsp">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px">
                     Editar
-                </button>
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Eliminar
-                </button>
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Añadir
-                </button>
-      
-      
-  </div>
-</div>
+                    </button>
+                </a>
+                <a href="">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Eliminar
+                    </button>
+                </a>
+                <a href="">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px">
+                        Añadir
+                    </button>
+                </a>
+            </div>
+        </div>
     </body>
 </html>

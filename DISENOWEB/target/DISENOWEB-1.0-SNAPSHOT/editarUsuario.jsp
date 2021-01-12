@@ -43,19 +43,20 @@
                 -->
                 
                 <br>    
-                <form id="editarEmpleado" onsubmit="alerta(<%=s%>)" action="editarEmpleado" method="post">
-                    <!--<label>DNI:</label><br>
-                    <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>->-->
+                <form id="editarEmpleado" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpleado" method="POST">
+                    <!-- EN EL ID USUSARIO HAY QUE PONER EL ID SEGUN EL USUARIO SELECCIONADO -->
+                    <label>DNI:</label><br>
+                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" placeholder="Introduzca ID" required><br><br>
                     <label>Nombre:</label><br>
                     <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
                     <label>Apellidos:</label><br>
                     <input class="form-control" type="text" name="apellidos" id="apellidos" value="Probador"><br>                    
                     <label>Telefono:</label><br>
-                    <input class="form-control" type="text"  name="telefono" id="telefono"  value="600000006"><br>
+                    <input class="form-control" type="text" name="telefono" id="telefono" value="600000006"><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" name="tcorreo" type="text" id="correo"  value="prueba"><br>
+                    <input class="form-control" type="text" name="correo" id="correo" value="prueba"><br>
                     <label>Contraseña:</label><br>
-                    <input class="form-control" type="text"  name="password" id="contraseña"  value="prueba"><br><br>
+                    <input class="form-control" type="text"  name="password" id="password"  value="prueba"><br><br>
 
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>

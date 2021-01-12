@@ -86,16 +86,21 @@
                 </tbody>
             </table>
             <div class="col-md-12 text-right">
-
-                <button type="button" onclick="location.href='MainContoller?accion=agregar';" class="btn btn-danger text-right" style="height:40px">
-                    Añadir
-                </button>
-                <button type="button" onclick="location.href='MainContoller?accion=eliminar';" class="btn btn-danger text-right" style="height:40px">
-                    Eliminar
-                </button>
-                <button type="button" onclick="";class="btn btn-danger text-right" style="height:40px">
+                <a href="./editarEmpleado.jsp">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px">
                     Editar
-                </button>
+                    </button>
+                </a>
+                <a href="">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Eliminar
+                    </button>
+                </a>
+                <a href="">
+                    <button type="button" class="btn btn-danger text-right" style="height:40px">
+                        Añadir
+                    </button>
+                </a>
             </div>
         </div>
     </body>

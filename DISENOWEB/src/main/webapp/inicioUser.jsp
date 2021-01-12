@@ -35,7 +35,7 @@
             <h2>No olvide introducir el número de horas de su jornada </h2>
             <br><br>
 
-            <a href="fichar.jsp"><button type="button" class="btn btn-danger text-right" style=" font-size: 30px; height:60px">Introducir Jornada</button></a>
+            <a href="./fichar.jsp"><button type="button" class="btn btn-danger text-right" style=" font-size: 30px; height:60px">Introducir Jornada</button></a>
         </div>
     </body>
 </html>

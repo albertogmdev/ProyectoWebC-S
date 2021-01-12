@@ -59,36 +59,37 @@
         Iterator<Empresa> iterador=lista_empresas.iterator();
         Empresa e=null;
         while(iterador.hasNext()){
-            e=iterador.next();
-        
-    
-    
-    
+            e=iterador.next();    
     %>
     <tbody> <!-- cambiar para que se actualice dinamicamente -->
-      <tr>
-        <td><%= e.getIdEmpresa() %></td>
-        <td><%= e.getNombre() %></td>
-        <td><%= e.getDireccion() %></td>
-        <td><%= e.getCodigoPostal() %></td>
-        <td><%= e.getCorreo() %></td>
-        <td><%= e.getTelefono() %></td>
-      </tr>
+        <tr>
+          <td><%= e.getIdEmpresa() %></td>
+          <td><%= e.getNombre() %></td>
+          <td><%= e.getDireccion() %></td>
+          <td><%= e.getCodigoPostal() %></td>
+          <td><%= e.getCorreo() %></td>
+          <td><%= e.getTelefono() %></td>
+        </tr>
         <% } %>
     </tbody>
   
   </table>
   <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Editar
-                </button>
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Eliminar
-                </button>
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Añadir
-                </button>
-      
+    <a href="./editarEmpresa.jsp">
+        <button type="button" class="btn btn-danger text-right" style="height:40px">
+        Editar
+        </button>
+    </a>
+    <a href="">
+        <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
+            Eliminar
+        </button>
+    </a>
+    <a href="">
+        <button type="button" class="btn btn-danger text-right" style="height:40px">
+            Añadir
+        </button>
+    </a>
   </div>
 </div>
     </body>

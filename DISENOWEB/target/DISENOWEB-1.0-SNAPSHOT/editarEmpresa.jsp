@@ -18,9 +18,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
-
-
-
         <script type="text/javascript" src="js/errores.js"/></script>
 
 
@@ -40,7 +37,7 @@
     <!--end of Navigation bar-->
     <div class="row justify-content-center">
         <div class="col-4">
-            <h1 class="text-center"> Editar Empresa</h1>
+            <h1 class="text-center"> Editar Empresa </h1>
             <div>
                 <%String s=(String)request.getAttribute("mensaje");
               
@@ -53,21 +50,21 @@
                 -->
     
                 <br>
-                <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="editarEmpresa" method="post">
-                    <!--<label>DNI:</label><br>
-                    <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
+                <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpresa" method="POST">
+                    <!-- EN EL ID EMPRESA HAY QUE PONER EL ID SEGUN LA EMPRESA SELECCIONADA con value = idEmpresa-->
+                    <label>ID Empresa:</label><br>
+                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="1023" readonly><br><br>
                     <label>Nombre:</label><br>
                     <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
                     <label>Dirección:</label><br>
-                    <input class="form-control" type="text" name="apellidos" id="apellidos" value="Probador"><br>  
+                    <input class="form-control" type="text" name="calle" id="calle" value="Probador"><br>  
                     <label>Código Postal:</label><br>
-                    <input class="form-control" type="text"  name="password" id="contraseña" value="prueba"><br>
+                    <input class="form-control" type="text"  name="codigo" id="codigo" value="prueba"><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" name="tcorreo" type="text" id="correo" value="prueba"><br>
+                    <input class="form-control" type="text" name="correo" id="correo" value="prueba"><br>
                     <label>Telefono:</label><br>
                     <input class="form-control" type="text"  name="telefono" id="telefono"  value="600000006"><br><br>
                     
-
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>
             </div>

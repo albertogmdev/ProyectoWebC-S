@@ -200,7 +200,6 @@ public class ConsultaBd {
         }
 
         Log.logBd.info("Consulta realizada con éxito - getProyecto()");
-        
         return proyecto;
     }
 
@@ -321,7 +320,7 @@ public class ConsultaBd {
             } catch (SQLException error) {
                 Log.logBd.error("ERROR SQL en darAlta(): " + error);
                 Log.logBd.error("                        SQL State - " + error.getSQLState());
-            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
+                Log.logBd.error("                        ErrorCode - " + error.getErrorCode());
             }
             
             Log.logBd.info("Consulta realizada con éxito - darAlta()");
@@ -377,38 +376,45 @@ public class ConsultaBd {
         return usuario;
     }
     
-    public void modificarUsuario(int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna){
+    public boolean modificarUsuario(int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna){
         Log.logBd.info("CONSULTA ModificarUsuario");
+        boolean hecho = false;
         try{
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - modificarUsuario()");
             Statement s = conexion.createStatement();
-            s.executeQuery("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
+            s.executeUpdate("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
             +", Correo='"+ correo +"', Contrasenia='"+ contrasenna +"' where IdEmpleadoEmpresa="+ idUsuario +";");
             Log.logBd.info("Realizada consulta - modificarUsuario()");
+            hecho = true;
             
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarUsuario(): " + error);
             Log.logBd.error("                                 SQL State - " + error.getSQLState());
             Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
         }
+        
+        return hecho;
     }
     
-    public void modificarEmpresa(int idEmpresa, String nombre, String calle, int codigoPostal, String correo, int telefono){
+    public boolean modificarEmpresa(int idEmpresa, String nombre, String calle, int codigoPostal, String correo, int telefono){
         Log.logBd.info("CONSULTA ModificarEmpresa");
+        boolean hecho = false;
         try{
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - modificarEmpresa()");
             Statement s = conexion.createStatement();
-            s.executeQuery("update empresa set Nombre ='"+ nombre +"', Calle='"+ calle +"', CodigoPostal="+ codigoPostal
+            s.executeUpdate("UPDATE empresa set Nombre ='"+ nombre +"', Calle='"+ calle +"', CodigoPostal="+ codigoPostal
             +", Correo='"+ correo +"', Telefono="+ telefono +" where IdEmpresa="+ idEmpresa +";");
-            Log.logBd.info("Realizada consulta - modificarEmpresa()");
+            hecho = true;
             
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarEmpresa(): " + error);
             Log.logBd.error("                                 SQL State - " + error.getSQLState());
             Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
         }
+        
+        return hecho;
     }
     
     public boolean modificarProyecto(int idProyecto, int idEmpresa){
@@ -422,7 +428,7 @@ public class ConsultaBd {
             
             //Solo si la empresa a la que se quiere cambiar el proyecto es la diferente a la que esta el proyecto se modifica
             if(resultado.getInt("Empresa_IdEmpresa") != idEmpresa){
-                s.executeQuery("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
+                s.executeUpdate("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
                 hecho = true;
                 Log.logBd.info("Realizada consulta - modificarProyecto()");
             }

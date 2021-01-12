@@ -16,16 +16,16 @@
             <a class="navbar-brand">Gestión de personal</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="inicioUser.jsp">Inicio</a>
+                    <a class="nav-link" href="./inicioUser.jsp">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="calendario.jsp">Calendario</a>
+                    <a class="nav-link" href="./calendario.jsp">Calendario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="fichar.jsp">Fichar</a>
+                    <a class="nav-link" href="./fichar.jsp">Fichar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="diaLibre.jsp">Solicitar dia libre</a>
+                    <a class="nav-link" href="./diaLibre.jsp">Solicitar dia libre</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

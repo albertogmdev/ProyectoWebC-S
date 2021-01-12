@@ -58,11 +58,12 @@
                 -->
 
                 <br><br>
-                <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="editarProyecto" method="post">
+                <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="MainController?action=editarProyecto" method="post">
                     <label>ID:</label><br>
                     <label>00001</label><br><br><!--id dinamico, no se puede editar-->
+                    <!-- EN EMPRESA SE PUEDE PONER UN SELECT DE VARIOS OPCIONES -->
                     <label>Empresa:</label><br>
-                    <input class="form-control" type="text" name="empresa" id="nombre" value="UAH"><br><br>
+                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="UAH"><br><br>
                
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>
