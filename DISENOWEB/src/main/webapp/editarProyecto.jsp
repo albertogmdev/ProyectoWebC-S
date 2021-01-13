@@ -33,7 +33,7 @@
 
     <script>
         $(function () {
-            $("#nav-placeholder").load("navbarRRHH.html");
+            $("#nav-placeholder").load("navbarRRHH.jsp");
         });
     </script>
     <!--end of Navigation bar-->

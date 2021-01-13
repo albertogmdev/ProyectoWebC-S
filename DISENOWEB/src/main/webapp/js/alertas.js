@@ -8,3 +8,8 @@ function alerta(mensaje){
     alert(mensaje);
 }
 
+function valorBoton(){
+    //valor = document.getElementById("empresa").value;
+    valor = document.querySelector('input[name="empresa"]:checked').value;
+    console.log("HOLAAAA " + valor);
+}
