@@ -46,6 +46,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>DNI</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
@@ -65,6 +66,9 @@
                 %>
                 <tbody> <!-- cambiar para que se actualice dinamicamente -->
                     <tr>
+                        <td>
+                        <input type="radio" name="empleado" value="empleado1"> <!-- en value poner id empleado -->
+                        </td>
                         <td><%= u.getIdUsuario()%></td>
                         <td><%= u.getNombre()%></td>
                         <td><%= u.getApellidos()%></td>

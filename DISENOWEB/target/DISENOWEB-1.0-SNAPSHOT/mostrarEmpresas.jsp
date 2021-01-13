@@ -44,6 +44,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th>ID</th>
         <th>Nombre</th>
         <th>Dirección</th>
@@ -61,8 +62,11 @@
         while(iterador.hasNext()){
             e=iterador.next();    
     %>
-    <tbody> <!-- cambiar para que se actualice dinamicamente -->
+    <tbody> 
         <tr>
+          <td>
+            <input type="radio" name="empresa" value="empresa1"> <!-- en value poner id empresa -->
+          </td>
           <td><%= e.getIdEmpresa() %></td>
           <td><%= e.getNombre() %></td>
           <td><%= e.getDireccion() %></td>

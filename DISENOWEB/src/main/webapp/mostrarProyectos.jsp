@@ -39,6 +39,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                      <th></th>
                       <th>ID</th>
                       <th>Empresa</th>
                     </tr>
@@ -53,6 +54,9 @@
                 %>
                 <tbody> 
                   <tr>
+                    <td>
+                        <input type="radio" name="proyecto" value="proyecto1"> <!-- en value poner id proyecto -->
+                    </td>
                     <td><%= p.getIdProyecto() %></td>
                     <td><%= p.getEmpresa().getIdEmpresa() %></td>
 
