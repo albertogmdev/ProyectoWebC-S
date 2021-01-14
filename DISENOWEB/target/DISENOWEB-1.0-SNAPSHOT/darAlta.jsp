@@ -47,7 +47,7 @@
                 
 
 
-                <form id="altaEmpleado" onsubmit="alerta(<%=s%>)" action="MainContoller" method="post">
+                <form id="altaEmpleado" onsubmit="alerta(<%=s%>)" action="MainController?action=altaEmpleado" method="post">
                     <!--<label>DNI:</label><br>
                     <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
                     <label>Nombre:</label><br>
@@ -57,7 +57,7 @@
                     <label>Telefono:</label><br>
                     <input class="form-control" type="text"  name="telefono" id="telefono" placeholder="Introduzca telefono" required><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" name="tcorreo" type="text" id="correo" placeholder="Introduzca correo" required><br>
+                    <input class="form-control" name="correo" type="text" id="correo" placeholder="Introduzca correo" required><br>
                     <label>Contraseña:</label><br>
                     <input class="form-control" type="text"  name="password" id="contraseña" placeholder="Introduzca contraseña" required><br><br>
 

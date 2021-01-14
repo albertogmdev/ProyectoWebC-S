@@ -17,7 +17,7 @@ public final class LoggerBd {
 
     private String nombreLog = "simplelog";
     //Directorio base del proyecto en Tomcat
-    protected String env = System.getProperty("catalina.base");
+    protected String env = System.getProperty("user.dir");
     private static File logFile;
 
     public static LoggerBd getInstance(){
@@ -53,7 +53,7 @@ public final class LoggerBd {
         LoggerBd.logFile = new File(ruta);
         try{
             if(logFile.createNewFile()){
-                System.err.println("INFO: Creacion de nuevo log");	
+                this.info("Creacion de nuevo log en "+ ruta);
             }
         }catch(IOException e){
             System.out.println("ERROR:" + e.getMessage());

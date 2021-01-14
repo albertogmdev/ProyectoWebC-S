@@ -115,7 +115,7 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         String siguientePagina = "";
         String accion = request.getParameter("action");
-        if(accion.equalsIgnoreCase("Enviar")){
+        if(accion.equalsIgnoreCase("altaEmpleado")){
             Usuario usuario = new Usuario();
             usuario = consulta.generarId(usuario);
             String nombre = request.getParameter("nombre");
