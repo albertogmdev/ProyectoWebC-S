@@ -42,6 +42,7 @@
     <div class="container">
         <h2>Empresas</h2>
         <br>
+        <form action="MainController?action=elegirEmpresa" onsubmit="valorBoton();" method="POST">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -66,7 +67,7 @@
           <tbody> 
               <tr>
                 <td>
-                  <input type="radio" id="empresa" name="empresa" value="empresa1"> <!-- en value poner id empresa -->
+                  <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>"> <!-- en value poner id empresa -->
                 </td>
                 <td><%= e.getIdEmpresa() %></td>
                 <td><%= e.getNombre() %></td>
@@ -83,11 +84,8 @@
             <%
                 HttpSession sesion = request.getSession();
             %>
-            <a href="./editarEmpresa.jsp">
-                <button type="submit" class="btn btn-danger text-right" onsubmit="valorBoton();" style="height:40px">
-                Editar
-                </button>
-            </a>
+            
+            <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
             <a href="">
                 <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
                     Eliminar
@@ -99,6 +97,7 @@
                 </button>
             </a>
         </div>
+        </form>
     </div>
     </body>
 </html>

@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logica.Empresa;
+import logica.Proyecto;
 import logica.Usuario;
 import util.ConsultaBd;
 import util.Log;
@@ -211,6 +213,20 @@ public class MainController extends HttpServlet {
             Log.log.info("INFO USUARIO - "+ usuario.getNombre());
             
         }
+        else if(accion.equalsIgnoreCase("elegirProyecto")){
+            int id = Integer.parseInt(request.getParameter("proyecto"));
+            Proyecto proyecto = consulta.getProyecto(id);
+            siguientePagina = "/editarProyecto.jsp";
+            request.setAttribute("proyecto", proyecto);
+            
+        }else if(accion.equalsIgnoreCase("elegirEmpresa")){
+            int id = Integer.parseInt(request.getParameter("empresa"));
+            Empresa empresa = consulta.getEmpresa(id);
+            siguientePagina = "/editarEmpresa.jsp";
+            request.setAttribute("empresa", empresa);
+            
+        }
+        
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);

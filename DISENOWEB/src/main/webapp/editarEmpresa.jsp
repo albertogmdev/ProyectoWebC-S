@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="logica.Empresa"%>
 <%@page import="util.Log"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -44,6 +45,7 @@
                 <%
                     String s=(String)request.getAttribute("mensaje");
                     boolean u=Boolean.valueOf(s);
+                    Empresa empresa = (Empresa)request.getAttribute("empresa");
                 %>
                 
                 <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
@@ -55,17 +57,17 @@
                 <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpresa" method="POST">
                     <!-- EN EL ID EMPRESA HAY QUE PONER EL ID SEGUN LA EMPRESA SELECCIONADA con value = idEmpresa-->
                     <label>ID Empresa:</label><br>
-                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="1" r1eadonly><br><br>
+                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="<%= empresa.getIdEmpresa() %>" readonly><br>
                     <label>Nombre:</label><br>
-                    <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="<%= empresa.getNombre()%>"><br>
                     <label>Dirección:</label><br>
-                    <input class="form-control" type="text" name="calle" id="calle" value="Probador"><br>  
+                    <input class="form-control" type="text" name="calle" id="calle" value="<%= empresa.getDireccion() %>"><br>  
                     <label>Código Postal:</label><br>
-                    <input class="form-control" type="text"  name="codigo" id="codigo" value="prueba"><br>
+                    <input class="form-control" type="text"  name="codigo" id="codigo" value="<%= empresa.getCodigoPostal() %>"><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" type="text" name="correo" id="correo" value="prueba"><br>
+                    <input class="form-control" type="text" name="correo" id="correo" value="<%= empresa.getCorreo() %>"><br>
                     <label>Telefono:</label><br>
-                    <input class="form-control" type="text"  name="telefono" id="telefono"  value="600000006"><br><br>
+                    <input class="form-control" type="text"  name="telefono" id="telefono"  value="<%= empresa.getTelefono() %>"><br>
                     
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>

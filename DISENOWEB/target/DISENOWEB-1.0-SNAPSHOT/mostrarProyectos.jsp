@@ -36,6 +36,7 @@
         <div class="container">
             <h2>Proyectos</h2> 
             <br>
+            <form action="MainController?action=elegirProyecto" method="POST">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -55,7 +56,7 @@
                 <tbody> 
                   <tr>
                     <td>
-                        <input type="radio" name="proyecto" value="proyecto1"> <!-- en value poner id proyecto -->
+                        <input type="radio" name="proyecto" value="<%= p.getIdProyecto() %>"> <!-- en value poner id proyecto -->
                     </td>
                     <td><%= p.getIdProyecto() %></td>
                     <td><%= p.getEmpresa().getIdEmpresa() %></td>
@@ -66,11 +67,7 @@
                 </tbody>
             </table>
             <div class="col-md-12 text-right">
-                <a href="./editarProyecto.jsp">
-                    <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Editar
-                    </button>
-                </a>
+                <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
                 <a href="">
                     <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
                         Eliminar
@@ -82,6 +79,8 @@
                     </button>
                 </a>
             </div>
+            </form>
+                   
         </div>
     </body>
 </html>

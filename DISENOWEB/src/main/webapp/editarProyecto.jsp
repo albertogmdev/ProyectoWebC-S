@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="logica.Proyecto"%>
 <%@page import="java.util.List"%>
 <%@page import="logica.Empresa"%>
 <%@page import="java.sql.ResultSet"%>
@@ -48,6 +49,8 @@
                 <%
                     String s=(String)request.getAttribute("mensaje");
                     boolean u=Boolean.valueOf(s);
+                    Proyecto proyecto = (Proyecto)request.getAttribute("proyecto");
+                           
                     ConsultaBd consulta = new ConsultaBd();
                     List<Empresa> empresas = consulta.mostrarEmpresa();
                 %>
@@ -66,10 +69,13 @@
                 <br><br>
                 <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="MainController?action=editarProyecto" method="post">
                     <label>ID:</label><br>
-                    <label>00001</label><br><br><!--id dinamico, no se puede editar-->
-                    <!-- EN EMPRESA SE PUEDE PONER UN SELECT DE VARIOS OPCIONES -->
-                    <label>Empresa:</label><br>
-                    <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="UAH"><br><br>
+                    <label><%= proyecto.getIdProyecto()%></label><br><br><!--id dinamico, no se puede editar-->
+                    
+                    <label>Empresa:</label><br><!--PONER SELECT con opciones de empresa -->
+                    <select class="custom-select" name="empresa">
+                          <option selected><%= proyecto.getEmpresa().getNombre() %></option>
+                            <!--AÑADIR OPCIONES RECORRIENDO list empresas -->
+                        </select><br><br>
                
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>

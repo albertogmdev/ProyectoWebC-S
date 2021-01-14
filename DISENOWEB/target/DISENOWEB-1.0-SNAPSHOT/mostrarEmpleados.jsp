@@ -67,7 +67,7 @@
                 %>
                 <tbody> <!--cuerpo de la tabla-->
                         <td>
-                        <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>"> <!--seleccionar usuario a editar -->
+                            <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required=""> <!--seleccionar usuario a editar -->
                         </td>
                         <td><%= u.getIdUsuario()%></td>
                         <td><%= u.getNombre()%></td>
@@ -92,7 +92,8 @@
                    
             <br><br>           
             <div class="col-md-12 text-right">
-                <input class="btn btn-danger float-right" type="submit" name="accion" value="Editar">
+                <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
+                
                 <a href="darBaja.jsp">
                     <button type="button" class="btn btn-danger text-right" style="height:40px">
                         Eliminar
