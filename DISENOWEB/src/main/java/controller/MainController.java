@@ -143,8 +143,8 @@ public class MainController extends HttpServlet {
         }
         else if(accion.equalsIgnoreCase("Eliminar")){
             //Usuario u = new Usuario();
-            int id=Integer.parseInt(request.getParameter("txtdni"));
-            boolean baja=consulta.darBaja(id);
+            String correo = request.getParameter("correo");
+            boolean baja=consulta.darBaja(correo);
             if(baja==true){
                siguientePagina=MOSTRAR_EMPLEADOS;
             }

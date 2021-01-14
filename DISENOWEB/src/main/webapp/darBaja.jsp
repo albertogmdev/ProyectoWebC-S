@@ -34,11 +34,11 @@
             <h1 class="text-center"> Dar de baja </h1>
             <div class="formularioBaja">
                 <form id="bajaEmpleado" action="MainContoller" method="post">
-                    <label>ID:</label><br>
-                    <input class="form-control" type="text" name="txtdni" id="DNI" placeholder="Introduzca ID" required><br><br>
+                    <label>Correo:</label><br>
+                    <input class="form-control" type="text" name="correo" id="correo" placeholder="Introduzca email" required><br><br>
 
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Eliminar" style="margin:5px;">
-                     <input class="btn btn-danger float-right" type="reset" name="accion" value="Cancelar" style="margin:5px;">
+                    <input class="btn btn-danger float-right" type="reset" name="accion" value="Cancelar" style="margin:5px;">
                     
                 </form>
             </div>

@@ -5,6 +5,7 @@
  */
 package util;
 
+import logica.Empresa;
 import logica.Usuario;
 
 /**
@@ -14,30 +15,36 @@ import logica.Usuario;
 public class Pruebas {
     public static void main(String[] args) {
         
-       /* ConsultaBd consulta = new ConsultaBd();
-        
-        Log.log.log("hola");
-        Log.logBd.log("holaBd");
-        Log.log.log("que tal estas");
-        Log.logBd.log("que tal estasBd");
-        Log.log.log("cierro");
-        Log.logBd.log("cierroBd");
-        
-        String tipo = consulta.getTipoUsuario("alicianuñez@correo.com", "1234");
-        System.out.println(tipo);
-        String tipo1 = consulta.getTipoUsuario("carmenlozano@correo.com", "5678");
-        System.out.println(tipo1);
-        String tipo2 = consulta.getTipoUsuario("1", "1234");
-        System.out.println(tipo2);
-        String tipo3 = consulta.getTipoUsuario("alicianuñez@correo.com", "1aaa234");
-        System.out.println(tipo3);*/
-      
-       Usuario u=new Usuario();
-       ConsultaBd c = new ConsultaBd();
-       u.setApellidos("asdasd");
-      System.out.println(c.getUsuario("1"));
+       ConsultaBd consulta = new ConsultaBd();
        
-        
-        
+       /*Empresa empresa = new Empresa();
+       empresa.setCodigoPostal(111111);
+       empresa.setCorreo("1111111");
+       empresa.setIdEmpresa(1111111111);
+       empresa.setNombre("111111");
+       empresa.setDireccion("1111111111");
+       empresa.setTelefono(111111111);
+       System.out.println("RESULTADO - "+ consulta.anadirEmpresa(empresa));*/
+       
+       /*Usuario usuario = new Usuario();
+       usuario.setEmail("1111111");
+       usuario.setIdUsuario(1);
+       usuario.setNombre("111111111");
+       usuario.setApellidos("1111111");
+       usuario.setTelefono(11111111);
+       usuario.setContrasenna("111111111");
+       System.out.println("RESULTADO - "+ consulta.darAlta(usuario));*/
+       
+       //System.out.println("RESULTADO - "+ consulta.modificarUsuario(11111111, "1111", "11111", 1111, "auroraguardia@correo.com", "11111"));
+       
+       //System.out.println("RESULTADO - "+ consulta.modificarProyecto(34812058, 9658));
+       
+       //System.out.println("RESULTADO - "+ consulta.borrarEmpresa(1111111111));
+       
+       //System.out.println("RESULTADO - "+ consulta.anadirProyecto(1, 9658));
+       
+       //System.out.println("RESULTADO - "+ consulta.borrarProyecto(1));
+       
+       //System.out.println("RESULTADO - "+ consulta.darBaja("arnaupujol@correo.com"));
     }
 }

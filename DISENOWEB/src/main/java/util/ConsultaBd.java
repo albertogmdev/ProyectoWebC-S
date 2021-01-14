@@ -306,43 +306,61 @@ public class ConsultaBd {
 
     public boolean darAlta(Usuario usuario) {
         Log.logBd.info("CONSULTA DarAlta");
-        if (getUsuario(usuario.getEmail()).getEmail().equalsIgnoreCase(usuario.getEmail())) {
-            return false;
-        } else {
-            try {
-                conexion = ConexionBd.getConexion();
-                Log.logBd.info("Realizada conexion - darAlta()");
-                Statement s = conexion.createStatement();
-                s.executeQuery("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + usuario.getIdUsuario() + "','" + usuario.getNombre() 
-                        + "','" + usuario.getApellidos() + "','" + usuario.getTelefono() + "','" + usuario.getEmail() + "','" + usuario.getContrasenna() +"')");
-                Log.logBd.info("Realizada consulta - darAlta()");
-                
-            } catch (SQLException error) {
-                Log.logBd.error("ERROR SQL en darAlta(): " + error);
-                Log.logBd.error("                        SQL State - " + error.getSQLState());
-                Log.logBd.error("                        ErrorCode - " + error.getErrorCode());
+        boolean hecho = false;
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - darAlta()");
+            
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select Correo from empleadoempresa");
+            List<String> listaCorreos = new ArrayList<>();
+            while(resultado.next()){
+                listaCorreos.add(resultado.getString("Correo"));
             }
             
-            Log.logBd.info("Consulta realizada con éxito - darAlta()");
-            return true;
+            //Si no existe el usuario lo damos de alta
+            if(!listaCorreos.contains(usuario.getEmail())){
+                Statement s1 = conexion.createStatement();
+                s1.executeUpdate("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + usuario.getIdUsuario() + "','" + usuario.getNombre() 
+                        + "','" + usuario.getApellidos() + "','" + usuario.getTelefono() + "','" + usuario.getEmail() + "','" + usuario.getContrasenna() +"')");
+                Log.logBd.info("Usuario correo("+ usuario.getEmail() +") dado de alta");
+                hecho = true;
+            }
+            else{
+                Log.logBd.error("Usuario correo("+ usuario.getEmail() +") ya esta dado de alta");
+            }
+
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en darAlta(): " + error);
+            Log.logBd.error("                        SQL State - " + error.getSQLState());
+            Log.logBd.error("                        ErrorCode - " + error.getErrorCode());
         }
+        
+        return hecho;
     }
 
-    public boolean darBaja(int id) {
+    public boolean darBaja(String correo) {
         boolean hecho = false;
         Log.logBd.info("CONSULTA DarBaja");
         try {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - darBaja()");
             Statement s = conexion.createStatement();
-            ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
+            ResultSet resultado = s.executeQuery("select * from EmpleadoEmpresa where Correo='"+ correo +"';");
 
-            //Si existe le damos de baja
+            //Si existe le damos de baja y borramos sus entradas en la tabla proyecto_empleado
             if(resultado.next()){
-                s.executeQuery("delete from EmpleadoEmpresa where IdEmpleadoEmpresa=" + id);
-                Log.logBd.info("Realizada consulta - darBaja()");
+                s.executeUpdate("delete from proyecto_empleado where empleado_correo='"+ correo +"';");
+                int codigo = s.executeUpdate("delete from EmpleadoEmpresa where Correo='"+ correo +"';");
+                if(codigo > 0){
+                    Log.logBd.info("Usuario correo("+ correo +") dado de baja");
+                    hecho = true;
+                }
+                else{
+                    Log.logBd.info("No se han podido borrar los proyecto del usuario correo("+ correo +")");
+                }
             }else {
-                Log.logBd.error("Usuario no existe en la BD - darBaja()");
+                Log.logBd.error("Usuario no existe en la BD");
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL en darBaja(): " + error);
@@ -384,10 +402,10 @@ public class ConsultaBd {
             Log.logBd.info("Realizada conexion - modificarUsuario()");
             Statement s = conexion.createStatement();
             int codigo = s.executeUpdate("update empleadoempresa set Nombre ='"+ nombre +"', Apellidos='"+ apellidos +"', Telefono="+ telefono
-            +", Correo='"+ correo +"', Contrasenia='"+ contrasenna +"' where IdEmpleadoEmpresa="+ idUsuario +";");
+            +", Correo='"+ correo +"', Contrasenia='"+ contrasenna +"' where Correo='"+ correo +"';");
             
             //Si la consulta se ha realizado correctamente
-            if(codigo == 1){
+            if(codigo > 0){
                 hecho = true;
                 Log.logBd.info("Realizada consulta - modificarUsuario()");
             }else{
@@ -413,7 +431,7 @@ public class ConsultaBd {
             +", Correo='"+ correo +"', Telefono="+ telefono +" where IdEmpresa="+ idEmpresa +";");
             
             //Si la consulta se ha realizado correctamente
-            if(codigo == 1){
+            if(codigo > 0){
                 hecho = true;
                 Log.logBd.info("Realizada consulta - modificarEmpresa()");
             }else{
@@ -437,16 +455,40 @@ public class ConsultaBd {
             Statement s = conexion.createStatement();
             ResultSet resultado = s.executeQuery("select Empresa_IdEmpresa from proyecto where IdProyecto="+ idProyecto +";");
             
+            //Hacemos una lista con los id de las empresas para comprobar que se elige una empresa que esta en la BD
+            Statement s1 = conexion.createStatement();
+            ResultSet resultado1 = s1.executeQuery("select Empresa_IdEmpresa from proyecto");
+            List<Integer> lista = new ArrayList<>();
+            while(resultado1.next()){
+                lista.add(resultado1.getInt("Empresa_IdEmpresa"));
+            }
+            
             //Solo si la empresa a la que se quiere cambiar el proyecto es la diferente a la que esta el proyecto se modifica
-            if(resultado.getInt("Empresa_IdEmpresa") != idEmpresa){
-                int codigo = s.executeUpdate("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
-                //Si la consulta se ha realizado correctamente
-                if(codigo == 1){
-                    hecho = true;
-                    Log.logBd.info("Realizada consulta - modificarProyecto()");
-                }else{
-                    Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarProyecto() - cod."+ codigo);
+            if(resultado.next()){
+                if(resultado.getInt("Empresa_IdEmpresa") != idEmpresa && lista.contains(idEmpresa)){
+                    int codigo = s.executeUpdate("update proyecto set Empresa_IdEmpresa="+ idEmpresa +" where IdProyecto="+ idProyecto +";");
+                    //Si la consulta se ha realizado correctamente
+                    if(codigo > 0){
+                        //Borramos las entradas de ese proyecto en la tabla proyecto empleado
+                        codigo = s.executeUpdate("delete from proyecto_empleado where proyecto_id_proyecto="+ idProyecto);
+                        if(codigo > 0){
+                            Log.logBd.info("Realizada consulta - modificarProyecto()");
+                        }
+                        else{
+                            Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarProyecto() en proyecto_empleado - filas alteradas: "+ codigo);
+                        }
+                        hecho = true;
+                    }else{
+                        Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - modificarProyecto() en proyecto - filas alteradas: "+ codigo);
+                    }
                 }
+                else{
+                    hecho = true;
+                    Log.logBd.info("La empresa id("+ idEmpresa +") ya tiene el proyecto id("+ idProyecto +") que se quiere cambiar");
+                }
+            }
+            else{
+                Log.logBd.error("Empresa id("+ idEmpresa +") no existe en la base de datos");
             }
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en modificarProyecto(): " + error);
@@ -457,19 +499,180 @@ public class ConsultaBd {
         return hecho;
     }
     
-    public void borrarProyecto(int idProyecto){
+    public boolean borrarProyecto(int idProyecto){
         Log.logBd.info("CONSULTA BorrarProyecto");
+        boolean hecho = false;
         try{
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - borrarProyecto()");
             Statement s = conexion.createStatement();
-            s.executeQuery("delete from proyecto where IdProyecto="+ idProyecto +";");
-            Log.logBd.info("Realizada consulta - borrarProyecto()");
+            Log.logBd.info("Borramos las entrada en la tabla proyecto_empleado");
+            s.executeUpdate("delete from proyecto_empleado where proyecto_id_proyecto="+ idProyecto +";");
+            
+            //Se han borrado los proyectos de la tabla proyecto_empleado y borramos el proyecto de la tabla empleado
+            int codigo = s.executeUpdate("delete from proyecto where IdProyecto="+ idProyecto +";");
+
+            if(codigo > 0){
+                hecho = true;
+                Log.logBd.info("Proyecto con id("+ idProyecto +") borrado");
+            }
+            else{
+                Log.logBd.error("No se ha podido o no se ha encontrado el proyecto id("+ idProyecto +") - borrarProyecto() en proyecto");
+            }
+
             
         } catch(SQLException error){
             Log.logBd.error("ERROR SQL en borrarProyecto(): " + error);
             Log.logBd.error("                               SQL State - " + error.getSQLState());
             Log.logBd.error("                               ErrorCode - " + error.getErrorCode());
         }
+        
+        return hecho;
+    }
+    
+    public boolean borrarEmpresa(int idEmpresa){
+        Log.logBd.info("CONSULTA BorrarEmpresa");
+        
+        boolean hecho = true;
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - borrarEmpresa()");
+            Statement s = conexion.createStatement();
+            
+            Log.logBd.info("Dando de baja los empleados de la empresa id("+ idEmpresa +")");
+            ResultSet empleados = getEmpleadoEmpresa(idEmpresa);
+            //Borramos a los usuarios de la empresa
+            while(empleados.next()){
+                String correo = empleados.getString("Correo");
+                boolean borrado = darBaja(correo);
+                if(!borrado){
+                    hecho = false;
+                }
+                else{
+                    Log.logBd.error("No se ha podido borrar el empleado correo("+ correo +")");
+                }
+            }
+            
+            Log.logBd.info("Borrando los proyectos de la empresa id("+ idEmpresa +")");
+            ResultSet proyectos = s.executeQuery("select IdProyecto from proyecto where Empresa_IdEmpresa="+ idEmpresa +";");
+            //Borramos cada uno de los proyectos
+            while(proyectos.next()){
+                int idProyecto = proyectos.getInt("IdProyecto");
+                boolean borrado = borrarProyecto(idProyecto);
+                if(!borrado){
+                    hecho = false;
+                }
+                else{
+                    Log.logBd.error("No se ha podido borrar el proyecto id("+ idProyecto +")");
+                }
+            }
+            
+            int codigo = s.executeUpdate("delete from empresa where IdEmpresa="+ idEmpresa +";");
+            //Una vez borrados los proyectos y empleados de la empresa borramos la empresa
+            if(codigo > 0){
+                Log.logBd.info("Proyecto con id("+ idEmpresa +") borrado - filas alteradas: "+ codigo);
+            }
+            else{
+                Log.logBd.error("Consulta no ha alterado la tabla o consulta errónea - borrarEmpresa()");
+                hecho = false;
+            }
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en borrarEmpresa(): " + error);
+            Log.logBd.error("                               SQL State - " + error.getSQLState());
+            Log.logBd.error("                               ErrorCode - " + error.getErrorCode());
+        }
+        
+        return hecho;
+    }
+    
+    public boolean anadirEmpresa(Empresa empresa) {
+        Log.logBd.info("CONSULTA AnadirEmpresa");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - anadirEmpresa()");
+            Statement s = conexion.createStatement();
+            
+            int codigo = s.executeUpdate("INSERT INTO empresa(IdEmpresa, Nombre, Calle, CodigoPostal, Correo, Telefono) VALUES (" + empresa.getIdEmpresa() + ",'" + empresa.getNombre()
+                    + "','" + empresa.getDireccion() + "'," + empresa.getCodigoPostal() + ",'" + empresa.getCorreo() + "'," + empresa.getTelefono() +")");
+            if(codigo > 0){
+                Log.logBd.info("Realizada consulta - anadirEmpresa()");
+            }else{
+                Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - anadirEmpresa()");
+            }
+
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en darAlta(): " + error);
+            Log.logBd.error("            SQL State - " + error.getSQLState());
+            Log.logBd.error("            ErrorCode - " + error.getErrorCode());
+        }
+        
+        return true;
+    }
+    
+    public boolean anadirProyecto(int idProyecto, int idEmpresa) {
+        boolean hecho = true;
+        Log.logBd.info("CONSULTA AnadirProyecto");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - anadirProyecto()");
+            Statement s = conexion.createStatement();
+            
+            //Hacemos una lista con los id de las empresas para comprobar que se elige una empresa que esta en la BD
+            Statement s1 = conexion.createStatement();
+            ResultSet resultado1 = s1.executeQuery("select Empresa_IdEmpresa from proyecto");
+            List<Integer> listaEmpresas = new ArrayList<>();
+            while(resultado1.next()){
+                listaEmpresas.add(resultado1.getInt("Empresa_IdEmpresa"));
+            }
+            
+            Statement s2 = conexion.createStatement();
+            ResultSet resultado2 = s2.executeQuery("select IdProyecto from proyecto");
+            List<Integer> listaProyectos = new ArrayList<>();
+            while(resultado2.next()){
+                listaProyectos.add(resultado2.getInt("IdProyecto"));
+            }
+            
+            if(listaEmpresas.contains(idEmpresa) && !listaProyectos.contains(idProyecto)){
+                int codigo = s.executeUpdate("INSERT INTO proyecto(IdProyecto, Empresa_IdEmpresa) VALUES (" + idProyecto +","+ idEmpresa +")");
+                if(codigo > 0){
+                    Log.logBd.info("Realizada consulta - anadirProyecto()");
+                }else{
+                    Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - anadirProyecto()");
+                }
+            }
+            else{
+                hecho = false;
+                Log.logBd.error("Empresa id("+ idEmpresa +") no existe o proyecto id("+ idProyecto +") duplicado en la base de datos");
+            }
+
+        } catch (SQLException error) {
+            hecho = false;
+            Log.logBd.error("ERROR SQL en anadirProyecto(): " + error);
+            Log.logBd.error("                        SQL State - " + error.getSQLState());
+            Log.logBd.error("                        ErrorCode - " + error.getErrorCode());
+        }
+
+        return hecho;
+    }
+    
+    //Retorna los empleados de una empresa
+    public ResultSet getEmpleadoEmpresa(int idEmpresa){
+        ResultSet resultado = null;
+        Log.logBd.info("CONSULTA GetEmpleadoEmpresa");
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getEmpleadoEmpresa()");
+            Statement s = conexion.createStatement();
+            resultado = s.executeQuery("SELECT distinct empleadoempresa.Correo from empleadoempresa INNER JOIN proyecto_empleado ON empleadoempresa.Correo=proyecto_empleado.empleado_correo " +
+                                        "INNER JOIN proyecto ON proyecto.IdProyecto=proyecto_empleado.proyecto_id_proyecto INNER JOIN empresa ON empresa.IdEmpresa=proyecto.Empresa_IdEmpresa " +
+                                        "WHERE empresa.IdEmpresa="+ idEmpresa +";");
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en getEmpleadoEmpresa(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        
+        return resultado;
     }
 }
