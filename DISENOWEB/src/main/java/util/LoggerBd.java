@@ -29,7 +29,7 @@ public final class LoggerBd {
         instancia.nombreLog = nombre;
         //Ponemos el directorio base diferente en funcion de si es Windows-Mac o Unix
         if(!instancia.os.startsWith("Windows")){
-            instancia.env = System.getProperty("catalina.base");
+            instancia.env = System.getProperty("catalina.base") + "/webapps";
         }else{
             instancia.env = System.getProperty("user.dir");
         }
@@ -42,7 +42,14 @@ public final class LoggerBd {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendario = Calendar.getInstance();
         
-        //Crea el directorio si no existe
+        //Creamos la carpeta logs si no existe
+        File directorioPrincipal = new File(env + "/logs");
+        if(!directorioPrincipal.exists()){
+            System.err.println("INFO: Creamos el directorio " + env);
+            directorioPrincipal.mkdir();
+        }
+        
+        //Creamos la carpeta log para agrupar los archivos en dias   
         File directorio = new File(env + "/logs/log" + dateFormat.format(calendario.getTime()));
         if(!directorio.exists()){
             System.err.println("INFO: Creamos el directorio " + env);
@@ -56,7 +63,7 @@ public final class LoggerBd {
         //Creamos el nombre del log con la hora
         nombreLog = '[' +hora + ']' + nombreLog + ".log";
         
-        String ruta = env + "\\logs\\" + directorio.getName() + "\\" + nombreLog;
+        String ruta = env + "/logs/" + directorio.getName() + "/" + nombreLog;
         LoggerBd.logFile = new File(ruta);
         try{
             if(logFile.createNewFile()){
