@@ -43,8 +43,9 @@
             <br>
             <h2>Empleados</h2> 
             <br>
+            <form action="MainController?action=elegirUsuario" method="POST">
             <table class="table table-hover">
-                <thead>
+                <thead> <!--cabecera de la tabla-->
                     <tr>
                         <th></th>
                         <th>DNI</th>
@@ -64,10 +65,9 @@
                     while (iterador.hasNext()) {
                         u = iterador.next();
                 %>
-                <tbody> <!-- cambiar para que se actualice dinamicamente -->
-                    <tr>
+                <tbody> <!--cuerpo de la tabla-->
                         <td>
-                        <input type="radio" name="empleado" value="empleado1"> <!-- en value poner id empleado -->
+                        <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>"> <!--seleccionar usuario a editar -->
                         </td>
                         <td><%= u.getIdUsuario()%></td>
                         <td><%= u.getNombre()%></td>
@@ -89,23 +89,23 @@
 
                 </tbody>
             </table>
+                   
+            <br><br>           
             <div class="col-md-12 text-right">
-                <a href="./editarUsuario.jsp">
+                <input class="btn btn-danger float-right" type="submit" name="accion" value="Editar">
+                <a href="darBaja.jsp">
                     <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Editar
-                    </button>
-                </a>
-                <a href="">
-                    <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
                         Eliminar
                     </button>
                 </a>
-                <a href="">
+                <a href="darAlta.jsp">
                     <button type="button" class="btn btn-danger text-right" style="height:40px">
                         Añadir
                     </button>
                 </a>
+            
             </div>
+            </form>
         </div>
     </body>
 </html>

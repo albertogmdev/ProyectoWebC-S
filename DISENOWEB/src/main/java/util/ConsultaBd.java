@@ -202,6 +202,37 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito - getProyecto()");
         return proyecto;
     }
+    
+    public Usuario getUsuarioById(int idEmpleadoEmpresa) {
+        Usuario usuario = new Usuario();
+        Log.logBd.info("CONSULTA getUsuarioById");
+        try {
+            conexion = ConexionBd.getConexion();
+            PreparedStatement preparedStatement = conexion.prepareStatement("select * from EmpleadoEmpresa where IdEmpleadoEmpresa = ?;");
+            preparedStatement.setInt(1, idEmpleadoEmpresa);
+            ResultSet resultado = preparedStatement.executeQuery();
+            Log.logBd.info("Realizada conexion- getUsuarioById()");
+           
+       
+             if (resultado.next()) {
+                usuario.setIdUsuario(resultado.getInt("IdEmpleadoEmpresa"));
+                usuario.setNombre(resultado.getString("Nombre"));
+                usuario.setApellidos(resultado.getString("Apellidos"));
+                usuario.setEmail(resultado.getString("Correo"));
+                usuario.setTelefono(resultado.getInt("Telefono"));
+                usuario.setContrasenna(resultado.getString("Contrasenia"));
+               
+             }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getUsuarioById(): " + error);
+            Log.logBd.error("                            SQL State - " + error.getSQLState());
+            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getUsuarioById()");
+    
+        return usuario;
+    }
 
     public List mostrarEmpleados() {
         ArrayList<Usuario> lista_empleados = new ArrayList<>();
@@ -393,6 +424,7 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito - generarId()");
         return usuario;
     }
+    
     
     public boolean modificarUsuario(int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna){
         Log.logBd.info("CONSULTA ModificarUsuario");

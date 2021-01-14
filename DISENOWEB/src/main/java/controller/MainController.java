@@ -202,6 +202,15 @@ public class MainController extends HttpServlet {
                 request.setAttribute("mensaje", "ERROR: no se ha podido modificar el proyecto.");
             }
         }
+        else if(accion.equalsIgnoreCase("elegirUsuario")){
+            int id = Integer.parseInt(request.getParameter("empleado"));
+            //int id = 1;
+            Usuario usuario = consulta.getUsuarioById(id);
+            siguientePagina = "/editarUsuario.jsp";
+            request.setAttribute("usuario", usuario);
+            Log.log.info("INFO USUARIO - "+ usuario.getNombre());
+            
+        }
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);

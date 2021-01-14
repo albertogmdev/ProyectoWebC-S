@@ -4,6 +4,7 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,7 +20,7 @@
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
 </head>
-<body style="height: 1500px; padding-top: 5rem;">
+<body>
     <div id="nav-placeholder">  </div>
 
     <script>
@@ -33,8 +34,8 @@
             <h1 class="text-center"> Editar Empleado</h1>
             <div>
                 <%
-                    String s=(String)request.getAttribute("mensaje");
-                    boolean u=Boolean.valueOf(s);
+                    Usuario usuario = (Usuario)request.getAttribute("usuario");
+                    
                 %>
                 
                 <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
@@ -42,21 +43,21 @@
                     El nombre de la funcion es modificarUsuario()
                 -->
                 
-                <br>    
-                <form id="editarEmpleado" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpleado" method="POST">
+                <br>  
+                <form id="editarEmpleado" action="MainController?action=editarEmpleado" method="POST">
                     <!-- EN EL ID USUSARIO HAY QUE PONER EL ID SEGUN EL USUARIO SELECCIONADO -->
                     <label>ID EMPLEADO:</label><br>
-                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" placeholder="Introduzca ID" required readonly><br><br>
+                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" value="<%= usuario.getIdUsuario()%>" readonly><br>
                     <label>Nombre:</label><br>
-                    <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>"><br>
                     <label>Apellidos:</label><br>
-                    <input class="form-control" type="text" name="apellidos" id="apellidos" value="Probador"><br>                    
+                    <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>"><br>                    
                     <label>Telefono:</label><br>
-                    <input class="form-control" type="text" name="telefono" id="telefono" value="600000006"><br>
+                    <input class="form-control" type="text" name="telefono" id="telefono" value="<%= usuario.getTelefono() %>"><br>
                     <label>Correo:</label><br>
-                    <input class="form-control" type="text" name="correo" id="correo" value="prueba"><br>
+                    <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>"><br>
                     <label>Contraseña:</label><br>
-                    <input class="form-control" type="text"  name="password" id="password"  value="prueba"><br><br>
+                    <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>"><br><br>
 
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>
