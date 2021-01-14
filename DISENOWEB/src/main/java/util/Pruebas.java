@@ -35,7 +35,7 @@ public class Pruebas {
        usuario.setContrasenna("111111111");
        System.out.println("RESULTADO - "+ consulta.darAlta(usuario));*/
        
-       //System.out.println("RESULTADO - "+ consulta.modificarUsuario(11111111, "1111", "11111", 1111, "auroraguardia@correo.com", "11111"));
+       System.out.println("RESULTADO - "+ consulta.modificarUsuario(11111111, "1111", "11111", 1111, "auroraguardia@correo.com", "11111"));
        
        //System.out.println("RESULTADO - "+ consulta.modificarProyecto(34812058, 9658));
        

@@ -17,7 +17,8 @@ public final class Logger {
 
     private String nombreLog = "simplelog";
     //Directorio base del proyecto en Tomcat
-    protected String env = System.getProperty("user.dir");
+    protected String env;
+    protected String os = System.getProperty("os.name");
     private static File logFile;
 
     public static Logger getInstance(){
@@ -26,6 +27,12 @@ public final class Logger {
 
     public static Logger getInstance(String nombre){
         instancia.nombreLog = nombre;
+        //Ponemos el directorio base diferente en funcion de si es Windows-Mac o Unix
+        if(!instancia.os.startsWith("Windows")){
+            instancia.env = System.getProperty("catalina.base");
+        }else{
+            instancia.env = System.getProperty("user.dir");
+        }
         instancia.crearLogFile();
         return instancia;
     }
@@ -53,6 +60,7 @@ public final class Logger {
         Logger.logFile = new File(ruta);
         try{
             if(logFile.createNewFile()){
+                this.info("Sistema Operativo - "+ os);
                 this.info("Creacion de nuevo log en "+ ruta);
             }
         }catch(IOException e){
