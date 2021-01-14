@@ -5,6 +5,10 @@
 --%>
 
 
+<%@page import="java.util.List"%>
+<%@page import="logica.Empresa"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -44,6 +48,8 @@
                 <%
                     String s=(String)request.getAttribute("mensaje");
                     boolean u=Boolean.valueOf(s);
+                    ConsultaBd consulta = new ConsultaBd();
+                    List<Empresa> empresas = consulta.mostrarEmpresa();
                 %>
                 
                 <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS

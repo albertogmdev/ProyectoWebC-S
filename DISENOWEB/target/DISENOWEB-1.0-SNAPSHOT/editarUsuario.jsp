@@ -45,8 +45,8 @@
                 <br>    
                 <form id="editarEmpleado" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpleado" method="POST">
                     <!-- EN EL ID USUSARIO HAY QUE PONER EL ID SEGUN EL USUARIO SELECCIONADO -->
-                    <label>DNI:</label><br>
-                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" placeholder="Introduzca ID" required><br><br>
+                    <label>ID EMPLEADO:</label><br>
+                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" placeholder="Introduzca ID" required readonly><br><br>
                     <label>Nombre:</label><br>
                     <input class="form-control" type="text" name="nombre" id="nombre" value="Carlos"><br>
                     <label>Apellidos:</label><br>

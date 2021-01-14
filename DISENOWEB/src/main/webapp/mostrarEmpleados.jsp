@@ -90,7 +90,7 @@
                 </tbody>
             </table>
             <div class="col-md-12 text-right">
-                <a href="./editarEmpleado.jsp">
+                <a href="./editarUsuario.jsp">
                     <button type="button" class="btn btn-danger text-right" style="height:40px">
                     Editar
                     </button>
