@@ -206,25 +206,27 @@ public class MainController extends HttpServlet {
         }
         else if(accion.equalsIgnoreCase("elegirUsuario")){
             int id = Integer.parseInt(request.getParameter("empleado"));
-            //int id = 1;
             Usuario usuario = consulta.getUsuarioById(id);
-            siguientePagina = "/editarUsuario.jsp";
-            request.setAttribute("usuario", usuario);
-            Log.log.info("INFO USUARIO - "+ usuario.getNombre());
+            siguientePagina = EDITAR_EMPLEADOS;
             
+            request.setAttribute("usuario", usuario);
+            Log.log.info("INFO USUARIO ELEGIDO - "+ usuario.getNombre());
         }
         else if(accion.equalsIgnoreCase("elegirProyecto")){
             int id = Integer.parseInt(request.getParameter("proyecto"));
             Proyecto proyecto = consulta.getProyecto(id);
-            siguientePagina = "/editarProyecto.jsp";
-            request.setAttribute("proyecto", proyecto);
+            siguientePagina = EDITAR_PROYECTOS;
             
-        }else if(accion.equalsIgnoreCase("elegirEmpresa")){
+            request.setAttribute("proyecto", proyecto);
+            Log.log.info("INFO PROYECTO ELEGIDO - "+ proyecto.getIdProyecto());
+        }
+        else if(accion.equalsIgnoreCase("elegirEmpresa")){
             int id = Integer.parseInt(request.getParameter("empresa"));
             Empresa empresa = consulta.getEmpresa(id);
-            siguientePagina = "/editarEmpresa.jsp";
-            request.setAttribute("empresa", empresa);
+            siguientePagina = EDITAR_EMPRESA;
             
+            request.setAttribute("empresa", empresa);
+            Log.log.info("INFO EMPRESA ELEGIDA - "+ empresa.getNombre());
         }
         
         

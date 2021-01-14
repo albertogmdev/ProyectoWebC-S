@@ -225,8 +225,8 @@ public class ConsultaBd {
              }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL en getUsuarioById(): " + error);
-            Log.logBd.error("                            SQL State - " + error.getSQLState());
-            Log.logBd.error("                            ErrorCode - " + error.getErrorCode());
+            Log.logBd.error("                   SQL State - " + error.getSQLState());
+            Log.logBd.error("                   ErrorCode - " + error.getErrorCode());
         }
 
         Log.logBd.info("Consulta realizada con éxito - getUsuarioById()");
