@@ -5,15 +5,13 @@ CREATE DATABASE IF NOT EXISTS base_empresa;
 #Seleccionar base de datos
 USE base_empresa;
 
-
+drop table EmpleadoRRHH;
 drop table Proyecto_Empleado;
 drop table Proyecto;
-drop table EmpleadoRRHH;
 drop table Calendario;
-drop table EmpleadoEmpresa;
 drop table DiaLibre;
+drop table EmpleadoEmpresa;
 drop table Empresa;
-
 
 #Creamos las tablas sin relaciones
 CREATE TABLE IF NOT EXISTS EmpleadoRRHH(
@@ -22,17 +20,20 @@ CREATE TABLE IF NOT EXISTS EmpleadoRRHH(
     Apellidos VARCHAR(45) NOT NULL,
     Telefono INT NOT NULL,
     Correo VARCHAR(45),
-    Contrasenia VARCHAR(45),
+    Contrasenia VARCHAR(45) CHARACTER SET BINARY,
     PRIMARY KEY(Correo)
 )ENGINE=INNODB;
 
-CREATE TABLE IF NOT EXISTS DiaLibre(
-	Fecha DATE NOT NULL,
-    Motivo VARCHAR(120),
-    Aprobado BOOL NOT NULL,
-    Tramitado BOOL NOT NULL,
-    PRIMARY KEY(Fecha)    
+CREATE TABLE IF NOT EXISTS EmpleadoEmpresa(
+	IdEmpleadoEmpresa INT NOT NULL,
+    Nombre VARCHAR(45) NOT NULL,
+    Apellidos VARCHAR(45) NOT NULL,
+    Telefono INT NOT NULL,
+    Correo VARCHAR(45),
+    Contrasenia VARCHAR(45) CHARACTER SET BINARY,
+    PRIMARY KEY(Correo)    
 )ENGINE=INNODB;
+
 
 CREATE TABLE IF NOT EXISTS Empresa(
 	IdEmpresa INT NOT NULL,
@@ -53,21 +54,6 @@ CREATE TABLE IF NOT EXISTS Proyecto(
     REFERENCES Empresa(IdEmpresa)
 )ENGINE=INNODB;
 
-CREATE TABLE IF NOT EXISTS EmpleadoEmpresa(
-	IdEmpleadoEmpresa INT NOT NULL,
-    Nombre VARCHAR(45) NOT NULL,
-    Apellidos VARCHAR(45) NOT NULL,
-    Telefono INT NOT NULL,
-    Correo VARCHAR(45),
-    Contrasenia VARCHAR(45),
-    PRIMARY KEY(Correo),
-    DiaLibre_Fecha DATE,
-    CONSTRAINT FKEmpleadoEmpresa_DiaLibre
-    FOREIGN KEY(DiaLibre_fecha)
-    REFERENCES DiaLibre(Fecha)
-    
-)ENGINE=INNODB;
-
 CREATE TABLE IF NOT EXISTS Calendario(
 	Fecha DATE NOT NULL,
     HoraEntrada TIME NOT NULL,
@@ -77,8 +63,6 @@ CREATE TABLE IF NOT EXISTS Calendario(
     FOREIGN KEY (Correo)
     REFERENCES EmpleadoEmpresa(Correo)
 )ENGINE=INNODB;
-
-
 
 CREATE TABLE IF NOT EXISTS Proyecto_Empleado(
 	Horas INT,
@@ -93,52 +77,66 @@ CREATE TABLE IF NOT EXISTS Proyecto_Empleado(
     REFERENCES Proyecto(IdProyecto)
 )ENGINE=INNODB;
 
-INSERT INTO EmpleadoEmpresa VALUES ('0000','Pruebas', 'Pruebas Pruebas','000000000','pruebaspruebas@correo.com','Pruebas',null);
+CREATE TABLE IF NOT EXISTS DiaLibre(
+	FechaInicio DATE,
+    FechaFin DATE,
+    Motivo VARCHAR(120),
+    Leido BOOL,
+    Aprobado BOOL,
+    Tramitado BOOL,
+    PRIMARY KEY(Aprobado),
+    EmpleadoEmpresa_Correo VARCHAR(45),
+    CONSTRAINT FKDiaLibre_EmpleadoEmpresa
+    FOREIGN KEY(EmpleadoEmpresa_Correo)
+    REFERENCES EmpleadoEmpresa(Correo)
+)ENGINE=INNODB;
 
-INSERT INTO EmpleadoEmpresa VALUES ('0001','Francisco', 'Cabrera Sanchez','689447451','franciscocabrera@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0002','Javier', 'Casas Vidal','784516211','javiercasas@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0003','Marcos', 'Reyes Suarez','483954961','marcosreyes@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0004','Unai', 'Soler Moreno','586614262','unaisoler@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0005','Ruben', 'Ramirez Garcia','532687752','rubenramirez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0006','Guillermo', 'Parra Iglesias','873773953','guillermoparra@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0007','Rubén', 'Lopez Vicente','563159863','rubenlopez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0008','Fernando', 'Cortes Peña','819566664','fernandocortes@correo.com','1234',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0000','Pruebas', 'Pruebas Pruebas','000000000','pruebaspruebas@correo.com','Pruebas');
 
-INSERT INTO EmpleadoEmpresa VALUES ('0009','Arnau', 'Pujol Blas','467353694','arnaupujol@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0010','Santiago', 'Pena Pastor','391454725','santiagopena@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0011','Raquel', 'Garcia Panadero','242319235','raquelgarcia@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0012','Lara', 'Gonzalez Gonzalez','228475716','laragonzalez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0013','Alicia', 'Nunez Marin','519693636','alicianunez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0014','Helena', 'Campos Fuentes','445388867','helenacampos@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0015','Berta', 'Jimenez Romero','268494237','bertajimenez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0016','Alba', 'Gil Calvo','938143228','albagil@correo.com','1234',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0001','Francisco', 'Cabrera Sanchez','689447451','franciscocabrera@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0002','Javier', 'Casas Vidal','784516211','javiercasas@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0003','Marcos', 'Reyes Suarez','483954961','marcosreyes@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0004','Unai', 'Soler Moreno','586614262','unaisoler@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0005','Ruben', 'Ramirez Garcia','532687752','rubenramirez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0006','Guillermo', 'Parra Iglesias','873773953','guillermoparra@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0007','Rubén', 'Lopez Vicente','563159863','rubenlopez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0008','Fernando', 'Cortes Peña','819566664','fernandocortes@correo.com','1234');
 
-INSERT INTO EmpleadoEmpresa VALUES ('0017','Mara', 'Sola Blanco','685258148','marasola@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0018','Miriam', 'Crespo Gomez','135631649','miriamcrespo@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0019','Candela', 'Lozano Soto','443798749','candelalozano@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0020','Emma', 'Serra Gallego','368185799','emmaserra@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0021','Nicolas', 'Gilabert de la Iglesia','533390863','nicolasgilabert@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0022','Aurora', 'Guardia Arango','501498843','auroraguardia@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0023','Rafael', 'Gabarri Seijas','226127742','rafaelgabarri@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0024','Maria Carmen', 'Cantanero Herranz','691579014','maricarmencantanero@correo.com','1234',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0009','Arnau', 'Pujol Blas','467353694','arnaupujol@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0010','Santiago', 'Pena Pastor','391454725','santiagopena@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0011','Raquel', 'Garcia Panadero','242319235','raquelgarcia@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0012','Lara', 'Gonzalez Gonzalez','228475716','laragonzalez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0013','Alicia', 'Nunez Marin','519693636','alicianunez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0014','Helena', 'Campos Fuentes','445388867','helenacampos@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0015','Berta', 'Jimenez Romero','268494237','bertajimenez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0016','Alba', 'Gil Calvo','938143228','albagil@correo.com','1234');
 
-INSERT INTO EmpleadoEmpresa VALUES ('0025','Guillermo', 'Plata Aceituno','223656754','guillermoplata@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0026','Natalia', 'Villalonga Milla','171770709','nataliavillalonga@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0027','Ricardo', 'Pinto Echevarria','731483533','ricardopinto@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0028','Yolanda', 'Conde Gea','168405118','yolandaconde@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0029','Salvador', 'Rangel Melendez','608614620','salvadorangel@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0030','Sonia', 'Portela Vaca','519684120','soniaportela@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0031','Ismael', 'Calvino Zabala','765453569','ismaelcalvino@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0032','Luisa', 'Candela Cavero','949818409','luisacandela@correo.com','1234',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0017','Mara', 'Sola Blanco','685258148','marasola@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0018','Miriam', 'Crespo Gomez','135631649','miriamcrespo@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0019','Candela', 'Lozano Soto','443798749','candelalozano@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0020','Emma', 'Serra Gallego','368185799','emmaserra@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0021','Nicolas', 'Gilabert de la Iglesia','533390863','nicolasgilabert@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0022','Aurora', 'Guardia Arango','501498843','auroraguardia@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0023','Rafael', 'Gabarri Seijas','226127742','rafaelgabarri@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0024','Maria Carmen', 'Cantanero Herranz','691579014','maricarmencantanero@correo.com','1234');
 
-INSERT INTO EmpleadoEmpresa VALUES ('0033','Ricardo', 'Macho Mas','176927422','ricardomucho@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0034','Maria', 'Solana Chaparro','601006598','mariasolana@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0035','Jose Manuel', 'Simo Feliu','765794376','josemanuelsimo@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0036','Angela', 'Goncavales Alcaniz','535475527','angelagoncavales@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0037','Hector', 'Curiel Tomas','435928947','hectorcuriel@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0038','Catalina', 'Melendez Palma','317959593','catalinamelendez@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0039','Fernando', 'Marquina Sacristan','339132454','fernandomarquina@correo.com','1234',null);
-INSERT INTO EmpleadoEmpresa VALUES ('0040','Maria Isabel', 'Justicia Pomares','477183353','mariaisabeljusticia@correo.com','1234',null);
+INSERT INTO EmpleadoEmpresa VALUES ('0025','Guillermo', 'Plata Aceituno','223656754','guillermoplata@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0026','Natalia', 'Villalonga Milla','171770709','nataliavillalonga@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0027','Ricardo', 'Pinto Echevarria','731483533','ricardopinto@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0028','Yolanda', 'Conde Gea','168405118','yolandaconde@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0029','Salvador', 'Rangel Melendez','608614620','salvadorangel@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0030','Sonia', 'Portela Vaca','519684120','soniaportela@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0031','Ismael', 'Calvino Zabala','765453569','ismaelcalvino@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0032','Luisa', 'Candela Cavero','949818409','luisacandela@correo.com','1234');
+
+INSERT INTO EmpleadoEmpresa VALUES ('0033','Ricardo', 'Macho Mas','176927422','ricardomucho@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0034','Maria', 'Solana Chaparro','601006598','mariasolana@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0035','Jose Manuel', 'Simo Feliu','765794376','josemanuelsimo@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0036','Angela', 'Goncavales Alcaniz','535475527','angelagoncavales@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0037','Hector', 'Curiel Tomas','435928947','hectorcuriel@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0038','Catalina', 'Melendez Palma','317959593','catalinamelendez@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0039','Fernando', 'Marquina Sacristan','339132454','fernandomarquina@correo.com','1234');
+INSERT INTO EmpleadoEmpresa VALUES ('0040','Maria Isabel', 'Justicia Pomares','477183353','mariaisabeljusticia@correo.com','1234');
 
 
 INSERT INTO Empresa VALUES ('1023', 'Empresa1', 'YazminVille','926', 'empresa1@correo.com','916783220');
@@ -202,7 +200,6 @@ INSERT INTO Proyecto_Empleado  VALUES (null,'121246784','fernandocortes@correo.c
 INSERT INTO Proyecto_Empleado  VALUES (null,'121246784','marcosreyes@correo.com');
 
 
-
 #Proyectos de la empresa 2 (id empresa 2376)
 INSERT INTO Proyecto_Empleado  VALUES (null,'091251940','santiagopena@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'091251940','arnaupujol@correo.com');
@@ -249,7 +246,6 @@ INSERT INTO Proyecto_Empleado  VALUES (null,'237662058','nicolasgilabert@correo.
 INSERT INTO Proyecto_Empleado  VALUES (null,'237662058','auroraguardia@correo.com');
 
 
-
 #Proyectos de la empresa 4 (id empresa 9658)
 INSERT INTO Proyecto_Empleado  VALUES (null,'334467892','guillermoplata@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'334467892','nataliavillalonga@correo.com');
@@ -274,7 +270,6 @@ INSERT INTO Proyecto_Empleado  VALUES (null,'784567822','salvadorangel@correo.co
 INSERT INTO Proyecto_Empleado  VALUES (null,'784567822','soniaportela@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'784567822','ismaelcalvino@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'784567822','luisacandela@correo.com');
-
 
 
 #Proyectos de la empresa 5 (id empresa 3458)
