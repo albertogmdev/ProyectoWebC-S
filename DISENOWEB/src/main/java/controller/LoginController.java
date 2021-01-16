@@ -60,15 +60,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String action = request.getParameter("action");
-        if (action.equalsIgnoreCase("usuarios")) {
-            Usuario usuario = consulta.getUsuario("alicianuñez@correo.com");
-            request.setAttribute("usuario", usuario);
-        }
-        
-        RequestDispatcher view = request.getRequestDispatcher("./newjsp.jsp");
-        view.forward(request, response);
     }
 
     /**

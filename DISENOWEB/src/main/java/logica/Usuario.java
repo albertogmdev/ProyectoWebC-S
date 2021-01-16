@@ -17,7 +17,7 @@ public class Usuario {
     private String apellidos;
     private int telefono;
     private String email;
-    private List<ProyectoEmpleado> proyectosList; //POSIBLEMENTE HAYA QUE INICIALIZAR
+    private List<ProyectoEmpleado> proyectosList;
 
     public int getIdUsuario() {
         return idUsuario;

@@ -28,11 +28,23 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
+    <%
+        HttpSession sesion = request.getSession();
+        //Si el usuario no tiene una sesion el redirige
+        if(sesion.getAttribute("usuarioSesion") == null){
+            response.sendRedirect("./index.jsp");
+        }
+        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //redirige a la pagina de inicio de sesion
+        else{
+            String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
+            if(nombre.equalsIgnoreCase("Usuario")){
+                response.sendRedirect("./inicioUser.jsp");
+            }
+        }
+    %>
     <body style="height: 1500px; padding-top: 5rem;">
-        <div id="nav-placeholder">
-
-        </div>
-
+        <div id="nav-placeholder"></div>
         <script>
             $(function () {
                 $("#nav-placeholder").load("navbarRRHH.jsp");
@@ -44,68 +56,65 @@
             <h2>Empleados</h2> 
             <br>
             <form action="MainController?action=elegirUsuario" method="POST">
-            <table class="table table-hover">
-                <thead> <!--cabecera de la tabla-->
-                    <tr>
-                        <th></th>
-                        <th>DNI</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Empresa</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-
-                    </tr>
-                </thead>
-                <%
-                    ConsultaBd emp = new ConsultaBd();
-                    List<Usuario> lista_empleados = emp.mostrarEmpleados();
-                    Iterator<Usuario> iterador = lista_empleados.iterator();
-                    Usuario u = null;
-                    while (iterador.hasNext()) {
-                        u = iterador.next();
-                %>
-                <tbody> <!--cuerpo de la tabla-->
-                        <td>
-                            <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required=""> <!--seleccionar usuario a editar -->
-                        </td>
-                        <td><%= u.getIdUsuario()%></td>
-                        <td><%= u.getNombre()%></td>
-                        <td><%= u.getApellidos()%></td>
-                        <%  String nombre="";
-                            Empresa empresa;
-                            empresa =u.getEmpresa();
-                            if(empresa == null){
-                                nombre = "Empleado no registrado correctamente";
-                            }else{
-                                nombre = empresa.getNombre();
-                            }
-                        %>
-                        <td><%= nombre %></td>
-                        <td><%= u.getEmail()%></td>
-                        <td><%= u.getTelefono()%></td>
-                    </tr>
-                    <% }%>
-
-                </tbody>
-            </table>
-                   
-            <br><br>           
-            <div class="col-md-12 text-right">
-                <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-                
-                <a href="darBaja.jsp">
-                    <button type="button" class="btn btn-danger text-right" style="height:40px">
-                        Eliminar
-                    </button>
-                </a>
-                <a href="darAlta.jsp">
-                    <button type="button" class="btn btn-danger text-right" style="height:40px">
-                        Añadir
-                    </button>
-                </a>
-            
-            </div>
+                <table class="table table-hover">
+                    <thead> <!--cabecera de la tabla-->
+                        <tr>
+                            <th></th>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Empresa</th>
+                            <th>Email</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </thead>
+                    <%
+                        ConsultaBd emp = new ConsultaBd();
+                        List<Usuario> lista_empleados = emp.mostrarEmpleados();
+                        Iterator<Usuario> iterador = lista_empleados.iterator();
+                        Usuario u = null;
+                        while (iterador.hasNext()) {
+                            u = iterador.next();
+                    %>
+                    <!--cuerpo de la tabla-->
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required=""> <!--seleccionar usuario a editar -->
+                            </td>
+                            <td><%= u.getIdUsuario()%></td>
+                            <td><%= u.getNombre()%></td>
+                            <td><%= u.getApellidos()%></td>
+                            <%  String nombre="";
+                                Empresa empresa;
+                                empresa =u.getEmpresa();
+                                if(empresa == null){
+                                    nombre = "Empleado no registrado correctamente";
+                                }else{
+                                    nombre = empresa.getNombre();
+                                }
+                            %>
+                            <td><%= nombre %></td>
+                            <td><%= u.getEmail()%></td>
+                            <td><%= u.getTelefono()%></td>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
+                <br><br>           
+                <div class="col-md-12 text-right">
+                    <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
+                    <a href="darBaja.jsp">
+                        <button type="button" class="btn btn-danger text-right" style="height:40px">
+                            Eliminar
+                        </button>
+                    </a>
+                    <a href="darAlta.jsp">
+                        <button type="button" class="btn btn-danger text-right" style="height:40px">
+                            Añadir
+                        </button>
+                    </a>
+                </div>
             </form>
         </div>
     </body>

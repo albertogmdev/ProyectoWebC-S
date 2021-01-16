@@ -5,7 +5,7 @@
             30
         </session-timeout>
     </session-config>
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>Ingenieros a peso</display-name>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <display-name>LoginController</display-name>
@@ -25,5 +25,15 @@
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CalendarController</servlet-name>
+        <display-name>CalendarController</display-name>
+        <description>CalendarController</description>
+        <servlet-class>controller.CalendarController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CalendarController</servlet-name>
+        <url-pattern>/CalendarController</url-pattern>
     </servlet-mapping>
 </web-app>

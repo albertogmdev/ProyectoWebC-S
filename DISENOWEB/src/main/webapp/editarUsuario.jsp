@@ -19,51 +19,56 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
-</head>
-<body>
-    <div id="nav-placeholder">  </div>
-
-    <script>
-        $(function () {
-            $("#nav-placeholder").load("navbarRRHH.html");
-        });
-    </script>
-    <!--end of Navigation bar-->
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <h1 class="text-center"> Editar Empleado</h1>
-            <div>
-                <%
-                    Usuario usuario = (Usuario)request.getAttribute("usuario");
-                    
-                %>
-                
-                <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
-                    int idUsuario, String nombre, String apellidos, int telefono, String correo, String contrasenna
-                    El nombre de la funcion es modificarUsuario()
-                -->
-                
-                <br>  
-                <form id="editarEmpleado" action="MainController?action=editarEmpleado" method="POST">
-                    <!-- EN EL ID USUSARIO HAY QUE PONER EL ID SEGUN EL USUARIO SELECCIONADO -->
-                    <label>ID EMPLEADO:</label><br>
-                    <input class="form-control" type="text" name="idUsuario" id="idUsuario" value="<%= usuario.getIdUsuario()%>" readonly><br>
-                    <label>Nombre:</label><br>
-                    <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>"><br>
-                    <label>Apellidos:</label><br>
-                    <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>"><br>                    
-                    <label>Telefono:</label><br>
-                    <input class="form-control" type="text" name="telefono" id="telefono" value="<%= usuario.getTelefono() %>"><br>
-                    <label>Correo:</label><br>
-                    <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>"><br>
-                    <label>Contraseña:</label><br>
-                    <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>"><br><br>
-
-                    <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
-                </form>
+    </head>
+    <%
+        HttpSession sesion = request.getSession();
+        //Si el usuario no tiene una sesion el redirige
+        if(sesion.getAttribute("usuarioSesion") == null){
+            response.sendRedirect("./index.jsp");
+        }
+        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //redirige a la pagina de inicio de sesion
+        else{
+            String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
+            if(nombre.equalsIgnoreCase("Usuario")){
+                response.sendRedirect("./inicioUser.jsp");
+            }
+        }
+    %>
+    <body>
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("navbarRRHH.html");
+            });
+        </script>
+        <!--end of Navigation bar-->
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h1 class="text-center"> Editar Empleado</h1>
+                <div>
+                    <%
+                        Usuario usuario = (Usuario)request.getAttribute("usuario");
+                    %>
+                    <br>  
+                    <form id="editarEmpleado" action="MainController?action=editarEmpleado" method="POST">
+                        <label>ID EMPLEADO:</label><br>
+                        <input class="form-control" type="text" name="idUsuario" id="idUsuario" value="<%= usuario.getIdUsuario()%>" readonly><br>
+                        <label>Nombre:</label><br>
+                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>"><br>
+                        <label>Apellidos:</label><br>
+                        <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>"><br>                    
+                        <label>Telefono:</label><br>
+                        <input class="form-control" type="text" name="telefono" id="telefono" value="<%= usuario.getTelefono() %>"><br>
+                        <label>Correo:</label><br>
+                        <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>"><br>
+                        <label>Contraseña:</label><br>
+                        <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>"><br><br>
+                        
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                    </form>
+                </div>
             </div>
-        </div
-    </div>
-</body>
-
+        </div>
+    </body>
 </html>

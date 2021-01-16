@@ -21,12 +21,26 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>  
+    <%
+        HttpSession sesion = request.getSession();
+        //Si el usuario no tiene una sesion el redirige
+        if(sesion.getAttribute("usuarioSesion") == null){
+            response.sendRedirect("./index.jsp");
+        }
+        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //redirige a la pagina de inicio de sesion
+        else{
+            String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
+            if(nombre.equalsIgnoreCase("Empleado")){
+                response.sendRedirect("./inicioRRHH.jsp");
+            }
+        }
+    %>
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="navUser-placeholder"></div>
-
         <script>
         $(function(){
-        $("#navUser-placeholder").load("navbarUser.jsp");
+            $("#navUser-placeholder").load("navbarUser.jsp");
         });
         </script>
         <!--end of Navigation bar-->

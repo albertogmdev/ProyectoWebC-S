@@ -28,76 +28,82 @@
         <script src="./js/alertas.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
+    <%
+        HttpSession sesion = request.getSession();
+        //Si el usuario no tiene una sesion el redirige
+        if(sesion.getAttribute("usuarioSesion") == null){
+            response.sendRedirect("./index.jsp");
+        }
+        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //redirige a la pagina de inicio de sesion
+        else{
+            String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
+            if(nombre.equalsIgnoreCase("Usuario")){
+                response.sendRedirect("./inicioUser.jsp");
+            }
+        }
+    %>
     <body style="height: 1500px; padding-top: 5rem;">
-    <div id="nav-placeholder">
-
-    </div>
-
-    <script>
-        $(function(){
-        $("#nav-placeholder").load("navbarRRHH.jsp");
-        });
-    </script>
-<!--end of Navigation bar-->
-    <div class="container">
-        <h2>Empresas</h2>
-        <br>
-        <form action="MainController?action=elegirEmpresa" onsubmit="valorBoton();" method="POST">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Dirección</th>
-              <th>Código Postal</th>
-              <th>Email</th>
-              <th>Telefono</th>
-
-            </tr>
-          </thead>
-           <%
-              ConsultaBd empresa=new ConsultaBd();
-              List<Empresa> lista_empresas=empresa.mostrarEmpresa();
-              Iterator<Empresa> iterador=lista_empresas.iterator();
-              Empresa e=null;
-              while(iterador.hasNext()){
-                  e=iterador.next();    
-          %>
-          <tbody> 
-              <tr>
-                <td>
-                  <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>"> <!-- en value poner id empresa -->
-                </td>
-                <td><%= e.getIdEmpresa() %></td>
-                <td><%= e.getNombre() %></td>
-                <td><%= e.getDireccion() %></td>
-                <td><%= e.getCodigoPostal() %></td>
-                <td><%= e.getCorreo() %></td>
-                <td><%= e.getTelefono() %></td>
-              </tr>
-              <% } %>
-          </tbody>
-
-        </table>
-        <div class="col-md-12 text-right">
-            <%
-                HttpSession sesion = request.getSession();
-            %>
-            
-            <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-            <a href="">
-                <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
-                    Eliminar
-                </button>
-            </a>
-            <a href="">
-                <button type="button" class="btn btn-danger text-right" style="height:40px">
-                    Añadir
-                </button>
-            </a>
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function(){
+            $("#nav-placeholder").load("navbarRRHH.jsp");
+            });
+        </script>
+        <!--end of Navigation bar-->
+        <div class="container">
+            <h2>Empresas</h2>
+            <br>
+            <form action="MainController?action=elegirEmpresa" onsubmit="valorBoton();" method="POST">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Código Postal</th>
+                            <th>Email</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </thead>
+                    <%
+                        ConsultaBd empresa=new ConsultaBd();
+                        List<Empresa> lista_empresas=empresa.mostrarEmpresa();
+                        Iterator<Empresa> iterador=lista_empresas.iterator();
+                        Empresa e=null;
+                        while(iterador.hasNext()){
+                            e=iterador.next();    
+                    %>
+                    <tbody> 
+                        <tr>
+                            <td>
+                              <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>"> <!-- en value poner id empresa -->
+                            </td>
+                            <td><%= e.getIdEmpresa() %></td>
+                            <td><%= e.getNombre() %></td>
+                            <td><%= e.getDireccion() %></td>
+                            <td><%= e.getCodigoPostal() %></td>
+                            <td><%= e.getCorreo() %></td>
+                            <td><%= e.getTelefono() %></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                <div class="col-md-12 text-right">
+                    <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
+                    <a href="">
+                        <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
+                            Eliminar
+                        </button>
+                    </a>
+                    <a href="">
+                        <button type="button" class="btn btn-danger text-right" style="height:40px">
+                            Añadir
+                        </button>
+                    </a>
+                </div>
+            </form>
         </div>
-        </form>
-    </div>
     </body>
 </html>
