@@ -85,6 +85,13 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasenna=" + contrasenna + ", empresa=" + empresa.getNombre() + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + ", proyectosList=" + proyectosList + '}';
+        String tostring = "";
+        if(this.empresa == null){
+            tostring = "Usuario{" + "idUsuario=" + idUsuario + ", contrasenna=" + contrasenna + ", empresa=" + "Error al crear" + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + ", proyectosList=" + proyectosList + '}';
+        }
+        else{
+            tostring = "Usuario{" + "idUsuario=" + idUsuario + ", contrasenna=" + contrasenna + ", empresa=" + empresa.getNombre() + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + ", proyectosList=" + proyectosList + '}';
+        }
+        return tostring;
     }
 }

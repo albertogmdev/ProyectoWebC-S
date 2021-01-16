@@ -82,7 +82,12 @@ public class ConsultaBd {
                 usuario.setProyectosList(lista);
                 //Todos los usuarios estan en almenos un proyecto y solo estan en una empresa, por ello,
                 //cogemos la empresa del primer proyecto en el participe el usuario
-                usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
+                if(lista.isEmpty()){
+                    Log.logBd.error("El usuario correo("+ correo +") no tiene proyectos");
+                }
+                else{
+                    usuario.setEmpresa(lista.get(0).getProyecto().getEmpresa());
+                }
             }
 
         } catch (SQLException error) {
