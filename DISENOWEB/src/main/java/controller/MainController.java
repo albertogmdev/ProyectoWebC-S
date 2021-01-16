@@ -191,8 +191,10 @@ public class MainController extends HttpServlet {
             }
         }
         else if(accion.equalsIgnoreCase("editarProyecto")){
-            int idProyecto = Integer.parseInt(request.getParameter("idUsuario"));
-            int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));    
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
+            int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+            
+            Log.log.info("Empresa seleccionada id("+ idEmpresa +")");
             
             boolean exito = consulta.modificarProyecto(idProyecto, idEmpresa);
             
@@ -218,6 +220,7 @@ public class MainController extends HttpServlet {
             siguientePagina = EDITAR_PROYECTOS;
             
             request.setAttribute("proyecto", proyecto);
+            request.setAttribute("empresas", consulta.mostrarEmpresa());
             Log.log.info("INFO PROYECTO ELEGIDO - "+ proyecto.getIdProyecto());
         }
         else if(accion.equalsIgnoreCase("elegirEmpresa")){

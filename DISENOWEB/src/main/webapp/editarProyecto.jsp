@@ -22,6 +22,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="./js/selectDinamico.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
 
 
@@ -54,29 +55,19 @@
                     ConsultaBd consulta = new ConsultaBd();
                     List<Empresa> empresas = consulta.mostrarEmpresa();
                 %>
-                
-                <!--  LA FUNCION DE EDITAR TIENE COMO PARAMETROS
-                    int idProyecto, int idEmpresa
-                    El nombre de la funcion es modificarProyecto()
-                    Habria que hacer que para elegir empresa saliera una un desplegable con las empresas <select>
-                    con todas las <option> que seran todas las empresas que se obtienen con mostrarEmpresa
-                    Una vez modificado si se cambia el proyecto de empresa, la funcion retornara true si se ha cambiado, 
-                    hay que borrar todas las entrada de la tabla proyecto_empleado con el id del proyecto, 
-                    funcion borrarProyecto(idProyecto), SOLO si la funcion modificarProyecto retorno true, es decir,
-                    que SI se ha modificado.
-                -->
 
                 <br><br>
                 <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="MainController?action=editarProyecto" method="post">
                     <label>ID:</label><br>
-                    <label><%= proyecto.getIdProyecto()%></label><br><br><!--id dinamico, no se puede editar-->
-                    
+                    <input type="text" id="idProyecto" name="idProyecto" id="idProyecto" value=<%= proyecto.getIdProyecto()%> readonly><br><br><!--id dinamico, no se puede editar-->
                     <label>Empresa:</label><br><!--PONER SELECT con opciones de empresa -->
-                    <select class="custom-select" name="empresa">
-                          <option selected><%= proyecto.getEmpresa().getNombre() %></option>
-                            <!--AÑADIR OPCIONES RECORRIENDO list empresas -->
-                        </select><br><br>
-               
+                    <select class="custom-select" name="idEmpresa" id="idEmpresa">
+                        <c:forEach items="${empresas}" var="empresas">
+                            <option value="${empresas.getIdEmpresa()}" ${empresas != null ? 'selected' : ''}>
+                                ${empresas.getNombre()}       
+                            </option>
+                        </c:forEach>
+                    </select><br><br>
                     <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                 </form>
             </div>

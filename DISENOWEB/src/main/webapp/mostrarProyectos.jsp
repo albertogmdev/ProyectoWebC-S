@@ -56,7 +56,7 @@
                 <tbody> 
                   <tr>
                     <td>
-                        <input type="radio" name="proyecto" value="<%= p.getIdProyecto() %>"> <!-- en value poner id proyecto -->
+                        <input type="radio" name="proyecto" value="<%= p.getIdProyecto() %>" required> <!-- en value poner id proyecto -->
                     </td>
                     <td><%= p.getIdProyecto() %></td>
                     <td><%= p.getEmpresa().getIdEmpresa() %></td>
