@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import logica.Empresa;
 import logica.Proyecto;
 import logica.Usuario;
@@ -117,6 +118,9 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         String siguientePagina = "";
         String accion = request.getParameter("action");
+        
+        HttpSession sesion = request.getSession();
+        
         if(accion.equalsIgnoreCase("altaEmpleado")){
             Usuario usuario = new Usuario();
             usuario = consulta.generarId(usuario);
@@ -131,27 +135,27 @@ public class MainController extends HttpServlet {
             usuario.setEmail(correo);
             usuario.setContrasenna(pass);
             boolean agregar=consulta.darAlta(usuario);
-           
-            if(agregar==false){///si el usuario ya existe tendria q salir un mensaje de error (cambiar)
-                boolean v=false;
-                request.setAttribute("mensaje", v);
-                siguientePagina=MOSTRAR_PROYECTOS;
-            }
-            else{
-                boolean v=true;
-                request.setAttribute("mensaje", v);
+            
+            if(agregar){
+                sesion.setAttribute("mensaje", "Usuario "+ usuario.getEmail() +" dado de alta correctamente");
                 siguientePagina=MOSTRAR_EMPLEADOS;
             }
+            else{
+                sesion.setAttribute("mensaje", "ERROR: No se pudo dar de alta al usuario "+ usuario.getEmail());
+                siguientePagina=DAR_ALTA;
+            }
         }
-        else if(accion.equalsIgnoreCase("Eliminar")){
-            //Usuario u = new Usuario();
+        else if(accion.equalsIgnoreCase("bajaEmpleado")){
             String correo = request.getParameter("correo");
             boolean baja=consulta.darBaja(correo);
-            if(baja==true){
-               siguientePagina=MOSTRAR_EMPLEADOS;
+            
+            if(baja){
+                sesion.setAttribute("mensaje", "Usuario "+ correo +" dado de baja correctamente");
+                siguientePagina=MOSTRAR_EMPLEADOS;
             }
-            else{///mostrar ventana (cambiar)
-               siguientePagina=MOSTRAR_PROYECTOS;
+            else{
+                sesion.setAttribute("mensaje", "ERROR: No se pudo dar de baja al usuario "+ correo);
+                siguientePagina=DAR_BAJA;
             }
         }
         else if(accion.equalsIgnoreCase("editarEmpresa")){
@@ -166,10 +170,10 @@ public class MainController extends HttpServlet {
             
             if(exito){
                 siguientePagina = MOSTRAR_EMPRESAS;
-                request.setAttribute("mensaje", "Empresa "+ idEmpresa +" modificada con éxito");
+                sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +"-"+ nombre +"modificada con éxito");
             }else{
                 siguientePagina = EDITAR_EMPRESA;
-                request.setAttribute("mensaje", "ERROR: no se ha podido modificar la empresa");
+                sesion.setAttribute("mensaje", "ERROR: No se pudo modificar la empresa "+ idEmpresa +"-"+ nombre);
             }
         }
         else if(accion.equalsIgnoreCase("editarEmpleado")){
@@ -184,10 +188,10 @@ public class MainController extends HttpServlet {
             
             if(exito){
                 siguientePagina = MOSTRAR_EMPLEADOS;
-                request.setAttribute("mensaje", "Usuario "+ idUsuario +" modificado con éxito.");
+                sesion.setAttribute("mensaje", "Usuario "+ correo +" modificado con exito.");
             }else{
                 siguientePagina = EDITAR_EMPLEADOS;
-                request.setAttribute("mensaje", "ERROR: no se ha podido modificar al usuario.");
+                sesion.setAttribute("mensaje", "ERROR: No se ha podido modificar al usuario "+ correo);
             }
         }
         else if(accion.equalsIgnoreCase("editarProyecto")){
@@ -200,10 +204,10 @@ public class MainController extends HttpServlet {
             
             if(exito){
                 siguientePagina = MOSTRAR_PROYECTOS;
-                request.setAttribute("mensaje", "Proyecto "+ idProyecto +" modificado con éxito.");
+                sesion.setAttribute("mensaje", "Proyecto "+ idProyecto +" modificado con éxito.");
             }else{
                 siguientePagina = EDITAR_PROYECTOS;
-                request.setAttribute("mensaje", "ERROR: no se ha podido modificar el proyecto.");
+                sesion.setAttribute("mensaje", "ERROR: No se ha podido modificar el proyecto "+ idProyecto);
             }
         }
         else if(accion.equalsIgnoreCase("elegirUsuario")){

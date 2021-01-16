@@ -31,12 +31,25 @@
             }
         }
     %>
+    <%
+        String mensajeAlerta = "";
+        Object objetoAlerta = sesion.getAttribute("mensaje");
+        if(objetoAlerta != null){
+            mensajeAlerta = objetoAlerta.toString();
+            sesion.setAttribute("mensaje", null);
+        }
+    %>
+    <script>
+        var mensaje = "<%=mensajeAlerta%>";
+        if(mensaje.length !== 0){
+            alert(mensaje);
+        }
+    </script>
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
-
         <script>
         $(function(){
-        $("#nav-placeholder").load("navbarRRHH.jsp");
+            $("#nav-placeholder").load("navbarRRHH.jsp");
         });
         </script>
         <!--end of Navigation bar-->
@@ -45,7 +58,7 @@
             <div class="col-4">  
                 <h1 class="text-center"> Dar de baja </h1>
                 <div class="formularioBaja">
-                    <form id="bajaEmpleado" action="MainContoller" method="post">
+                    <form id="bajaEmpleado" action="MainController?action=bajaEmpleado" method="POST">
                         <label>Correo:</label><br>
                         <input class="form-control" type="text" name="correo" id="correo" placeholder="Introduzca email" required><br><br>
 

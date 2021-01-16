@@ -30,8 +30,6 @@
                       <a class="dropdown-item" href="./darBaja.jsp">Dar de baja</a>
                     </div>
                 </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                       Solicitar Informe
@@ -42,9 +40,16 @@
                       <a class="dropdown-item" href="#">Empleado</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    Bienvenid@, <%=nombre%>.
-                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto align-middle">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <img src="./images/usuario.png" align="center" width="20" height="20">
+                    <%=nombre%>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Perfil</a>
+                    <a class="dropdown-item" href="#">Cerrar Sesion</a>
+                </div>
             </ul>
         </nav>
     </body>

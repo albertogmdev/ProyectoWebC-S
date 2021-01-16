@@ -27,6 +27,13 @@
         }
     %>
     <body>
+        <div id="nav-placeholder"></div>
+        <script>
+        $(function(){
+            $("#nav-placeholder").load("navbarUser.jsp");
+        });
+        </script>
+        <!--end of Navigation bar-->
         <br><br>
         <div class="titulo">
             <h1 class="text-center"> Solicitud de día libre </h1>
