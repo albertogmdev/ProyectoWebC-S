@@ -225,31 +225,39 @@ public class MainController extends HttpServlet {
             Log.log.info("INFO USUARIO ELEGIDO - "+ usuario.getNombre());
         }
         else if(accion.equalsIgnoreCase("elegirProyecto")){
-            int id = Integer.parseInt(request.getParameter("proyecto"));
-            Proyecto proyecto = consulta.getProyecto(id);
-            siguientePagina = EDITAR_PROYECTO;
+            int idProyecto = Integer.parseInt(request.getParameter("proyecto"));
+            Proyecto proyecto = consulta.getProyecto(idProyecto);
+            String boton = request.getParameter("boton");
+
+            if(boton.equalsIgnoreCase("editar")){
+                siguientePagina = EDITAR_PROYECTO;
+                request.setAttribute("empresas", consulta.mostrarEmpresa());
+            }
+            else if(boton.equalsIgnoreCase("eliminar")){
+                siguientePagina = ELIMINAR_PROYECTO;
+            }
+            else{
+                sesion.setAttribute("mensaje", "ERROR: Formulario no enviado correctamente accion-"+ boton +" no reconocida");
+                siguientePagina = MOSTRAR_PROYECTOS;
+            }
             
             request.setAttribute("proyecto", proyecto);
-            request.setAttribute("empresas", consulta.mostrarEmpresa());
             Log.log.info("INFO PROYECTO ELEGIDO - "+ proyecto.getIdProyecto());
         }
         else if(accion.equalsIgnoreCase("elegirEmpresa")){
-            int id = Integer.parseInt(request.getParameter("empresa"));
-            Empresa empresa = consulta.getEmpresa(id);
+            int idEmpresa = Integer.parseInt(request.getParameter("empresa"));
+            Empresa empresa = consulta.getEmpresa(idEmpresa);
             String boton = request.getParameter("boton");
-            Log.log.info("Que es esto "+ boton + empresa.toString());
             
             if(boton.equalsIgnoreCase("editar")){
-                Log.log.info("EDITAAAAAR "+ boton + id);
                 siguientePagina = EDITAR_EMPRESA;
             }
             else if(boton.equalsIgnoreCase("eliminar")){
-                Log.log.info("ELIMINAAAAR "+ boton + id);
                 siguientePagina = ELIMINAR_EMPRESA;
             }
             else{
-                Log.log.info("ERROOOOOOOR "+ boton + id);
-                siguientePagina = INICIO;
+                sesion.setAttribute("mensaje", "ERROR: Formulario no enviado correctamente accion-"+ boton +" no reconocida");
+                siguientePagina = MOSTRAR_EMPRESAS;
             }
             
             request.setAttribute("empresa", empresa);
@@ -262,10 +270,30 @@ public class MainController extends HttpServlet {
             
         }
         else if(accion.equalsIgnoreCase("eliminarProyecto")){
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
             
+            boolean borrado = consulta.borrarProyecto(idProyecto);
+            
+            if(borrado){
+                sesion.setAttribute("mensaje", "Proyecto "+ idProyecto +" eliminado con éxito.");                
+            }else{
+                sesion.setAttribute("mensaje", "ERROR: No se ha podido eliminar el proyecto "+ idProyecto);
+            }
+            
+            siguientePagina = MOSTRAR_PROYECTOS;
         }
         else if(accion.equalsIgnoreCase("eliminarEmpresa")){
+            int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
             
+            boolean borrado = consulta.borrarEmpresa(idEmpresa);
+            
+            if(borrado){
+                sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +" eliminada con éxito.");                
+            }else{
+                sesion.setAttribute("mensaje", "ERROR: No se ha podido eliminar la empresa "+ idEmpresa);
+            }
+            
+            siguientePagina = MOSTRAR_EMPRESAS;
         }
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);

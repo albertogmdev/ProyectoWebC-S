@@ -40,6 +40,22 @@
             }
         }
     %>
+    <!-- GESTION DE ALERTAS -->
+    <%
+        String mensajeAlerta = "";
+        Object objetoAlerta = sesion.getAttribute("mensaje");
+        if(objetoAlerta != null){
+            mensajeAlerta = objetoAlerta.toString();
+            sesion.setAttribute("mensaje", null);
+        }
+    %>
+    <script>
+        var mensaje = "<%=mensajeAlerta%>";
+        if(mensaje.length !== 0){
+            alert(mensaje);
+        }
+    </script>
+    <!---->
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
         <script>
@@ -51,7 +67,7 @@
         <div class="container">
             <h2>Proyectos</h2> 
             <br>
-            <form action="MainController?action=elegirProyecto" method="POST">
+            <form action="MainController?action=elegirProyecto&boton=editar" method="POST">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -80,13 +96,13 @@
                     </tbody>
                 </table>
                 <div class="col-md-12 text-right">
-                    <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-                    <a href="MainController?action=">
-                        <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
-                            Eliminar
-                        </button>
-                    </a>
-                    <a href="./anadirProyecto.jsp">
+                    <button type="submit" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Editar
+                    </button>
+                    <button type="submit" formaction="MainController?action=elegirProyecto&boton=eliminar" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Eliminar
+                    </button>
+                    <a href="anadirProyecto.jsp">
                         <button type="button" class="btn btn-danger text-right" style="height:40px">
                             Añadir
                         </button>
