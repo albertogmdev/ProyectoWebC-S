@@ -18,7 +18,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
-    <!-- GESTION DE SESIONES DEL USUARIO -->
     <%
         HttpSession sesion = request.getSession();
         //Si el usuario no tiene una sesion el redirige
@@ -36,8 +35,6 @@
             }
         }
     %>
-    <!---->
-    <!-- GESTION DE ALERTAS -->
     <%
         String mensajeAlerta = "";
         Object objetoAlerta = sesion.getAttribute("mensaje");
@@ -52,7 +49,6 @@
             alert(mensaje);
         }
     </script>
-    <!---->
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
         <script>

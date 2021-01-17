@@ -35,6 +35,20 @@
             }
         }
     %>
+    <%
+        String mensajeAlerta = "";
+        Object objetoAlerta = sesion.getAttribute("mensaje");
+        if(objetoAlerta != null){
+            mensajeAlerta = objetoAlerta.toString();
+            sesion.setAttribute("mensaje", null);
+        }
+    %>
+    <script>
+        var mensaje = "<%=mensajeAlerta%>";
+        if(mensaje.length !== 0){
+            alert(mensaje);
+        }
+    </script>
     <body>
         <div id="nav-placeholder"></div>
         <script>

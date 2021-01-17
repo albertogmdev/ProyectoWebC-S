@@ -40,7 +40,6 @@
             }
         }
     %>
-    <!-- GESTION DE ALERTAS -->
     <%
         String mensajeAlerta = "";
         Object objetoAlerta = sesion.getAttribute("mensaje");
@@ -55,7 +54,6 @@
             alert(mensaje);
         }
     </script>
-    <!---->
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
         <script>
