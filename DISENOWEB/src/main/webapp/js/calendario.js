@@ -235,7 +235,8 @@ function createCalendar(calendar, element, adjuster){
             }
             title.appendChild(a);
           }else{
-            title.innerHTML += '<a href="' + calendar.Model[n].Link + '">' + calendar.Model[n].Title + '</a>';
+            //title.innerHTML += '<a href="' + calendar.Model[n].Link + '">' + calendar.Model[n].Title + '</a>';
+            title.innerHTML += '<div class="btn btn-danger btn-block ">' + calendar.Model[n].Title + '</div>';
           }
           number.appendChild(title);
         }
