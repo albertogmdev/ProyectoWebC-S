@@ -94,7 +94,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required=""> <!--seleccionar usuario a editar -->
+                                <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required> <!--seleccionar usuario a editar -->
                             </td>
                             <td><%= u.getIdUsuario()%></td>
                             <td><%= u.getNombre()%></td>

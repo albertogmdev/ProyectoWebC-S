@@ -27,13 +27,17 @@ import util.Log;
 //@WebServlet(name = "MainController", urlPatterns = {"/MainContoller"})
 public class MainController extends HttpServlet {
     private static final String MOSTRAR_EMPLEADOS = "mostrarEmpleados.jsp";
-    private static final String EDITAR_EMPLEADOS = "editarUsuario.jsp";
-    private static final String MOSTRAR_EMPRESAS = "mostrarEmpresas.jsp";
-    private static final String EDITAR_EMPRESA = "editarEmpresa.jsp";
-    private static final String MOSTRAR_PROYECTOS = "mostrarProyectos.jsp";
-    private static final String EDITAR_PROYECTOS = "editarProyecto.jsp";
+    private static final String EDITAR_EMPLEADO = "editarUsuario.jsp";
     private static final String DAR_ALTA = "darAlta.jsp";
     private static final String DAR_BAJA = "darBaja.jsp"; 
+    private static final String MOSTRAR_EMPRESAS = "mostrarEmpresas.jsp";
+    private static final String EDITAR_EMPRESA = "editarEmpresa.jsp";
+    private static final String ANADIR_EMPRESA = "anadirEmpresa.jsp";
+    private static final String ELIMINAR_EMPRESA = "eliminarEmpresa.jsp";
+    private static final String MOSTRAR_PROYECTOS = "mostrarProyectos.jsp";
+    private static final String EDITAR_PROYECTO = "editarProyecto.jsp";
+    private static final String ANADIR_PROYECTO = "anadirProyecto.jsp";
+    private static final String ELIMINAR_PROYECTO = "eliminarProyecto.jsp";
     private static final String INICIO = "inicioRRHH.jsp";
     
     private ConsultaBd consulta = new ConsultaBd();
@@ -121,6 +125,8 @@ public class MainController extends HttpServlet {
         
         HttpSession sesion = request.getSession();
         
+        Log.log.info("ACCION "+ accion);
+        
         if(accion.equalsIgnoreCase("altaEmpleado")){
             Usuario usuario = new Usuario();
             usuario = consulta.generarId(usuario);
@@ -190,7 +196,7 @@ public class MainController extends HttpServlet {
                 siguientePagina = MOSTRAR_EMPLEADOS;
                 sesion.setAttribute("mensaje", "Usuario "+ correo +" modificado con exito.");
             }else{
-                siguientePagina = EDITAR_EMPLEADOS;
+                siguientePagina = EDITAR_EMPLEADO;
                 sesion.setAttribute("mensaje", "ERROR: No se ha podido modificar al usuario "+ correo);
             }
         }
@@ -206,14 +212,14 @@ public class MainController extends HttpServlet {
                 siguientePagina = MOSTRAR_PROYECTOS;
                 sesion.setAttribute("mensaje", "Proyecto "+ idProyecto +" modificado con éxito.");
             }else{
-                siguientePagina = EDITAR_PROYECTOS;
+                siguientePagina = EDITAR_PROYECTO;
                 sesion.setAttribute("mensaje", "ERROR: No se ha podido modificar el proyecto "+ idProyecto);
             }
         }
         else if(accion.equalsIgnoreCase("elegirUsuario")){
             int id = Integer.parseInt(request.getParameter("empleado"));
             Usuario usuario = consulta.getUsuarioById(id);
-            siguientePagina = EDITAR_EMPLEADOS;
+            siguientePagina = EDITAR_EMPLEADO;
             
             request.setAttribute("usuario", usuario);
             Log.log.info("INFO USUARIO ELEGIDO - "+ usuario.getNombre());
@@ -221,7 +227,7 @@ public class MainController extends HttpServlet {
         else if(accion.equalsIgnoreCase("elegirProyecto")){
             int id = Integer.parseInt(request.getParameter("proyecto"));
             Proyecto proyecto = consulta.getProyecto(id);
-            siguientePagina = EDITAR_PROYECTOS;
+            siguientePagina = EDITAR_PROYECTO;
             
             request.setAttribute("proyecto", proyecto);
             request.setAttribute("empresas", consulta.mostrarEmpresa());
@@ -230,7 +236,21 @@ public class MainController extends HttpServlet {
         else if(accion.equalsIgnoreCase("elegirEmpresa")){
             int id = Integer.parseInt(request.getParameter("empresa"));
             Empresa empresa = consulta.getEmpresa(id);
-            siguientePagina = EDITAR_EMPRESA;
+            String boton = request.getParameter("boton");
+            Log.log.info("Que es esto "+ boton + empresa.toString());
+            
+            if(boton.equalsIgnoreCase("editar")){
+                Log.log.info("EDITAAAAAR "+ boton + id);
+                siguientePagina = EDITAR_EMPRESA;
+            }
+            else if(boton.equalsIgnoreCase("eliminar")){
+                Log.log.info("ELIMINAAAAR "+ boton + id);
+                siguientePagina = ELIMINAR_EMPRESA;
+            }
+            else{
+                Log.log.info("ERROOOOOOOR "+ boton + id);
+                siguientePagina = INICIO;
+            }
             
             request.setAttribute("empresa", empresa);
             Log.log.info("INFO EMPRESA ELEGIDA - "+ empresa.getNombre());

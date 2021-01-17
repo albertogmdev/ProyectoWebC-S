@@ -66,7 +66,7 @@
                         <label>ID:</label><br>
                         <input type="text" id="idProyecto" name="idProyecto" id="idProyecto" value=<%= proyecto.getIdProyecto()%> readonly><br><br><!--id dinamico, no se puede editar-->
                         <label>Empresa:</label><br><!--PONER SELECT con opciones de empresa -->
-                        <select class="custom-select" name="idEmpresa" id="idEmpresa">
+                        <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
                             <c:forEach items="${empresas}" var="empresas">
                                 <option value="${empresas.getIdEmpresa()}" ${empresas != null ? 'selected' : ''}>
                                     ${empresas.getNombre()}       

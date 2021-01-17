@@ -59,15 +59,15 @@
                         <label>ID Empresa:</label><br>
                         <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="<%= empresa.getIdEmpresa() %>" readonly><br>
                         <label>Nombre:</label><br>
-                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= empresa.getNombre()%>"><br>
+                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= empresa.getNombre()%>" required><br>
                         <label>Dirección:</label><br>
-                        <input class="form-control" type="text" name="calle" id="calle" value="<%= empresa.getDireccion() %>"><br>  
+                        <input class="form-control" type="text" name="calle" id="calle" value="<%= empresa.getDireccion() %>" required><br>  
                         <label>Código Postal:</label><br>
-                        <input class="form-control" type="text"  name="codigo" id="codigo" value="<%= empresa.getCodigoPostal() %>"><br>
+                        <input class="form-control" type="text"  name="codigo" id="codigo" value="<%= empresa.getCodigoPostal() %>" required><br>
                         <label>Correo:</label><br>
-                        <input class="form-control" type="text" name="correo" id="correo" value="<%= empresa.getCorreo() %>"><br>
+                        <input class="form-control" type="text" name="correo" id="correo" value="<%= empresa.getCorreo() %>" required><br>
                         <label>Telefono:</label><br>
-                        <input class="form-control" type="text"  name="telefono" id="telefono"  value="<%= empresa.getTelefono() %>"><br>
+                        <input class="form-control" type="text"  name="telefono" id="telefono"  value="<%= empresa.getTelefono() %>" required><br>
 
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>

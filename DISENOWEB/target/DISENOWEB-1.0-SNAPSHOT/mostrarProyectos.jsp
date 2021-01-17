@@ -81,12 +81,12 @@
                 </table>
                 <div class="col-md-12 text-right">
                     <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-                    <a href="">
+                    <a href="MainController?action=">
                         <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
                             Eliminar
                         </button>
                     </a>
-                    <a href="">
+                    <a href="./anadirProyecto.jsp">
                         <button type="button" class="btn btn-danger text-right" style="height:40px">
                             Añadir
                         </button>

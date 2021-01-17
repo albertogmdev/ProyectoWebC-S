@@ -53,7 +53,7 @@
         <div class="container">
             <h2>Empresas</h2>
             <br>
-            <form action="MainController?action=elegirEmpresa" onsubmit="valorBoton();" method="POST">
+            <form action="MainController?action=elegirEmpresa&boton=editar" method="POST">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -77,7 +77,7 @@
                     <tbody> 
                         <tr>
                             <td>
-                              <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>"> <!-- en value poner id empresa -->
+                              <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>" required> <!-- en value poner id empresa -->
                             </td>
                             <td><%= e.getIdEmpresa() %></td>
                             <td><%= e.getNombre() %></td>
@@ -90,13 +90,13 @@
                     </tbody>
                 </table>
                 <div class="col-md-12 text-right">
-                    <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-                    <a href="">
-                        <button type="button" class="btn btn-danger text-right" style="height:40px" onclick="">
-                            Eliminar
-                        </button>
-                    </a>
-                    <a href="">
+                    <button type="submit" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Editar
+                    </button>
+                    <button type="submit" formaction="MainController?action=elegirEmpresa&boton=eliminar" class="btn btn-danger text-right" style="height:40px" onclick="">
+                        Eliminar
+                    </button>
+                    <a href="anadirEmpresa.jsp">
                         <button type="button" class="btn btn-danger text-right" style="height:40px">
                             Añadir
                         </button>
