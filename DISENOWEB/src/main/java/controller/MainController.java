@@ -235,7 +235,18 @@ public class MainController extends HttpServlet {
             request.setAttribute("empresa", empresa);
             Log.log.info("INFO EMPRESA ELEGIDA - "+ empresa.getNombre());
         }
-        
+        else if(accion.equalsIgnoreCase("anadirProyecto")){
+            
+        }
+        else if(accion.equalsIgnoreCase("anadirEmpresa")){
+            
+        }
+        else if(accion.equalsIgnoreCase("eliminarProyecto")){
+            
+        }
+        else if(accion.equalsIgnoreCase("eliminarEmpresa")){
+            
+        }
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
