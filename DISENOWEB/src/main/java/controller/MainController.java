@@ -311,7 +311,7 @@ public class MainController extends HttpServlet {
                 siguientePagina = MOSTRAR_EMPRESAS;
                 sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +"-"+ nombre +" añadida con éxito");
             }else{
-                siguientePagina = EDITAR_EMPRESA;
+                siguientePagina = ANADIR_EMPRESA;
                 sesion.setAttribute("mensaje", "ERROR: No se pudo modificar la empresa "+ idEmpresa +"-"+ nombre);
             }
         }

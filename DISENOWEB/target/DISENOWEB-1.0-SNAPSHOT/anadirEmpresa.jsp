@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Editar Empresa</title>
+        <title>Añadir Empresa</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -58,7 +58,7 @@
         <!--end of Navigation bar-->
         <div class="row justify-content-center">
             <div class="col-4">
-                <h1 class="text-center"> Editar Empresa </h1>
+                <h1 class="text-center"> Añadir Empresa </h1>
                 <div>
                     <br>
                     <form id="editarEmpresa"  action="MainController?action=anadirEmpresa" method="POST">
