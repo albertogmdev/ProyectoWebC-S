@@ -202,7 +202,7 @@ public class MainController extends HttpServlet {
             int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
             int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
             
-            Log.log.info("Empresa seleccionada id("+ idEmpresa +")");
+            Log.log.info("Proyecto seleccionado id("+ idEmpresa +")");
             
             boolean exito = consulta.modificarProyecto(idProyecto, idEmpresa);
             
@@ -219,6 +219,8 @@ public class MainController extends HttpServlet {
             Usuario usuario = consulta.getUsuarioById(id);
             String boton = request.getParameter("boton");
             
+            Log.log.info("Boton seleccionado nombre("+ boton +")");            
+            
             if(boton.equalsIgnoreCase("editar")){
                 siguientePagina = EDITAR_EMPLEADO;
             }
@@ -231,6 +233,8 @@ public class MainController extends HttpServlet {
         }
         else if(accion.equalsIgnoreCase("elegirProyecto")){
             String boton = request.getParameter("boton");
+            
+            Log.log.info("Boton seleccionado nombre("+ boton +")"); 
             
             if(boton.equalsIgnoreCase("anadir")){
                 request.setAttribute("empresas", consulta.mostrarEmpresa());
@@ -259,6 +263,8 @@ public class MainController extends HttpServlet {
             int idEmpresa = Integer.parseInt(request.getParameter("empresa"));
             Empresa empresa = consulta.getEmpresa(idEmpresa);
             String boton = request.getParameter("boton");
+            
+            Log.log.info("Boton seleccionado nombre("+ boton +")"); 
             
             if(boton.equalsIgnoreCase("editar")){
                 siguientePagina = EDITAR_EMPRESA;
