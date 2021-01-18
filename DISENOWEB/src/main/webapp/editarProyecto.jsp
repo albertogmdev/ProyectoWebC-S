@@ -68,15 +68,10 @@
                 <h1 class="text-center"> Editar Proyecto</h1> <!--SE PODRIA PONER AQUI EL ID - EJ: Editar Proyecto 1453-->
                 <div>
                     <%
-                        String s=(String)request.getAttribute("mensaje");
-                        boolean u=Boolean.valueOf(s);
                         Proyecto proyecto = (Proyecto)request.getAttribute("proyecto");
-
-                        ConsultaBd consulta = new ConsultaBd();
-                        List<Empresa> empresas = consulta.mostrarEmpresa();
                     %>
                     <br><br>
-                    <form id="editarProyecto" onsubmit="alerta(<%=s%>)" action="MainController?action=editarProyecto" method="post">
+                    <form id="editarProyecto" action="MainController?action=editarProyecto" method="post">
                         <label>ID:</label><br>
                         <input type="text" id="idProyecto" name="idProyecto" id="idProyecto" value=<%= proyecto.getIdProyecto()%> readonly><br><br><!--id dinamico, no se puede editar-->
                         <label>Empresa:</label><br><!--PONER SELECT con opciones de empresa -->

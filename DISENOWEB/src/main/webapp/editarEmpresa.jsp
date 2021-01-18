@@ -6,7 +6,6 @@
 
 
 <%@page import="logica.Empresa"%>
-<%@page import="util.Log"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -64,12 +63,10 @@
                 <h1 class="text-center"> Editar Empresa </h1>
                 <div>
                     <%
-                        String s=(String)request.getAttribute("mensaje");
-                        boolean u=Boolean.valueOf(s);
                         Empresa empresa = (Empresa)request.getAttribute("empresa");
                     %>
                     <br>
-                    <form id="editarEmpresa" onsubmit="alerta(<%=s%>)" action="MainController?action=editarEmpresa" method="POST">
+                    <form id="editarEmpresa"  action="MainController?action=editarEmpresa" method="POST">
                         <label>ID Empresa:</label><br>
                         <input class="form-control" type="text" name="idEmpresa" id="idEmpresa" value="<%= empresa.getIdEmpresa() %>" readonly><br>
                         <label>Nombre:</label><br>

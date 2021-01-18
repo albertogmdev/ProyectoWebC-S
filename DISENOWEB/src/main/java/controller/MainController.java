@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +21,8 @@ import util.Log;
 
 /**
  *
- * @author ccris
+ * @author Alberto
  */
-//@WebServlet(name = "MainController", urlPatterns = {"/MainContoller"})
 public class MainController extends HttpServlet {
     private static final String MOSTRAR_EMPLEADOS = "mostrarEmpleados.jsp";
     private static final String EDITAR_EMPLEADO = "editarUsuario.jsp";
@@ -157,12 +155,12 @@ public class MainController extends HttpServlet {
             
             if(baja){
                 sesion.setAttribute("mensaje", "Usuario "+ correo +" dado de baja correctamente");
-                siguientePagina=MOSTRAR_EMPLEADOS;
             }
             else{
                 sesion.setAttribute("mensaje", "ERROR: No se pudo dar de baja al usuario "+ correo);
-                siguientePagina=DAR_BAJA;
             }
+            
+            siguientePagina=MOSTRAR_EMPLEADOS;
         }
         else if(accion.equalsIgnoreCase("editarEmpresa")){
             int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
@@ -176,7 +174,7 @@ public class MainController extends HttpServlet {
             
             if(exito){
                 siguientePagina = MOSTRAR_EMPRESAS;
-                sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +"-"+ nombre +"modificada con éxito");
+                sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +"-"+ nombre +" modificada con éxito");
             }else{
                 siguientePagina = EDITAR_EMPRESA;
                 sesion.setAttribute("mensaje", "ERROR: No se pudo modificar la empresa "+ idEmpresa +"-"+ nombre);
@@ -219,30 +217,43 @@ public class MainController extends HttpServlet {
         else if(accion.equalsIgnoreCase("elegirUsuario")){
             int id = Integer.parseInt(request.getParameter("empleado"));
             Usuario usuario = consulta.getUsuarioById(id);
-            siguientePagina = EDITAR_EMPLEADO;
-            
-            request.setAttribute("usuario", usuario);
-            Log.log.info("INFO USUARIO ELEGIDO - "+ usuario.getNombre());
-        }
-        else if(accion.equalsIgnoreCase("elegirProyecto")){
-            int idProyecto = Integer.parseInt(request.getParameter("proyecto"));
-            Proyecto proyecto = consulta.getProyecto(idProyecto);
             String boton = request.getParameter("boton");
-
+            
             if(boton.equalsIgnoreCase("editar")){
-                siguientePagina = EDITAR_PROYECTO;
-                request.setAttribute("empresas", consulta.mostrarEmpresa());
+                siguientePagina = EDITAR_EMPLEADO;
             }
             else if(boton.equalsIgnoreCase("eliminar")){
-                siguientePagina = ELIMINAR_PROYECTO;
+                siguientePagina = DAR_BAJA;
+            }
+
+            request.setAttribute("usuario", usuario);
+            Log.log.info("USUARIO ELEGIDO - "+ usuario.getNombre());
+        }
+        else if(accion.equalsIgnoreCase("elegirProyecto")){
+            String boton = request.getParameter("boton");
+            
+            if(boton.equalsIgnoreCase("anadir")){
+                request.setAttribute("empresas", consulta.mostrarEmpresa());
+                siguientePagina = ANADIR_PROYECTO;
             }
             else{
-                sesion.setAttribute("mensaje", "ERROR: Formulario no enviado correctamente accion-"+ boton +" no reconocida");
-                siguientePagina = MOSTRAR_PROYECTOS;
+                int idProyecto = Integer.parseInt(request.getParameter("proyecto"));
+                Proyecto proyecto = consulta.getProyecto(idProyecto);
+                if(boton.equalsIgnoreCase("editar")){
+                    siguientePagina = EDITAR_PROYECTO;
+                    request.setAttribute("empresas", consulta.mostrarEmpresa());
+                }
+                else if(boton.equalsIgnoreCase("eliminar")){
+                    siguientePagina = ELIMINAR_PROYECTO;
+                }
+                else{
+                    sesion.setAttribute("mensaje", "ERROR: Formulario no enviado correctamente accion-"+ boton +" no reconocida");
+                    siguientePagina = MOSTRAR_PROYECTOS;
+                }
+
+                request.setAttribute("proyecto", proyecto);
+                Log.log.info("PROYECTO ELEGIDO - "+ proyecto.getIdProyecto());
             }
-            
-            request.setAttribute("proyecto", proyecto);
-            Log.log.info("INFO PROYECTO ELEGIDO - "+ proyecto.getIdProyecto());
         }
         else if(accion.equalsIgnoreCase("elegirEmpresa")){
             int idEmpresa = Integer.parseInt(request.getParameter("empresa"));
@@ -261,13 +272,42 @@ public class MainController extends HttpServlet {
             }
             
             request.setAttribute("empresa", empresa);
-            Log.log.info("INFO EMPRESA ELEGIDA - "+ empresa.getNombre());
+            Log.log.info("EMPRESA ELEGIDA - "+ empresa.getNombre());
         }
         else if(accion.equalsIgnoreCase("anadirProyecto")){
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
+            int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
             
+            boolean exito = consulta.anadirProyecto(idProyecto, idEmpresa);
+            
+            if(exito){
+                sesion.setAttribute("mensaje", "Proyecto "+ idProyecto +" añadido con éxito.");
+            }else{
+                sesion.setAttribute("mensaje", "ERROR: No se ha podido añadir el proyecto "+ idProyecto);
+            }
+            
+            siguientePagina = MOSTRAR_PROYECTOS;
         }
         else if(accion.equalsIgnoreCase("anadirEmpresa")){
+            Empresa empresa = new Empresa();
+            int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+            String nombre = request.getParameter("nombre");
+            empresa.setIdEmpresa(idEmpresa);
+            empresa.setNombre(nombre);
+            empresa.setDireccion(request.getParameter("calle"));
+            empresa.setCodigoPostal(Integer.parseInt(request.getParameter("codigo")));
+            empresa.setCorreo(request.getParameter("correo"));
+            empresa.setTelefono(Integer.parseInt(request.getParameter("telefono")));            
             
+            boolean exito = consulta.anadirEmpresa(empresa);
+            
+            if(exito){
+                siguientePagina = MOSTRAR_EMPRESAS;
+                sesion.setAttribute("mensaje", "Empresa "+ idEmpresa +"-"+ nombre +" añadida con éxito");
+            }else{
+                siguientePagina = EDITAR_EMPRESA;
+                sesion.setAttribute("mensaje", "ERROR: No se pudo modificar la empresa "+ idEmpresa +"-"+ nombre);
+            }
         }
         else if(accion.equalsIgnoreCase("eliminarProyecto")){
             int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));

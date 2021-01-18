@@ -97,16 +97,14 @@
                     <button type="submit" class="btn btn-danger text-right" style="height:40px" onclick="">
                         Editar
                     </button>
-                    <button type="submit" formaction="MainController?action=elegirProyecto&boton=eliminar" class="btn btn-danger text-right" style="height:40px" onclick="">
+                    <button type="submit" formaction="MainController?action=elegirProyecto&boton=eliminar" class="btn btn-danger text-right" style="height:40px">
                         Eliminar
                     </button>
-                    <a href="anadirProyecto.jsp">
-                        <button type="button" class="btn btn-danger text-right" style="height:40px">
-                            Añadir
-                        </button>
-                    </a>
+                    <button type="submit" formaction="MainController?action=elegirProyecto&boton=anadir" class="btn btn-danger text-right" style="height:40px" formnovalidate>
+                        Añadir
+                    </button>
                 </div>
-            </form>    
+            </form>
         </div>
     </body>
 </html>

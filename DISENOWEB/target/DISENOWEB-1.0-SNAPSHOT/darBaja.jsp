@@ -4,6 +4,7 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,16 +55,26 @@
         </script>
         <!--end of Navigation bar-->
         <br>
+        <%
+            Usuario usuario = (Usuario) request.getAttribute("usuario");
+        %>
         <div class="row justify-content-center">
             <div class="col-4">  
                 <h1 class="text-center"> Dar de baja </h1>
                 <div class="formularioBaja">
                     <form id="bajaEmpleado" action="MainController?action=bajaEmpleado" method="POST">
+                        <label>ID EMPLEADO:</label><br>
+                        <input class="form-control" type="text" name="idUsuario" id="idUsuario" value="<%= usuario.getIdUsuario()%>" readonly><br>
+                        <label>Nombre:</label><br>
+                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>" readonly><br>
+                        <label>Apellidos:</label><br>
+                        <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>" readonly><br>
                         <label>Correo:</label><br>
-                        <input class="form-control" type="text" name="correo" id="correo" placeholder="Introduzca email" required><br><br>
+                        <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>" readonly><br>
 
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Eliminar" style="margin:5px;">
-                        <input class="btn btn-danger float-right" type="reset" name="accion" value="Cancelar" style="margin:5px;">
+                        <h6 class="text-danger text-right"> Se va a dar de baja el siguiente usuario, ¿está seguro? </h6>
+                        <input class="btn btn-danger float-right" type="submit" formaction="mostrarEmpleados.jsp" name="accion" value="Cancelar" style="margin:5px;">
+                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>
                 </div>
             </div>

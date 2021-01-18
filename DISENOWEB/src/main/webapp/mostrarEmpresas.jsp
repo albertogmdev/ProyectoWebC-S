@@ -104,7 +104,7 @@
                     </tbody>
                 </table>
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-danger text-right" style="height:40px" onclick="">
+                    <button type="submit" class="btn btn-danger text-right" style="height:40px">
                         Editar
                     </button>
                     <button type="submit" formaction="MainController?action=elegirEmpresa&boton=eliminar" class="btn btn-danger text-right" style="height:40px" onclick="">

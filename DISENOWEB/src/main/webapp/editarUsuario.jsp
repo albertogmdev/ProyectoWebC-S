@@ -69,15 +69,15 @@
                         <label>ID EMPLEADO:</label><br>
                         <input class="form-control" type="text" name="idUsuario" id="idUsuario" value="<%= usuario.getIdUsuario()%>" readonly><br>
                         <label>Nombre:</label><br>
-                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>"><br>
+                        <input class="form-control" type="text" name="nombre" id="nombre" value="<%= usuario.getNombre()%>" required><br>
                         <label>Apellidos:</label><br>
-                        <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>"><br>                    
+                        <input class="form-control" type="text" name="apellidos" id="apellidos" value="<%= usuario.getApellidos()%>" required><br>                    
                         <label>Telefono:</label><br>
-                        <input class="form-control" type="text" name="telefono" id="telefono" value="<%= usuario.getTelefono() %>"><br>
+                        <input class="form-control" type="text" name="telefono" id="telefono" value="<%= usuario.getTelefono() %>" required><br>
                         <label>Correo:</label><br>
-                        <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>"><br>
+                        <input class="form-control" type="text" name="correo" id="correo" value="<%= usuario.getEmail()%>" required><br>
                         <label>Contraseña:</label><br>
-                        <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>"><br><br>
+                        <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>" required><br><br>
                         
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>

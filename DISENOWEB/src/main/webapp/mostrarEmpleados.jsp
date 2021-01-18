@@ -69,7 +69,7 @@
             <br>
             <h2>Empleados</h2> 
             <br>
-            <form action="MainController?action=elegirUsuario" method="POST">
+            <form action="MainController?action=elegirUsuario&boton=editar" method="POST">
                 <table class="table table-hover">
                     <thead> <!--cabecera de la tabla-->
                         <tr>
@@ -114,20 +114,20 @@
                         </tr>
                         <% }%>
                     </tbody>
-                </table>
-                <br><br>           
+                </table>     
                 <div class="col-md-12 text-right">
-                    <input class="btn btn-danger text-right" type="submit" name="accion" value="Editar" style="height:40px;">
-                    <a href="darBaja.jsp">
-                        <button type="button" class="btn btn-danger text-right" style="height:40px">
-                            Eliminar
-                        </button>
-                    </a>
+                    <button type="submit" class="btn btn-danger text-right" style="height:40px">
+                        Editar
+                    </button>
+                    <button type="submit" formaction="MainController?action=elegirUsuario&boton=eliminar" class="btn btn-danger text-right" style="height:40px">
+                        Eliminar
+                    </button>
                     <a href="darAlta.jsp">
                         <button type="button" class="btn btn-danger text-right" style="height:40px">
                             Añadir
                         </button>
                     </a>
+                    <br><br><br>
                 </div>
             </form>
         </div>
