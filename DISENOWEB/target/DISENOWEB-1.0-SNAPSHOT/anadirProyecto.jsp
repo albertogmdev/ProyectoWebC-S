@@ -31,7 +31,7 @@
             response.sendRedirect("./index.jsp");
         }
         //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
-        //redirige a la pagina de inicio de sesion
+        //redirige a la pagina de inicio de sesion.
         else{
             String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
             if(nombre.equalsIgnoreCase("Usuario")){
