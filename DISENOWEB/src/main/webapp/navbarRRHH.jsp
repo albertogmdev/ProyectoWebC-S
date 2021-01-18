@@ -27,7 +27,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                       <a class="dropdown-item" href="./darAlta.jsp">Dar de alta</a>
-                      <a class="dropdown-item" href="./darBaja.jsp">Dar de baja</a>
+                      <a class="dropdown-item" href="./darBajaNav.jsp">Dar de baja</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
