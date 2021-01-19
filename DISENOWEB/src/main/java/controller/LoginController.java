@@ -60,6 +60,14 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String action = request.getParameter("action");
+        HttpSession sesion = request.getSession();
+        
+        if(action.equalsIgnoreCase("cerrarSesion")){
+            sesion.invalidate();
+            response.sendRedirect("index.jsp");
+        }
     }
 
     /**

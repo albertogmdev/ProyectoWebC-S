@@ -35,7 +35,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#">Perfil</a>
-                    <a class="dropdown-item" href="#">Cerrar Sesion</a>
+                    <a class="dropdown-item" href="LoginController?action=cerrarSesion">Cerrar Sesion</a>
                 </div>
             </ul>
         </nav>
