@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center mt-3 login_container">
                                   <!--  <button type="button" name="button" id="login" class="btn login_btn">Iniciar sesion</button>!-->
-                                  <input type="submit" name="accion" value="Iniciar sesion" class="btn login_btn">
+                                  <input type="submit" name="accion" value="Iniciar sesion" class="btn login_btn" onclick="validarIndex()">
                                 </div>
                             </form>
                         </div>
