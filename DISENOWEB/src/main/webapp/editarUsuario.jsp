@@ -79,7 +79,7 @@
                         <label>Contraseña:</label><br>
                         <input class="form-control" type="text"  name="password" id="password"  value="<%= usuario.getContrasenna() %>" required><br><br>
                         
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarEditarUsuario()">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarEditarUsuario()" onclick="validarEliminarEmpresa()">
                     </form>
                 </div>
             </div>
