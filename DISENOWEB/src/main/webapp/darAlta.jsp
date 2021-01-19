@@ -78,7 +78,7 @@
                         <label>Contraseña:</label><br>
                         <input class="form-control" type="text"  name="password" id="contraseña" placeholder="Introduzca contraseña" required><br><br>
 
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Enviar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Enviar" style="margin:5px;" onclick="validarDarAlta()">
                         <input class="btn btn-danger float-right" type="reset"  name="accion" value="Borrar" style="margin:5px;">
                     </form>
                 </div>
