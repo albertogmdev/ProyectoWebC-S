@@ -69,7 +69,7 @@
                         <label>Proyecto:</label>
                         <input class="form-control" type="text" id="proyecto" placeholder="Introduzca ID proyecto" required><br><br>
 
-                        <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;" onclick="validarFichar()">
                         <input class="btn btn-danger float-right" type="reset" value="Borrar" style="margin:5px;">
                     </form>
                 </div>
