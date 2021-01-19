@@ -77,7 +77,7 @@
                                 </option>
                             </c:forEach>
                         </select><br><br>
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarAnadirProyecto()">
                     </form>
                 </div>
             </div>
