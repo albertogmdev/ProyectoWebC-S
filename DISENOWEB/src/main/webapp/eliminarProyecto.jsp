@@ -74,7 +74,7 @@
 
                         <h6 class="text-danger text-right"> Se va a eliminar el siguiente proyecto, ¿está seguro? </h6>
                         <input class="btn btn-danger float-right" type="submit" formaction="mostrarProyectos.jsp" name="accion" value="Cancelar" style="margin:5px;">
-                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validareliminarProyecto()">
                     </form>
                 </div>
             </div>
