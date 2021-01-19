@@ -66,7 +66,7 @@
                         <a href="inicioRRHH.jsp">
                             <input class="btn btn-danger float-right" type="button" name="accion" value="Cancelar" style="margin:5px;">
                         </a>
-                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarDarBajaNav()">
                     </form>
                 </div>
             </div>
