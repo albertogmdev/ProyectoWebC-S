@@ -23,6 +23,7 @@
         <script src="./js/selectDinamico.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
+        <script src="js/formValidar.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();

@@ -25,6 +25,7 @@
         <script src="./js/selectDinamico.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
+        <script src="js/formValidar.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -82,7 +83,7 @@
                                 </option>
                             </c:forEach>
                         </select><br><br>
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="return validarAnadirProyecto()">
                     </form>
                 </div>
             </div>

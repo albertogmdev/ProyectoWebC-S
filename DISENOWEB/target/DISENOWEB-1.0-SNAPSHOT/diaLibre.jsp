@@ -10,6 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="js/formValidar.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -63,7 +64,7 @@
                         <label>Motivo:</label><br>
                         <textarea class="form-control" id="motivo" rows="5" cols="50" placeholder="Mensaje (max 255car)."></textarea><br><br>
 
-                        <input class="btn btn-danger float-right" type="submit" id='enviar' name="enviar" value="Enviar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" id='enviar' name="enviar" value="Enviar" style="margin:5px;" onclick="validarDiaLibre()">
                         <input class="btn btn-danger float-right" type="reset" id='borrar' name="borrar" value="Borrar" style="margin:5px;">
                     </form>
                 </div>

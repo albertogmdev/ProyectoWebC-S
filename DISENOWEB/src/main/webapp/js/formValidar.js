@@ -2,7 +2,7 @@ function validarAnadirEmpresa() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("idEmpresa"));
+        var uno = parseInt(document.getElementById("idEmpresa"));
     } catch (error) {
         alerta += "   Los datos recibidos no son números enteros\n";
         ok = false;
@@ -22,7 +22,7 @@ function validarAnadirEmpresa() {
         ok = false;
     }
     try {
-        var uno = Integer.parseInt(document.getElementById("codigo"));
+        var uno = parseInt(document.getElementById("codigo"));
     } catch (error) {
         alerta += "  -El telefono introducido no es un numero entero\n";
         ok = false;
@@ -32,12 +32,12 @@ function validarAnadirEmpresa() {
         ok = false;
     }
 
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
+    if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
     try {
-        var uno = Integer.parseInt(document.getElementById("telefono"));
+        var uno = parseInt(document.getElementById("telefono"));
     } catch (error) {
         alerta += "  -El telefono introducido no es un numero entero\n";
         ok = false;
@@ -50,13 +50,15 @@ function validarAnadirEmpresa() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarAnadirProyecto() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("idProyecto"));
+        var uno = parseInt(document.getElementById("idProyecto"));
     } catch (error) {
         alerta += "   Los datos recibidos de idProyecto no son números enteros\n";
         ok = false;
@@ -68,7 +70,7 @@ function validarAnadirProyecto() {
     }
     
     try {
-        var uno = Integer.parseInt(document.getElementById("idEmpresa"));
+        var uno = parseInt(document.getElementById("idEmpresa"));
     } catch (error) {
         alerta += "   Los datos recibidos de idEmpresa no son números enteros\n";
         ok = false;
@@ -82,6 +84,8 @@ function validarAnadirProyecto() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarDarAlta() {
@@ -96,7 +100,7 @@ function validarDarAlta() {
         ok = false;
     }
     try {
-        var uno = Integer.parseInt(document.getElementById("telefono"));
+        var uno = parseInt(telefono.value);
     } catch (error) {
         alerta += "  -El telefono introducido no es un numero entero\n";
         ok = false;
@@ -105,8 +109,8 @@ function validarDarAlta() {
         alerta += "  -Telefono demasiado largo\n";
         ok = false;
     }
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
-        alerta += "  -Correo invalido(demasiado largo o incorrecto)\n";
+    if(!validarEmail(correo.value) || !validarLongitud(correo.value,45)){
+        alerta += "  -Correo invalido (demasiado largo o formato incorrecto)\n";
         ok = false;
     }
     if(!validarLongitud(document.getElementById("contraseña").value,45)){
@@ -114,15 +118,17 @@ function validarDarAlta() {
         ok = false;
     }
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += nombre.value + apellidos.value +"dado de alta correctamente"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarDarBaja() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("idUsuario"));
+        var uno = parseInt(document.getElementById("idUsuario"));
     } catch (error) {
         alerta += "   Los datos recibidos no son números enteros\n";
         ok = false;
@@ -140,20 +146,22 @@ function validarDarBaja() {
         alerta += "  Apellidos demasiado largos\n";
         ok = false;
     }
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
+    if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += correo.value + "dado de baja correctamente."
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarDarBajaNav() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
+    if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
@@ -181,7 +189,7 @@ function validarEditarUsuario() {
     var ok = true;
 
     try {
-        var uno = Integer.parseInt(document.getElementById("idUsuario"));
+        var uno = parseInt(document.getElementById("idUsuario"));
     } catch (error) {
         alerta += "  -El Id introducido no es un numero entero\n";
         ok = false;
@@ -202,7 +210,7 @@ function validarEditarUsuario() {
     }
 
     try {
-        var uno = Integer.parseInt(document.getElementById("telefono"));
+        var uno = parseInt(document.getElementById("telefono"));
     } catch (error) {
         alerta += "  -El telefono introducido no es un numero entero\n";
         ok = false;
@@ -213,7 +221,7 @@ function validarEditarUsuario() {
         ok = false;
     }
 
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
+    if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  -Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
@@ -232,7 +240,7 @@ function validarEliminarEmpresa() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("idEmpresa"));
+        var uno = parseInt(document.getElementById("idEmpresa"));
     } catch (error) {
         alerta += "   Los datos recibidos no son números enteros\n";
         ok = false;
@@ -247,12 +255,12 @@ function validarEliminarEmpresa() {
         ok = false;
     }
 
-    if(!validarEmail(document.getElementById("correo").value) && !validarLongitud(document.getElementById("correo").value,45)){
+    if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
     try {
-        var uno = Integer.parseInt(document.getElementById("telefono"));
+        var uno = parseInt(document.getElementById("telefono"));
     } catch (error) {
         alerta += "  -El telefono introducido no es un numero entero\n";
         ok = false;
@@ -265,6 +273,8 @@ function validarEliminarEmpresa() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 
@@ -272,7 +282,7 @@ function validareliminarProyecto() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("idProyecto"));
+        var uno = parseInt(document.getElementById("idProyecto"));
     } catch (error) {
         alerta += "   Los datos recibidos de idProyecto no son números enteros\n";
         ok = false;
@@ -291,13 +301,15 @@ function validareliminarProyecto() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarFichar() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
     try {
-        var uno = Integer.parseInt(document.getElementById("proyecto"));
+        var uno = parseInt(document.getElementById("proyecto"));
     } catch (error) {
         alerta += "   Los datos recibidos de idProyecto no son números enteros\n";
         ok = false;
@@ -316,17 +328,19 @@ function validarFichar() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarIndex() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
-    if(!validarEmail(document.getElementById("usuario").value) && !validarLongitud(document.getElementById("usuario").value,45)){
+    if(!validarEmail(document.getElementById("usuario").value) || !validarLongitud(document.getElementById("usuario").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
     try {
-        var uno = Integer.parseInt(document.getElementById("password"));
+        var uno = parseInt(document.getElementById("password"));
     } catch (error) {
         alerta += "   Los datos recibidos de password no son números enteros\n";
         ok = false;
@@ -339,6 +353,8 @@ function validarIndex() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 function validarPC() {
 
@@ -361,6 +377,8 @@ function validarPC() {
     if(!ok){
         alert(alerta);
     }
+    alert(alerta);
+    return ok;
 }
 
 
@@ -379,6 +397,8 @@ function validarOpina(){
     if(!ok){
         alert(alerta);
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarQueja(){

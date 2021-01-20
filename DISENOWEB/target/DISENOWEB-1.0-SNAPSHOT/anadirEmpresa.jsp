@@ -18,6 +18,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
+        <script src="js/formValidar.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -75,7 +76,7 @@
                         <label>Telefono:</label><br>
                         <input class="form-control" type="text"  name="telefono" id="telefono" placeholder="Introduzca telefono" required><br>
 
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarAnadirEmpresa()">
                     </form>
                 </div>
             </div>

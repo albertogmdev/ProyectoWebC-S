@@ -18,6 +18,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/errores.js"/></script>
+        <script src="js/formValidar.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -63,10 +64,10 @@
                     <%
                         String s=(String)request.getAttribute("mensaje");
                         boolean u=Boolean.valueOf(s);
-                    %>
-                    <form id="altaEmpleado" onsubmit="alerta(<%=s%>)" action="MainController?action=altaEmpleado" method="post">
-                        <!--<label>DNI:</label><br>
-                        <input class="form-control" name="tdni" type="text" id="DNI" placeholder="Introduzca ID" required><br><br>-->
+                    %> 
+                     
+                       <form id="altaEmpleado" onsubmit="return validarDarAlta()" action="MainController?action=altaEmpleado" method="post">
+                        
                         <label>Nombre:</label><br>
                         <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Introduzca nombre" required><br>
                         <label>Apellidos:</label><br>
