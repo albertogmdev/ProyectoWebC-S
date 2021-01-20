@@ -70,7 +70,7 @@
                     <form id="editarProyecto" action="MainController?action=anadirProyecto" method="post">
                         <label>ID:</label><br>
                         <input type="text" id="idProyecto" name="idProyecto" id="idProyecto" placeholder="Introduzca id" required><br><br><!--id dinamico, no se puede editar-->
-                        <label>Empresa:</label><br><!--PONER SELECT con opciones de empresa -->
+                        <label>Empresa:</label><br><!--SELECT con opciones de empresa -->
                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
                             <c:forEach items="${empresas}" var="empresas">
                                 <option value="${empresas.getIdEmpresa()}" ${empresas != null ? 'selected' : ''}>

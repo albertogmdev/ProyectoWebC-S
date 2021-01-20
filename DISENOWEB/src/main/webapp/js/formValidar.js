@@ -356,86 +356,17 @@ function validarIndex() {
         alerta += "  Id demasiado largo\n";
         ok = false;
     }
-    if(ok == true){
-        alerta += "  Todo OK!!"
-    }
-    alert(alerta);
-    return ok;
-}
-function validarPC() {
-
-    var ok = true;
-    var alerta = "Corrija los siguientes campos: \n";
-
-    var email = document.getElementById("correo").value;
-    var texto = document.getElementById("presupuesto").value;
-
-    if(!validarEmail(email)){
-        ok = false;
-        alerta += "  -Email no válido\n";
-    }
-
-    if(!validarLongitud(texto, 500)){
-        ok = false;
-        alerta += "  -Texto excede carácteres máximos\n";
-    }
-
-    if(!ok){
+    if(ok !== true){
         alert(alerta);
     }
-    alert(alerta);
     return ok;
 }
 
 
-function validarOpina(){
 
-    var ok = true;
-    var alerta = "Corrija los siguientes campos: \n";
 
-    var texto = document.getElementById("opinion").value;
 
-    if(!validarLongitud(texto, 500)){
-        ok = false;
-        alerta += "  -Texto excede carácteres máximos\n";
-    }
 
-    if(!ok){
-        alert(alerta);
-    }
-    alert(alerta);
-    return ok;
-}
-
-function validarQueja(){
-
-    var ok = true;
-    var alerta = "Corrija los siguientes campos: \n";
-
-    var email = document.getElementById("correo").value;
-    var texto = document.getElementById("mensaje").value;
-    var eleccion = document.getElementById("razon").value;
-
-    if(!validarEmail(email)){
-        ok = false;
-        alerta += "  -Email no válido\n";
-    }
-
-    if(!validarLongitud(texto, 500)){
-        ok = false;
-        alerta += "  -Texto excede carácteres máximos\n";
-    }
-
-    if(eleccion == 0){
-        ok = false;
-        alerta += "  -Elija un motivo\n";
-    }
-
-    if(!ok){
-        alert(alerta);
-    }
-
-}
 
 function validarEmail(valor) {
 

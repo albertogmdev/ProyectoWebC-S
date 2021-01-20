@@ -37,6 +37,7 @@ public class MainController extends HttpServlet {
     private static final String ANADIR_PROYECTO = "anadirProyecto.jsp";
     private static final String ELIMINAR_PROYECTO = "eliminarProyecto.jsp";
     private static final String INICIO = "inicioRRHH.jsp";
+    private static final String INFORME_EMPRESA = "informeEmpresa.jsp";
     
     private ConsultaBd consulta = new ConsultaBd();
     
@@ -102,6 +103,7 @@ public class MainController extends HttpServlet {
         else if(accion.equalsIgnoreCase("inicio")){
             siguientePagina = INICIO;
         }
+        
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
@@ -341,6 +343,12 @@ public class MainController extends HttpServlet {
             
             siguientePagina = MOSTRAR_EMPRESAS;
         }
+        else if(accion.equalsIgnoreCase("informeEmpresa")){
+            Log.log.info("Iniciado proceso para solicitar informe de una empresa");
+            request.setAttribute("empresas", consulta.mostrarEmpresa());
+            siguientePagina = INFORME_EMPRESA;
+        }
+        
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
