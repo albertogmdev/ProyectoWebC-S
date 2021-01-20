@@ -19,6 +19,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="js/informes.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -59,10 +60,10 @@
         <!--end of Navigation bar-->
     <div class="row justify-content-center">
             <div class="col-4">
-                <h1 class="text-center"> Seleccione la empresa de la que generar un informe </h1>
+                <h1 class="text-center"> Seleccione los detalles del informe: </h1>
                 <div>
                     <br><br>
-                    <form id="editarProyecto" action="MainController?action=getInformeEmpresa" method="post">
+                    <form id="informe" action="MainController?action=getInformeEmpresa" method="post">
                         <label>Empresa:</label><br><!--SELECT con opciones de empresa -->
                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
                             <%
@@ -79,7 +80,20 @@
                                
                           <% }%>  
                         </select><br><br>
-                        
+                        <p>Periodo de tiempo a incluir:</p>
+                            <input type="radio" id="semanal" name="tiempo" value="semanal" onclick="mostrarDatepicker()">
+                            <label for="semanal">Semanal</label><br>
+                            <input type="radio" id="mensual" name="tiempo" value="mensual" onclick="mostrarDatepicker()">
+                            <label for="female">Mensual</label><br>
+                            <input type="radio" id="otro" name="tiempo" value="otro" onclick="mostrarDatepicker()">
+                            <label for="otro">Especificar intervalo de tiempo:</label>
+                            <span id='box' style="display:none;">
+                                <p>Inicio:</p>
+                            <input class="form-control" type="datetime-local" id="inicio" required><br>
+                                <p>Fin:</p>
+                            <input class="form-control" type="datetime-local" id="fin" required><br>
+                            </span>
+                            <br><br>
                         
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>
