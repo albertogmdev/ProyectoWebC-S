@@ -4,6 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="logica.Usuario"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,18 +58,27 @@
         <!--end of Navigation bar-->
     <div class="row justify-content-center">
             <div class="col-4">
-                <h1 class="text-center"> Seleccione el empleado del que generar un informe </h1>
+                <h1 class="text-center"> Seleccione empleado del que generar un informe </h1>
                 <div>
                     <br><br>
                     <form action="MainController?action=getInformeEmpleado" method="post">
-                        <label>Empresa:</label><br><!--SELECT con opciones de empleados -->
-                        <select class="custom-select" name="idProyecto" id="idEmpleado" required>
-                            <c:forEach items="${empleados}" var="usuarios">
-                                <option value="${empleados.getIdProyecto()}" ${empleados != null ? 'selected' : ''}>
-                                    ${empleados.getIdEmpleado()} - ${empleados.getNombre()}       
+                        <label>Empleado:</label><br><!--SELECT con opciones de empleados -->
+                        
+                        <select class="custom-select" name="idEmpleado" id="idEmpleado" required>
+                            <%
+                        ConsultaBd emp = new ConsultaBd();
+                        List<Usuario> lista_empleados = emp.mostrarEmpleados();
+                        Iterator<Usuario> iterador = lista_empleados.iterator();
+                        Usuario u = null;
+                        while (iterador.hasNext()) {
+                            u = iterador.next();
+                        %>
+                                <option value="<%= u.getIdUsuario()%>">
+                                    <%= u.getIdUsuario()%> - <%= u.getNombre()%> <%= u.getApellidos()%>   
                                 </option>
-                            </c:forEach>
+                          <% }%>  
                         </select><br><br>
+                        
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>
                 </div>

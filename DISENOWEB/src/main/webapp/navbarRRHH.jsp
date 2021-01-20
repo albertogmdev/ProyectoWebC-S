@@ -35,9 +35,9 @@
                       Solicitar Informe
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="MainController?action=informeEmpresa">Empresa</a>
-                      <a class="dropdown-item" href="#">Proyecto</a>
-                      <a class="dropdown-item" href="#">Empleado</a>
+                      <a class="dropdown-item" href="informeEmpresa.jsp">Empresa</a>
+                      <a class="dropdown-item" href="informeProyecto.jsp">Proyecto</a>
+                      <a class="dropdown-item" href="informeEmpleado.jsp">Empleado</a>
                     </div>
                 </li>
             </ul>

@@ -331,10 +331,10 @@ function validarFichar() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta += "  Todo OK!!"
+    if(ok == false){
+        alert(alerta);
     }
-    alert(alerta);
+    
     return ok;
 }
 
@@ -356,7 +356,7 @@ function validarIndex() {
         alerta += "  Id demasiado largo\n";
         ok = false;
     }
-    if(ok !== true){
+    if(ok == false){
         alert(alerta);
     }
     return ok;

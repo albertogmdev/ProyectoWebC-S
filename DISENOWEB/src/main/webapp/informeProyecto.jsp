@@ -4,6 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="logica.Proyecto"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -58,13 +62,21 @@
                 <div>
                     <br><br>
                     <form action="MainController?action=getInformeProyecto" method="post">
-                        <label>Empresa:</label><br><!--SELECT con opciones de empleados -->
-                        <select class="custom-select" name="idProyecto" id="idProyecto" required>
-                            <c:forEach items="${proyectos}" var="proyectos">
-                                <option value="${proyectos.getIdProyecto()}" ${proyectos != null ? 'selected' : ''}>
-                                    ${proyectos.getIdProyecto()} - ${proyectos.getEmpresa()}       
+                        <label>Proyecto:</label><br><!--SELECT con opciones de proyecto -->
+                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
+                            <%
+                        ConsultaBd consulta = new ConsultaBd();
+                        List<Proyecto> lista_empresas = consulta.mostrarProyecto() ;
+                        Iterator<Proyecto> iterador = lista_empresas.iterator();
+                        Proyecto proyecto = null;
+                        while (iterador.hasNext()) {
+                            proyecto = iterador.next();
+                        %>
+                                <option value="<%= proyecto.getIdProyecto()%>">
+                                    <%= proyecto.getIdProyecto()%> - <%= proyecto.getEmpresa().getNombre() %>   
                                 </option>
-                            </c:forEach>
+                               
+                          <% }%>  
                         </select><br><br>
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>

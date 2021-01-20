@@ -343,11 +343,6 @@ public class MainController extends HttpServlet {
             
             siguientePagina = MOSTRAR_EMPRESAS;
         }
-        else if(accion.equalsIgnoreCase("informeEmpresa")){
-            Log.log.info("Iniciado proceso para solicitar informe de una empresa");
-            request.setAttribute("empresas", consulta.mostrarEmpresa());
-            siguientePagina = INFORME_EMPRESA;
-        }
         
         
         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);

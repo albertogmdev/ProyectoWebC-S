@@ -4,6 +4,11 @@
     Author     : MARINA
 --%>
 
+
+<%@page import="java.util.List"%>
+<%@page import="logica.Empresa"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -60,12 +65,22 @@
                     <form id="editarProyecto" action="MainController?action=getInformeEmpresa" method="post">
                         <label>Empresa:</label><br><!--SELECT con opciones de empresa -->
                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
-                            <c:forEach items="${empresas}" var="empresas">
-                                <option value="${empresas.getIdEmpresa()}" ${empresas != null ? 'selected' : ''}>
-                                    ${empresas.getNombre()}       
+                            <%
+                        ConsultaBd emp = new ConsultaBd();
+                        List<Empresa> lista_empresas = emp.mostrarEmpresa();
+                        Iterator<Empresa> iterador = lista_empresas.iterator();
+                        Empresa empresa = null;
+                        while (iterador.hasNext()) {
+                            empresa = iterador.next();
+                        %>
+                                <option value="<%= empresa.getIdEmpresa()%>">
+                                    <%= empresa.getIdEmpresa()%> - <%= empresa.getNombre()%>   
                                 </option>
-                            </c:forEach>
+                               
+                          <% }%>  
                         </select><br><br>
+                        
+                        
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>
                 </div>
