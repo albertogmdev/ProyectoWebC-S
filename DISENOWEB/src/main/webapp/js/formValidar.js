@@ -48,7 +48,7 @@ function validarAnadirEmpresa() {
     }
 
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += "Empresa" +idEmpresa.value + "añadida correctamente"
     }
     alert(alerta);
     return ok;
@@ -82,7 +82,7 @@ function validarAnadirProyecto() {
     }
 
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += "Proyecto " +idProyecto.value +" añadido correctamente"
     }
     alert(alerta);
     return ok;
@@ -166,8 +166,10 @@ function validarDarBajaNav() {
         ok = false;
     }
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += correo.value + "dado de baja correctamente."
     }
+    alert(alerta);
+    return ok;
 }
 
 function validardiaLibre() {
@@ -182,6 +184,8 @@ function validardiaLibre() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarEditarUsuario() {
@@ -234,6 +238,8 @@ function validarEditarUsuario() {
     if(ok == true){
         alerta += "  Todo OK!!"
     }
+    alert(alerta);
+    return ok;
 }
 
 function validarEliminarEmpresa() {
@@ -271,7 +277,7 @@ function validarEliminarEmpresa() {
     }
 
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += "Empresa " +idEmpresa.value + "eliminada correctamente";
     }
     alert(alerta);
     return ok;
@@ -299,7 +305,7 @@ function validareliminarProyecto() {
     }
 
     if(ok == true){
-        alerta += "  Todo OK!!"
+        alerta += "Proyecto " +idProyecto.value +" eliminado correctamente";
     }
     alert(alerta);
     return ok;
