@@ -75,7 +75,7 @@
 
                         <h6 class="text-danger text-right"> Se va a dar de baja el siguiente usuario, ¿está seguro? </h6>
                         <input class="btn btn-danger float-right" type="submit" formaction="mostrarEmpleados.jsp" name="accion" value="Cancelar" style="margin:5px;">
-                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarDarBaja()">
+                        <input class="btn btn-success float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="return validarDarBaja()">
                     </form>
                 </div>
             </div>
