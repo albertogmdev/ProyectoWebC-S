@@ -17,3 +17,18 @@ function mostrarDatepicker() {
        text.style.display = "none";
     }
 }
+
+function vacacionesODiaLibre() { //segun el checkbox seleccionado muestra dos campos o uno
+    var form_elements = document.getElementById('diaLibre').elements;
+    var selected = form_elements['tiempo'].value;
+    
+    var dialibre = document.getElementById("boxDia");
+    var vac = document.getElementById("boxVacaciones");
+    if (selected === "diaLibre"){
+        dialibre.style.display = "block";
+        vac.style.display = "none";
+    } else {
+       dialibre.style.display = "none";
+       vac.style.display = "block";
+    }
+}

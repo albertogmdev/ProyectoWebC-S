@@ -11,6 +11,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="js/formValidar.js"></script>
+        <script src="js/informes.js"></script>
     </head>
     <%
         HttpSession sesion = request.getSession();
@@ -41,7 +42,7 @@
             alert(mensaje);
         }
     </script>
-    <body>
+    <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
         <script>
         $(function(){
@@ -58,9 +59,24 @@
             <div class="col-4">
                 <div class="formulario justify-content-center">
                     <form id="diaLibre" action="" method="get" onsubmit=diaLibre()>
-                        <label>Hora salida:</label><br>
-                        <input class="form-control" id="diaLibre" type="date" name="fechanacimiento" required>
-                        <br><br>
+                        <input type="radio" id="diaLibre" name="tiempo" value="diaLibre" onclick="vacacionesODiaLibre()">
+                            <label for="diaLibre">Día Libre</label><br>
+                            <input type="radio" id="vacaciones" name="tiempo" value="vacaciones" onclick="vacacionesODiaLibre()">
+                          
+                            <label for="vacaciones">Vacaciones</label><br>
+                            <span id='boxDia' style="display:none;">
+                            <p>Elija una fecha:</p>
+                            <input class="form-control" type="date" id="selectDiaLibre" required><br>
+                                
+                        </span>
+                            
+                        <span id='boxVacaciones' style="display:none;">
+                                <p>Inicio:</p>
+                            <input class="form-control" type="date" id="inicioVacaciones" required><br>
+                                <p>Fin:</p>
+                            <input class="form-control" type="date" id="finVacaciones" required><br>
+                        </span>
+                        
                         <label>Motivo:</label><br>
                         <textarea class="form-control" id="motivo" rows="5" cols="50" placeholder="Mensaje (max 255car)."></textarea><br><br>
 

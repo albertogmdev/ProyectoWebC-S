@@ -48,7 +48,8 @@ function validarAnadirEmpresa() {
     }
 
     if(ok == true){
-        alerta += "Empresa" +idEmpresa.value + "añadida correctamente"
+        alerta = "Empresa" +idEmpresa.value + "añadida correctamente"
+        
     }
     alert(alerta);
     return ok;
@@ -82,7 +83,7 @@ function validarAnadirProyecto() {
     }
 
     if(ok == true){
-        alerta += "Proyecto " +idProyecto.value +" añadido correctamente"
+        alerta = "Proyecto " +idProyecto.value +" añadido correctamente"
     }
     alert(alerta);
     return ok;
@@ -118,7 +119,7 @@ function validarDarAlta() {
         ok = false;
     }
     if(ok == true){
-        alerta += nombre.value + apellidos.value +"dado de alta correctamente"
+        alerta = nombre.value + apellidos.value +"dado de alta correctamente"
     }
     alert(alerta);
     return ok;
@@ -151,7 +152,7 @@ function validarDarBaja() {
         ok = false;
     }
     if(ok == true){
-        alerta += correo.value + "dado de baja correctamente."
+        alerta = correo.value + "dado de baja correctamente."
     }
     alert(alerta);
     return ok;
@@ -166,7 +167,7 @@ function validarDarBajaNav() {
         ok = false;
     }
     if(ok == true){
-        alerta += correo.value + "dado de baja correctamente."
+        alerta = correo.value + "dado de baja correctamente."
     }
     alert(alerta);
     return ok;
@@ -181,10 +182,10 @@ function validardiaLibre() {
         ok = false;
     }
     
-    if(ok == true){
-        alerta += "  Todo OK!!"
+    if(ok == false){
+        alert(alerta);
     }
-    alert(alerta);
+    
     return ok;
 }
 
@@ -235,10 +236,9 @@ function validarEditarUsuario() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta += "  Todo OK!!"
+    if(ok == false){
+        alert(alerta);
     }
-    alert(alerta);
     return ok;
 }
 
