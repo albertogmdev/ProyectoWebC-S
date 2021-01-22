@@ -64,8 +64,8 @@
                     <br><br>
                     <form id="informe"action="MainController?action=getInformeProyecto" method="post">
                         <label>Proyecto:</label><br><!--SELECT con opciones de proyecto -->
-                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
-                            <%
+                        <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
+                        <%
                         ConsultaBd consulta = new ConsultaBd();
                         List<Proyecto> lista_empresas = consulta.mostrarProyecto() ;
                         Iterator<Proyecto> iterador = lista_empresas.iterator();

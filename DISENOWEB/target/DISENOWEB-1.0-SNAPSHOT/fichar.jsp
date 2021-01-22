@@ -4,6 +4,11 @@
     Author     : Alberto
 --%>
 
+<%@page import="logica.Usuario"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="logica.Proyecto"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -56,19 +61,35 @@
         <!--end of Navigation bar-->
         <br><br>
         <div class="titulo">
+            <br>
             <h1 class="text-center"> FICHAR </h1>
         </div>
         <br><br>
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="formulario justify-content-center">
-                    <form id="ficharEmpleado" action="" method="get" onsubmit=ficharEmpleado()>
+                    <form id="ficharEmpleado" action="" method="get" onsubmit="ficharEmpleado()">
                         <label>Hora entrada:</label>
                         <input class="form-control" type="datetime-local" id="entrada" required><br><br>
                         <label>Hora salida:</label>
                         <input class="form-control" type="datetime-local" id="salida" required><br><br>
-                        <label>Proyecto:</label>
-                        <input class="form-control" type="text" id="proyecto" placeholder="Introduzca ID proyecto" required><br><br>
+                        <select class="custom-select" name="idProyecto" id="idProyecto" required>
+                        <%
+                            ConsultaBd consulta = new ConsultaBd();
+                            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
+                            int idEmpresa = usuario.getEmpresa().getIdEmpresa();
+                            List<Proyecto> lista_proyecto = consulta.getProyectoEmpresa(idEmpresa);
+                            Iterator<Proyecto> iterador = lista_proyecto.iterator();
+                            Proyecto proyecto = null;
+                            while (iterador.hasNext()) {
+                                proyecto = iterador.next();
+                        %>
+                            <option value="<%= proyecto.getIdProyecto()%>">
+                                <%= proyecto.getIdProyecto()%>
+                            </option>
+                               
+                        <% }%>  
+                        </select><br><br>
 
                         <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;" onclick="return validarFichar()">
                         <input class="btn btn-danger float-right" type="reset" value="Borrar" style="margin:5px;">

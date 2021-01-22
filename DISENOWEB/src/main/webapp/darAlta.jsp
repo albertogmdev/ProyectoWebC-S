@@ -4,6 +4,11 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Proyecto"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="logica.Empresa"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -78,7 +83,24 @@
                         <input class="form-control" name="correo" type="text" id="correo" placeholder="Introduzca correo" required><br>
                         <label>Contraseña:</label><br>
                         <input class="form-control" type="text"  name="password" id="contraseña" placeholder="Introduzca contraseña" required><br><br>
-
+                        <select class="custom-select" name="idProyecto" id="idProyect" required>
+                        <%
+                            ConsultaBd consulta = new ConsultaBd();
+                            List<Proyecto> lista_proyectos = consulta.mostrarProyecto();
+                            Iterator<Proyecto> iterador = lista_proyectos.iterator();
+                            Proyecto proyecto = null;
+                            String nombreEmpresa = "";
+                            while (iterador.hasNext()) {
+                                proyecto = iterador.next();
+                                nombreEmpresa = consulta.getEmpresaProyecto(proyecto.getIdProyecto()).getNombre();
+                        %>
+                            <option value="<%= proyecto.getIdProyecto()%>">
+                                <%= proyecto.getIdProyecto()%> - <%= nombreEmpresa%> 
+                            </option>
+                               
+                            <% }%>  
+                        </select><br><br>
+                        
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Enviar" style="margin:5px;" onclick="return validarDarAlta()">
                         <input class="btn btn-danger float-right" type="reset"  name="accion" value="Borrar" style="margin:5px;">
                     </form>

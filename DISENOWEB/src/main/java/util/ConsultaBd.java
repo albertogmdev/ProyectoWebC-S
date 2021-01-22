@@ -148,11 +148,35 @@ public class ConsultaBd {
             }
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL en getEmpresa(): " + error);
-            Log.logBd.error("                           SQL State - " + error.getSQLState());
-            Log.logBd.error("                           ErrorCode - " + error.getErrorCode());
+            Log.logBd.error("               SQL State - " + error.getSQLState());
+            Log.logBd.error("               ErrorCode - " + error.getErrorCode());
         }
 
         Log.logBd.info("Consulta realizada con éxito - getEmpresa()");
+        return empresa;
+    }
+    
+    public Empresa getEmpresaProyecto(int idProyecto) {
+        Empresa empresa = new Empresa();
+        Log.logBd.info("CONSULTA GetEmpresaProyecto");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getEmpresaProyecto()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select distinct * from proyecto where IdProyecto=" + idProyecto + ";");
+            Log.logBd.info("Realizada consulta - getEmpresaProyecto()");
+
+            while (resultado.next()) {
+                int idEmpresa = resultado.getInt("Empresa_IdEmpresa");
+                empresa = getEmpresa(idEmpresa);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getEmpresaProyecto(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getEmpresaProyecto()");
         return empresa;
     }
 
@@ -339,6 +363,36 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito - mostrarProyecto()");
         return lista_proyectos;
     }
+    
+    public List getProyectoEmpresa(int idEmpresa) {
+        ArrayList<Proyecto> lista_proyectos = new ArrayList<>();
+        Log.logBd.info("CONSULTA getProyectoEmpresa");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getProyectoEmpresa()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from proyecto where Empresa_IdEmpresa="+ idEmpresa);
+            Log.logBd.info("Realizada consulta - getProyectoEmpresa()");
+
+            while (resultado.next()) {
+                Proyecto proyecto = new Proyecto();
+                Empresa empresa = new Empresa();
+
+                proyecto.setIdProyecto(resultado.getInt("IdProyecto"));
+                empresa.setIdEmpresa(resultado.getInt("Empresa_IdEmpresa"));
+                proyecto.setEmpresa(empresa);
+
+                lista_proyectos.add(proyecto);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getProyectoEmpresa(): " + error);
+            Log.logBd.error("                                SQL State - " + error.getSQLState());
+            Log.logBd.error("                                ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getProyectoEmpresa()");
+        return lista_proyectos;
+    }
 
     public boolean darAlta(Usuario usuario) {
         Log.logBd.info("CONSULTA DarAlta");
@@ -359,6 +413,10 @@ public class ConsultaBd {
                 Statement s1 = conexion.createStatement();
                 s1.executeUpdate("INSERT INTO EmpleadoEmpresa(IdEmpleadoEmpresa, Nombre, Apellidos, Telefono, Correo, Contrasenia) VALUES ('" + usuario.getIdUsuario() + "','" + usuario.getNombre() 
                         + "','" + usuario.getApellidos() + "','" + usuario.getTelefono() + "','" + usuario.getEmail() + "','" + usuario.getContrasenna() +"')");
+                Statement s2 = conexion.createStatement();
+                //Insertamos el proyecto en el que se ha dado de alta al usuario
+                Proyecto proyecto = usuario.getProyectosList().get(0).getProyecto();
+                s2.executeUpdate("INSERT INTO proyecto_empleado(Horas, proyecto_id_proyecto, empleado_correo) VALUES ("+ 0 +","+ proyecto.getIdProyecto() +",'"+ usuario.getEmail() +"')");
                 Log.logBd.info("Usuario correo("+ usuario.getEmail() +") dado de alta");
                 hecho = true;
             }

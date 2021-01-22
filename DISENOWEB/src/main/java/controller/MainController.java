@@ -7,6 +7,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import logica.Empresa;
 import logica.Proyecto;
+import logica.ProyectoEmpleado;
 import logica.Usuario;
 import util.ConsultaBd;
 import util.Log;
@@ -135,11 +138,24 @@ public class MainController extends HttpServlet {
             String telefono = request.getParameter("telefono");
             String correo = request.getParameter("correo");
             String pass = request.getParameter("password");
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
             usuario.setNombre(nombre);
             usuario.setApellidos(apellidos);
             usuario.setTelefono(Integer.parseInt(telefono));
             usuario.setEmail(correo);
             usuario.setContrasenna(pass);
+            //Añadimos el nuevo proyecto del empleado
+            Empresa empresa = consulta.getEmpresaProyecto(idProyecto);
+            Proyecto proyecto = new Proyecto();
+            proyecto.setIdProyecto(idProyecto);
+            proyecto.setEmpresa(empresa);
+            ProyectoEmpleado proyectoEmpleado = new ProyectoEmpleado();
+            proyectoEmpleado.setProyecto(proyecto);
+            proyectoEmpleado.setHoras(0);
+            List<ProyectoEmpleado> listaProyectos = new ArrayList<>();
+            listaProyectos.add(proyectoEmpleado);
+            usuario.setProyectosList(listaProyectos);
+            usuario.setEmpresa(empresa);
             boolean agregar=consulta.darAlta(usuario);
             
             if(agregar){
