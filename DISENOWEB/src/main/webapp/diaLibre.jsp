@@ -26,7 +26,7 @@
             if(nombre.equalsIgnoreCase("Empleado")){
                 response.sendRedirect("./inicioRRHH.jsp");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -87,4 +87,5 @@
             </div>
         </div>
     </body>
+    <% }%>
 </html>

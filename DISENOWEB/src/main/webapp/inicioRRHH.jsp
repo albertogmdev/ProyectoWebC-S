@@ -36,7 +36,7 @@
             if(nombre.equalsIgnoreCase("Usuario")){
                 response.sendRedirect("./inicioUser.jsp");
             }
-        }
+        
     %>
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
@@ -72,4 +72,5 @@
             </div>
         </div>
     </body>
+    <% }%>
 </html>

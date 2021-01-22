@@ -33,7 +33,7 @@
             if(nombre.equalsIgnoreCase("Usuario")){
                 response.sendRedirect("./inicioUser.jsp");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -74,12 +74,11 @@
                         while (iterador.hasNext()) {
                             u = iterador.next();
                         %>
-                                <option value="<%= u.getIdUsuario()%>">
-                                    <%= u.getIdUsuario()%> - <%= u.getNombre()%> <%= u.getApellidos()%>   
-                                </option>
-                          <% }%>  
+                            <option value="<%= u.getIdUsuario()%>">
+                                <%= u.getIdUsuario()%> - <%= u.getNombre()%> <%= u.getApellidos()%>   
+                            </option>
+                        <% }%>  
                         </select><br><br>
-                        
                             <p>Periodo de tiempo a incluir:</p>
                             <input type="radio" id="semanal" name="tiempo" value="semanal" onclick="mostrarDatepicker()">
                             <label for="semanal">Semanal</label><br>
@@ -94,13 +93,11 @@
                             <input class="form-control" type="datetime-local" id="fin" required><br>
                             </span>
                             <br><br>
-
-                        
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
                     </form>
                 </div>
             </div>
         </div>
-               
     </body>
+    <% }%>
 </html>

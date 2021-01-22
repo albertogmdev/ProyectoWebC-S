@@ -33,7 +33,7 @@
             if(nombre.equalsIgnoreCase("Usuario")){
                 response.sendRedirect("./inicioUser.jsp");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -98,6 +98,6 @@
                 </div>
             </div>
         </div>
-               
     </body>
+    <% }%>
 </html>

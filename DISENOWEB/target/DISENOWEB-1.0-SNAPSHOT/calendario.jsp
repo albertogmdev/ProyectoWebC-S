@@ -31,7 +31,7 @@
                 response.sendRedirect("./inicioUser.jsp");
                 sesion.setAttribute("mensaje", "ERROR: Tienes restringido el acceso a esta página");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -60,4 +60,5 @@
         <script type="text/javascript" src="js/calendario.js"></script>
         <script type="text/javascript" src="js/demo.js"></script>
     </body>
+    <% }%>
 </html>

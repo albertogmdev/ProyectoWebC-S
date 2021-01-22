@@ -33,7 +33,7 @@
                 response.sendRedirect("./inicioUser.jsp");
                 sesion.setAttribute("mensaje", "ERROR: Tienes restringido el acceso a esta página");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -83,4 +83,5 @@
             </div>
         </div>
     </body>
+    <% }%>
 </html>

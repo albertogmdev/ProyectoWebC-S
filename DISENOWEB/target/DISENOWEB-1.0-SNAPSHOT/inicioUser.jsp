@@ -34,7 +34,7 @@
             if(nombre.equalsIgnoreCase("Empleado")){
                 response.sendRedirect("./inicioRRHH.jsp");
             }
-        }
+        
     %>
     <%
         String mensajeAlerta = "";
@@ -66,4 +66,5 @@
             <a href="./fichar.jsp"><button type="button" class="btn btn-danger text-right" style=" font-size: 30px; height:60px">Introducir Jornada</button></a>
         </div>
     </body>
+    <% }%>
 </html>
