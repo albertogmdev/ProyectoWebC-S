@@ -100,16 +100,16 @@
                             <td><%= u.getIdUsuario()%></td>
                             <td><%= u.getNombre()%></td>
                             <td><%= u.getApellidos()%></td>
-                            <%  String nombre="";
+                            <%  String nombreEmpresa="";
                                 Empresa empresa;
                                 empresa =u.getEmpresa();
                                 if(empresa == null){
-                                    nombre = "Empleado no registrado correctamente";
+                                    nombreEmpresa = "Empleado no registrado correctamente";
                                 }else{
-                                    nombre = empresa.getNombre();
+                                    nombreEmpresa = empresa.getNombre();
                                 }
                             %>
-                            <td><%= nombre %></td>
+                            <td><%= nombreEmpresa %></td>
                             <td><%= u.getEmail()%></td>
                             <td><%= u.getTelefono()%></td>
                         </tr>

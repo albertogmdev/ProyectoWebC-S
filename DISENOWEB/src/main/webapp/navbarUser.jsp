@@ -7,10 +7,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NavBar Usuario</title>
     </head>
+    <%
+        HttpSession sesion = request.getSession();
+        //Si el usuario no tiene una sesion el redirige
+        if(sesion.getAttribute("usuarioSesion") == null){
+            response.sendRedirect("./index.jsp");
+        }
+        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //redirige a la pagina de inicio de sesion
+        else{
+            String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
+            if(nombre.equalsIgnoreCase("Empleado")){
+                response.sendRedirect("./inicioRRHH.jsp");
+            }
+        
+    %>
     <body>
         <%
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
-            String nombre = usuario.getNombre() + " " + usuario.getApellidos();
+            String nombreUsuario = usuario.getNombre() + " " + usuario.getApellidos();
         %>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
             <a class="navbar-brand">Gestión de personal</a>
@@ -31,7 +46,7 @@
             <ul class="navbar-nav ml-auto">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     <img src="./images/usuario.png" align="center" width="20" height="20">
-                    <%=nombre%>
+                    <%= nombreUsuario %>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="LoginController?action=cerrarSesion">Cerrar Sesion</a>
@@ -39,4 +54,5 @@
             </ul>
         </nav>
     </body>
+    <% }%>
 </html>
