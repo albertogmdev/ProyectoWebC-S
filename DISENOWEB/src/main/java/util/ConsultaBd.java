@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import logica.Empleado;
@@ -783,9 +784,9 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - ficharEmpleado()");
             Statement s = conexion.createStatement();
-            int codigo = s.executeUpdate("INSERT INTO Calendario VALUES('"+fecha+"','"+hora_entrada+"','"+hora_salida+"','"+correo+"';");
+            int codigo = s.executeUpdate("INSERT INTO Calendario VALUES('"+fecha+"','"+hora_entrada+"','"+hora_salida+"','"+correo+"');");
             Statement s2 = conexion.createStatement();
-            ResultSet resultado = s2.executeQuery("select Horas from Proyecto_Empleado where proyecto_id_proyecto="+id_proyecto+"and empleado_correo='"+correo+"';");
+            ResultSet resultado = s2.executeQuery("select Horas from Proyecto_Empleado where proyecto_id_proyecto="+id_proyecto+" and empleado_correo='"+correo+"';");
            int horas;
           
            int horas_trabajadas_hoy=getHoras(hora_entrada.toString(),hora_salida.toString());
@@ -793,13 +794,13 @@ public class ConsultaBd {
            System.out.print(codigo);
             while(resultado.next()){
                 horas=resultado.getInt("Horas");
-                
+                System.out.print(horas);
                 
                 horas_totales=horas+horas_trabajadas_hoy;
 
             }
             Statement s3 = conexion.createStatement();
-            int cod=s3.executeUpdate("UPDATE Proyecto_Empleado SET horas="+horas_totales+"where proyecto_id_proyecto="+id_proyecto+"and empleado_correo='"+correo+"';");
+            int cod=s3.executeUpdate("UPDATE Proyecto_Empleado SET horas="+horas_totales+" where proyecto_id_proyecto="+id_proyecto+" and empleado_correo='"+correo+"';");
             System.out.print(codigo+" "+cod);
             if(codigo>0 && cod>0){
                 

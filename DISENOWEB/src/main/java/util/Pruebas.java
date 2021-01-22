@@ -5,12 +5,15 @@
  */
 package util;
 
+import java.sql.Connection;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Locale;
 
 /**
@@ -18,25 +21,32 @@ import java.util.Locale;
  * @author Alberto
  */
 public class Pruebas {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, SQLException {
         
        ConsultaBd consulta = new ConsultaBd();
        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
       DateTimeFormatter f= DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        String dateInString = "2022-03-02";
+        String dateInString = "2035-03-02";
         Time hora_entrada=Time.valueOf("15:00:00");
         Time hora_salida=Time.valueOf("18:00:00");
-        Date d=formatter.parse(dateInString);
+       
        LocalDate da=LocalDate.parse(dateInString);
        
        
         
-        System.out.println("S "+java.sql.Date.valueOf(da));
-        System.out.println(hora_entrada);
-        System.out.println(hora_salida);
+        //System.out.println("S "+java.sql.Date.valueOf(da));
+        //System.out.println(hora_entrada);
+        //System.out.println(hora_salida);
+        Connection conexion;
+        conexion=ConexionBd.getConexion();
+        
+        Statement s = conexion.createStatement();
+        //int c=s.executeUpdate("INSERT INTO Calendario VALUES('"+Date.valueOf(dateInString)+"','"+hora_entrada+"','"+hora_salida+"','franciscocabrera@correo.com');");
+        //System.out.print(c);
+        String correo="franciscocabrera@correo.com";
        
-       System.out.print(consulta.ficharEmpleado(java.sql.Date.valueOf(da), hora_entrada, hora_salida, "franciscocabrera@correo.com", 123456789));
-       
+      System.out.print(consulta.ficharEmpleado(Date.valueOf(dateInString), hora_entrada, hora_salida, correo, 123456789));
+      //System.out.print(s.executeUpdate("UPDATE Proyecto_Empleado SET horas="+5+" where proyecto_id_proyecto="+123456789+" and empleado_correo='"+correo+"';"));
       /* Empresa empresa = new Empresa();
        empresa.setCodigoPostal(111111);
        empresa.setCorreo("1111111");

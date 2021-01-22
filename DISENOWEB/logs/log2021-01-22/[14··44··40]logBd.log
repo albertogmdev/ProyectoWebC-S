@@ -1,0 +1,6 @@
+[INFO] Sistema Operativo - Windows 10
+[INFO] Creacion de nuevo log en C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB/logs/log2021-01-22/[14··44··40]logBd.log
+[INFO] Realizada conexion - ficharEmpleado()
+[ERROR] ERROR SQL en ficharEmpleado(): java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+[ERROR]                        SQL State - 42000
+[ERROR]                        ErrorCode - 1064

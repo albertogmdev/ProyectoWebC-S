@@ -1,0 +1,6 @@
+[INFO] Sistema Operativo - Windows 10
+[INFO] Creacion de nuevo log en C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB/logs/log2021-01-22/[18··04··24]logBd.log
+[INFO] Realizada conexion - ficharEmpleado()
+[ERROR] ERROR SQL en ficharEmpleado(): java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '2022-03-02' for key 'calendario.PRIMARY'
+[ERROR]                        SQL State - 23000
+[ERROR]                        ErrorCode - 1062
