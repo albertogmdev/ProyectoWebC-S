@@ -16,7 +16,6 @@ function mostrarDatepicker() {
     } else {
        text.style.display = "none";
     }
-<<<<<<< Updated upstream
 }
 
 function vacacionesODiaLibre() { //segun el checkbox seleccionado muestra dos campos o uno
@@ -32,6 +31,4 @@ function vacacionesODiaLibre() { //segun el checkbox seleccionado muestra dos ca
        dialibre.style.display = "none";
        vac.style.display = "block";
     }
-=======
->>>>>>> Stashed changes
 }

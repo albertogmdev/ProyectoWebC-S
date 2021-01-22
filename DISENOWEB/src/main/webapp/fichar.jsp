@@ -68,12 +68,12 @@
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="formulario justify-content-center">
-                    <form id="ficharEmpleado" action="" method="get" onsubmit="ficharEmpleado()">
+                    <form id="ficharEmpleado" action="CalendarController?action=fichar" method="POST" onsubmit="ficharEmpleado()">
                         <label>Hora entrada:</label>
-                        <input class="form-control" type="datetime-local" id="entrada" required><br><br>
+                        <input class="form-control" type="datetime-local" name="hora_entrada" id="entrada" required><br><br>
                         <label>Hora salida:</label>
-                        <input class="form-control" type="datetime-local" id="salida" required><br><br>
-                        <select class="custom-select" name="idProyecto" id="idProyecto" required>
+                        <input class="form-control" type="datetime-local" name="hora_salida" id="salida" required><br><br>
+                        <select class="custom-select" name="idProyecto" name="id_proyecto" id="idProyecto" required>
                         <%
                             ConsultaBd consulta = new ConsultaBd();
                             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
@@ -91,8 +91,8 @@
                         <% }%>  
                         </select><br><br>
 
-                        <input class="btn btn-danger float-right" type="submit" value="Enviar" style="margin:5px;" onclick="return validarFichar()">
-                        <input class="btn btn-danger float-right" type="reset" value="Borrar" style="margin:5px;">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Enviar" style="margin:5px;" onclick="return validarFichar()">
+                        <input class="btn btn-danger float-right" type="reset" name="accion" value="Borrar" style="margin:5px;">
                     </form>
                 </div>
             </div>
