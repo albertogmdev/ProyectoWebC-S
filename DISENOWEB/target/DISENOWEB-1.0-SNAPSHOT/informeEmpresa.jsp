@@ -66,7 +66,11 @@
                     <form id="informe" action="MainController?action=getInformeEmpresa" method="post">
                         <label>Empresa:</label><br><!--SELECT con opciones de empresa -->
                         <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
+<<<<<<< Updated upstream
                         <%
+=======
+                            <%
+>>>>>>> Stashed changes
                         ConsultaBd emp = new ConsultaBd();
                         List<Empresa> lista_empresas = emp.mostrarEmpresa();
                         Iterator<Empresa> iterador = lista_empresas.iterator();

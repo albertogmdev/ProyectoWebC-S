@@ -48,8 +48,12 @@ function validarAnadirEmpresa() {
     }
 
     if(ok == true){
+<<<<<<< Updated upstream
         alerta = "Empresa" +idEmpresa.value + "añadida correctamente"
         
+=======
+        alerta += "Empresa" +idEmpresa.value + "añadida correctamente"
+>>>>>>> Stashed changes
     }
     alert(alerta);
     return ok;
@@ -83,7 +87,11 @@ function validarAnadirProyecto() {
     }
 
     if(ok == true){
+<<<<<<< Updated upstream
         alerta = "Proyecto " +idProyecto.value +" añadido correctamente"
+=======
+        alerta += "Proyecto " +idProyecto.value +" añadido correctamente"
+>>>>>>> Stashed changes
     }
     alert(alerta);
     return ok;
@@ -119,7 +127,11 @@ function validarDarAlta() {
         ok = false;
     }
     if(ok == true){
+<<<<<<< Updated upstream
         alerta = nombre.value + apellidos.value +"dado de alta correctamente"
+=======
+        alerta += nombre.value + apellidos.value +"dado de alta correctamente"
+>>>>>>> Stashed changes
     }
     alert(alerta);
     return ok;
@@ -152,7 +164,11 @@ function validarDarBaja() {
         ok = false;
     }
     if(ok == true){
+<<<<<<< Updated upstream
         alerta = correo.value + "dado de baja correctamente."
+=======
+        alerta += correo.value + "dado de baja correctamente."
+>>>>>>> Stashed changes
     }
     alert(alerta);
     return ok;
@@ -167,7 +183,11 @@ function validarDarBajaNav() {
         ok = false;
     }
     if(ok == true){
+<<<<<<< Updated upstream
         alerta = correo.value + "dado de baja correctamente."
+=======
+        alerta += correo.value + "dado de baja correctamente."
+>>>>>>> Stashed changes
     }
     alert(alerta);
     return ok;
@@ -182,10 +202,17 @@ function validardiaLibre() {
         ok = false;
     }
     
+<<<<<<< Updated upstream
     if(ok == false){
         alert(alerta);
     }
     
+=======
+    if(ok == true){
+        alerta += "  Todo OK!!"
+    }
+    alert(alerta);
+>>>>>>> Stashed changes
     return ok;
 }
 
@@ -236,9 +263,16 @@ function validarEditarUsuario() {
         ok = false;
     }
 
+<<<<<<< Updated upstream
     if(ok == false){
         alert(alerta);
     }
+=======
+    if(ok == true){
+        alerta += "  Todo OK!!"
+    }
+    alert(alerta);
+>>>>>>> Stashed changes
     return ok;
 }
 

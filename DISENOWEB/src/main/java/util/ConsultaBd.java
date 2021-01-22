@@ -5,7 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import logica.Empleado;
 import logica.Empresa;
@@ -770,4 +775,76 @@ public class ConsultaBd {
         
         return resultado;
     }
+    
+    public boolean ficharEmpleado(Date fecha, Time hora_entrada, Time hora_salida, String correo, int id_proyecto) throws ParseException{
+        boolean hecho=false;
+        
+        try{
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - ficharEmpleado()");
+            Statement s = conexion.createStatement();
+            int codigo = s.executeUpdate("INSERT INTO Calendario VALUES('"+fecha+"','"+hora_entrada+"','"+hora_salida+"','"+correo+"';");
+            Statement s2 = conexion.createStatement();
+            ResultSet resultado = s2.executeQuery("select Horas from Proyecto_Empleado where proyecto_id_proyecto="+id_proyecto+"and empleado_correo='"+correo+"';");
+           int horas;
+          
+           int horas_trabajadas_hoy=getHoras(hora_entrada.toString(),hora_salida.toString());
+           int horas_totales=0;
+           System.out.print(codigo);
+            while(resultado.next()){
+                horas=resultado.getInt("Horas");
+                
+                
+                horas_totales=horas+horas_trabajadas_hoy;
+
+            }
+            Statement s3 = conexion.createStatement();
+            int cod=s3.executeUpdate("UPDATE Proyecto_Empleado SET horas="+horas_totales+"where proyecto_id_proyecto="+id_proyecto+"and empleado_correo='"+correo+"';");
+            System.out.print(codigo+" "+cod);
+            if(codigo>0 && cod>0){
+                
+                
+                hecho=true;
+            }
+            
+        } catch(SQLException error){
+            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return hecho;
+    }
+    
+    
+    
+    public int getHoras(String fecha_i,String fecha_f) throws ParseException{
+        String fecha_entrada="1000-01-01"+" "+fecha_i;
+        String fecha_salida="1000-01-01"+" "+fecha_f;
+        
+       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+ 
+        Date fechaInicial=dateFormat.parse(fecha_entrada);
+        Date fechaFinal=dateFormat.parse(fecha_salida);
+ 
+        int diferencia=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/1000);
+ 
+        int dias=0;
+        int horas=0;
+        int minutos=0;
+        if(diferencia>86400) {
+            dias=(int)Math.floor(diferencia/86400);
+            diferencia=diferencia-(dias*86400);
+        }
+        if(diferencia>3600) {
+            horas=(int)Math.floor(diferencia/3600);
+            diferencia=diferencia-(horas*3600);
+        }
+        if(diferencia>60) {
+            minutos=(int)Math.floor(diferencia/60);
+            diferencia=diferencia-(minutos*60);
+        }
+       
+    return horas;
+     
+     }
 }
