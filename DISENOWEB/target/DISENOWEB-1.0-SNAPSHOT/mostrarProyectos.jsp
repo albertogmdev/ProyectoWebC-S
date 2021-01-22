@@ -49,7 +49,7 @@
         }
     %>
     <script>
-        var mensaje = "<%=mensajeAlerta%>";
+        var mensaje = "<%=mensajeAlerta%>"; //si hay algun mensaje lanza una alerta
         if(mensaje.length !== 0){
             alert(mensaje);
         }
@@ -76,14 +76,14 @@
                     </thead>
                     <%
                         ConsultaBd proyecto=new ConsultaBd();
-                        List<Proyecto> lista_proyectos=proyecto.mostrarProyecto();
+                        List<Proyecto> lista_proyectos=proyecto.mostrarProyecto(); //lee de la BD todos los proyectos existentes
                         Iterator<Proyecto> iterador=lista_proyectos.iterator();
                         Proyecto p=null;
-                        while(iterador.hasNext()){
+                        while(iterador.hasNext()){ //recorre la lista de proyectos
                             p=iterador.next();
                     %>
                     <tbody> 
-                        <tr>
+                        <tr> <!-- inicio de una fila de la tabla-->
                             <td>
                                 <input type="radio" name="proyecto" value="<%= p.getIdProyecto() %>" required> <!-- en value poner id proyecto -->
                             </td>

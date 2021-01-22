@@ -84,15 +84,16 @@
                     </thead>
                     <%
                         ConsultaBd emp = new ConsultaBd();
-                        List<Usuario> lista_empleados = emp.mostrarEmpleados();
+                        List<Usuario> lista_empleados = emp.mostrarEmpleados(); //lista con los empleados de la base de datos
                         Iterator<Usuario> iterador = lista_empleados.iterator();
                         Usuario u = null;
-                        while (iterador.hasNext()) {
+                        //para cada empleado se genera una fila
+                        while (iterador.hasNext()) { //recorre la lista de empleados
                             u = iterador.next();
-                    %>
+                    %> 
                     <!--cuerpo de la tabla-->
                     <tbody>
-                        <tr>
+                        <tr> <!-- inicio de una fila de la tabla-->
                             <td>
                                 <input type="radio" name="empleado" value="<%=u.getIdUsuario()%>" required> <!--seleccionar usuario a editar -->
                             </td>
@@ -119,6 +120,7 @@
                     <button type="submit" class="btn btn-danger text-right" style="height:40px">
                         Editar
                     </button>
+                    <!-- al pulsar el boton se produce la llamada al servlet elegirUsuario, eliminar-->
                     <button type="submit" formaction="MainController?action=elegirUsuario&boton=eliminar" class="btn btn-danger text-right" style="height:40px">
                         Eliminar
                     </button>

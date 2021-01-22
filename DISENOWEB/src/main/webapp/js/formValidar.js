@@ -31,7 +31,7 @@ function validarAnadirEmpresa() {
         alerta += "  -Telefono demasiado largo\n";
         ok = false;
     }
-
+    //comprueba si se ha introducido un email con formato y longitud adecuada
     if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
@@ -48,10 +48,10 @@ function validarAnadirEmpresa() {
     }
 
     if(ok == true){
-        alerta = "Empresa" +idEmpresa.value + "añadida correctamente"
+        alerta = "Empresa" +idEmpresa.value + "añadida correctamente";
         
     }
-    alert(alerta);
+    alert(alerta); //lanza una alerta con mensaje de error o de éxito
     return ok;
 }
 
@@ -169,7 +169,7 @@ function validarDarBajaNav() {
     if(ok == true){
         alerta = correo.value + "dado de baja correctamente."
     }
-    alert(alerta);
+    alert(alerta); //alerta con mensaje de error o de exito
     return ok;
 }
 
@@ -183,7 +183,7 @@ function validardiaLibre() {
     }
     
     if(ok == false){
-        alert(alerta);
+        alert(alerta); //alerta con mensaje de error 
     }
     
     return ok;
@@ -227,7 +227,7 @@ function validarEditarUsuario() {
     }
 
     if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
-        alerta += "  -Correo invalido(demasiado largo o incorrecto)\n";
+        alerta += "  -Correo invalido (demasiado largo o formato incorrecto)\n";
         ok = false;
     }
 
@@ -237,7 +237,7 @@ function validarEditarUsuario() {
     }
 
     if(ok == false){
-        alert(alerta);
+        alert(alerta); //alerta con mensaje de error 
     }
     return ok;
 }
@@ -260,9 +260,9 @@ function validarEliminarEmpresa() {
         alerta += "  Nombre demasiado largo\n";
         ok = false;
     }
-
+    //comprueba si se ha introducido un email con formato y longitud adecuada
     if(!validarEmail(document.getElementById("correo").value) || !validarLongitud(document.getElementById("correo").value,45)){
-        alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
+        alerta += "  Correo invalido (demasiado largo o formato incorrecto)\n";
         ok = false;
     }
     try {
@@ -279,7 +279,7 @@ function validarEliminarEmpresa() {
     if(ok == true){
         alerta += "Empresa " +idEmpresa.value + "eliminada correctamente";
     }
-    alert(alerta);
+    alert(alerta); //alerta con mensaje de error o de exito
     return ok;
 }
 
@@ -307,7 +307,7 @@ function validareliminarProyecto() {
     if(ok == true){
         alerta += "Proyecto " +idProyecto.value +" eliminado correctamente";
     }
-    alert(alerta);
+    alert(alerta); //alerta con mensaje de error o de exito
     return ok;
 }
 
@@ -332,7 +332,7 @@ function validarFichar() {
     }
 
     if(ok == false){
-        alert(alerta);
+        alert(alerta); //alerta con mensaje de error 
     }
     
     return ok;
@@ -341,6 +341,7 @@ function validarFichar() {
 function validarIndex() {
     var alerta = "Corrija los siguientes campos: \n";
     var ok = true;
+    //email con formato y longitud adecuada
     if(!validarEmail(document.getElementById("usuario").value) || !validarLongitud(document.getElementById("usuario").value,45)){
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
@@ -357,14 +358,10 @@ function validarIndex() {
         ok = false;
     }
     if(ok == false){
-        alert(alerta);
+        alert(alerta); //alerta con mensaje de error 
     }
     return ok;
 }
-
-
-
-
 
 
 
@@ -372,17 +369,17 @@ function validarEmail(valor) {
 
     emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
-    if (emailRegex.test(valor)){
-        return true;
+    if (emailRegex.test(valor)){ //si el email cumple el formato establecido 
+        return true; //es valido
     } else {
-        return false;
+        return false; //error de formato
     }
 }
 
 function validarLongitud(valor, longitud){
     if(valor.length <= longitud){
-        return true;
+        return true; //longitud adecuada
     } else {
-        return false;
+        return false; //demasiado largo
     }
 }

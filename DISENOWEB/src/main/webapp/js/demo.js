@@ -1,3 +1,4 @@
+//lista de eventos que aañadir al calendario
 var events = [ //enero es el mes 0
   {'Date': new Date(2021, 0, 1), 'Title': 'DIA LIBRE'},
   {'Date': new Date(2021, 0, 8), 'Title': 'DIA LIBRE'}

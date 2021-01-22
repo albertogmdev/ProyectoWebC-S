@@ -52,7 +52,7 @@
     %>
     <script>
         var mensaje = "<%=mensajeAlerta%>";
-        if(mensaje.length !== 0){
+        if(mensaje.length !== 0){ //si hay algun mensaje lanza una alerta
             alert(mensaje);
         }
     </script>
@@ -70,7 +70,7 @@
             <form action="MainController?action=elegirEmpresa&boton=editar" method="POST">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr>  <!-- inicio de una fila de la tabla-->
                             <th></th>
                             <th>ID</th>
                             <th>Nombre</th>
@@ -82,16 +82,16 @@
                     </thead>
                     <%
                         ConsultaBd empresa=new ConsultaBd();
-                        List<Empresa> lista_empresas=empresa.mostrarEmpresa();
+                        List<Empresa> lista_empresas=empresa.mostrarEmpresa(); //lista de todas las empresas
                         Iterator<Empresa> iterador=lista_empresas.iterator();
                         Empresa e=null;
-                        while(iterador.hasNext()){
+                        while(iterador.hasNext()){ //recorre la lista de empresas
                             e=iterador.next();    
                     %>
                     <tbody> 
                         <tr>
                             <td>
-                              <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>" required> <!-- en value poner id empresa -->
+                              <input type="radio" id="empresa" name="empresa" value="<%= e.getIdEmpresa() %>" required>
                             </td>
                             <td><%= e.getIdEmpresa() %></td>
                             <td><%= e.getNombre() %></td>
