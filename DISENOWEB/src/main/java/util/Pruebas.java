@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 
 /**
@@ -32,7 +31,7 @@ public class Pruebas {
        
        LocalDate da=LocalDate.parse(dateInString);
        
-       
+     
         
         //System.out.println("S "+java.sql.Date.valueOf(da));
         //System.out.println(hora_entrada);
@@ -40,7 +39,7 @@ public class Pruebas {
         Connection conexion;
         conexion=ConexionBd.getConexion();
         System.out.print(consulta.solicitarDiaLibre(Date.valueOf(dateInString), Date.valueOf(dateInString), "asd", "franciscocabrera@correo.com"));
-        
+        System.out.print(consulta.aprobarSolicitud(true, true, true, Date.valueOf(dateInString), Date.valueOf(dateInString), "franciscocabrera@correo.com"));
         //Statement s = conexion.createStatement();
         //int c=s.executeUpdate("INSERT INTO Calendario VALUES('"+Date.valueOf(dateInString)+"','"+hora_entrada+"','"+hora_salida+"','franciscocabrera@correo.com');");
         //System.out.print(c);

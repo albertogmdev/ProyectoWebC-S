@@ -15,6 +15,7 @@ import logica.Empleado;
 import logica.Empresa;
 import logica.Proyecto;
 import logica.ProyectoEmpleado;
+import logica.Solicitud;
 import logica.Usuario;
 
 /**
@@ -961,7 +962,6 @@ public class ConsultaBd {
     public boolean ficharEmpleado(Date fecha, Time hora_entrada, Time hora_salida, String correo, int id_proyecto) throws ParseException {
         boolean hecho = false;
         int cod;
-        
 
         try {
             conexion = ConexionBd.getConexion();
@@ -987,7 +987,7 @@ public class ConsultaBd {
 
             }
 
-            if (codigo > 0 && cod>0) {
+            if (codigo > 0 && cod > 0) {
 
                 hecho = true;
             }
@@ -1038,18 +1038,16 @@ public class ConsultaBd {
         return horas;
 
     }
-    
-    public boolean solicitarDiaLibre(Date fechaI, Date fechaF,String motivo,String correo){
+
+    public boolean solicitarDiaLibre(Date fechaI, Date fechaF, String motivo, String correo) {
         boolean hecho = false;
-      
-        
 
         try {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - solicitarDiaLibre()");
             Statement s = conexion.createStatement();
-            int codigo = s.executeUpdate("INSERT INTO DiaLibre VALUES('"+fechaI+"','"+fechaF+"','"+motivo+"',"+null+","+false+","+null+",'"+correo+"');");
-            
+            int codigo = s.executeUpdate("INSERT INTO DiaLibre VALUES('" + fechaI + "','" + fechaF + "','" + motivo + "'," + null + "," + false + "," + null + ",'" + correo + "');");
+
             if (codigo > 0) {
 
                 hecho = true;
@@ -1061,8 +1059,66 @@ public class ConsultaBd {
             Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
         }
         return hecho;
-        
-        
+
     }
-    
+
+    public List mostrarSolicitudes() {
+        ArrayList<Solicitud> lista_solicitudes = new ArrayList<>();
+        Log.logBd.info("CONSULTA MostrarSolicitudes");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - mostrarSolicitudes()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from diaLibre");
+            Log.logBd.info("Realizada consulta - mostrarSolicitudes()");
+
+            while (resultado.next()) {
+                Solicitud solicitud = new Solicitud();
+                solicitud.setFechaFin(resultado.getDate("FechaFin"));
+                solicitud.setFechaInicio(resultado.getDate("FechaInicio"));
+                solicitud.setMotivo(resultado.getString("Motivo"));
+                solicitud.setAprobado(resultado.getBoolean("Aprobado"));
+                solicitud.setLeido(resultado.getBoolean("Leido"));
+                solicitud.setTramitado(resultado.getBoolean("Tramitado"));
+                solicitud.setUsuario(getUsuario(resultado.getString("EmpleadoEmpresa_Correo")));
+
+                lista_solicitudes.add(solicitud);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en mostrarEmpleados(): " + error);
+            Log.logBd.error("                                 SQL State - " + error.getSQLState());
+            Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - mostrarEmpleados()");
+        return lista_solicitudes;
+    }
+
+    public boolean aprobarSolicitud(boolean aprobada, boolean leida, boolean tramitada, Date fecha_i, Date fecha_f, String correo) {
+        Log.logBd.info("CONSULTA Aprobar Solicitud");
+        boolean hecho = false;
+        int cod;
+
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - aprobarSolicitud()");
+
+            Statement s3 = conexion.createStatement();
+
+            cod = s3.executeUpdate("UPDATE DiaLibre SET Leido=" + leida + ", Aprobado="+aprobada+", Tramitado="+tramitada+" where FechaInicio='" + fecha_i+"' and FechaFin='"+fecha_f +"' and EmpleadoEmpresa_Correo='" +correo+"';");
+
+            if (cod > 0) {
+
+                hecho = true;
+            }
+
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return hecho;
+
+    }
+
 }
