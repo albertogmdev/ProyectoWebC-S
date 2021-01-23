@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS Calendario(
     HoraEntrada TIME NOT NULL,
     HoraSalida TIME NOT NULL,
     PRIMARY KEY(Fecha),
-    Correo VARCHAR(45) NOT NULL UNIQUE, #creo una clave foranea para relacion 1 a 1 con EmpleadoEmpresa pero al ser unica no se puede repetir
+    Correo VARCHAR(45) NOT NULL, #creo una clave foranea para relacion 1 a 1 con EmpleadoEmpresa pero al ser unica no se puede repetir
     FOREIGN KEY (Correo)
     REFERENCES EmpleadoEmpresa(Correo)
 )ENGINE=INNODB;
