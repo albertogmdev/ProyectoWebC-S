@@ -15,7 +15,7 @@ public class ConexionBd {
     
     public static Connection getConexion() {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String nombreBd = "base_empresa";
+        String nombreBd = "M2";
         String puerto = "3306";
         String user = "root";
         String password = "admin";
