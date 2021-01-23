@@ -7,14 +7,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalTime;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.ConsultaBd;
 import util.Log;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import logica.Usuario;
 
 /**
  *
@@ -30,7 +36,10 @@ public class CalendarController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * 
      */
+    
+    private ConsultaBd consulta = new ConsultaBd();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -81,15 +90,37 @@ public class CalendarController extends HttpServlet {
         
         Log.log.info("ACCION "+ accion);
         if(accion.equalsIgnoreCase("fichar")){
-             String fecha = request.getParameter("hora_entrada");
+             String fecha1 = request.getParameter("hora_entrada");
+             String fecha2 = request.getParameter("hora_salida");
+             String idProyecto=request.getParameter("idProyecto");
+             
+             String fecha_1=fecha1.substring(0, 10);
              
              
+             String hora_entrada=fecha1.substring(11)+":00";
+             String hora_salida=fecha2.substring(11)+":00";
+             Usuario usuario=(Usuario) sesion.getAttribute("usuarioSesion");
+             
+             
+            try {
+                boolean hecho=consulta.ficharEmpleado(Date.valueOf(fecha_1), Time.valueOf(hora_entrada), Time.valueOf(hora_salida),usuario.getEmail(), Integer.parseInt(idProyecto));
+            if(hecho){
+                siguientePagina="inicioUser.jsp";
+                sesion.setAttribute("mensaje", "Operación realizada con éxito.");
+            }
+            else{
+                 siguientePagina="fichar.jsp";
+                 sesion.setAttribute("mensaje", "ERROR: No se ha podido realizar la operación");
+            }
             
-             
-             
+            
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           
             
             
-            siguientePagina="diaLibre.jsp";
         }
          RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);

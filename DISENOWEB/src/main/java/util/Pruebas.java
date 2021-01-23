@@ -26,7 +26,7 @@ public class Pruebas {
        ConsultaBd consulta = new ConsultaBd();
        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
       DateTimeFormatter f= DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        String dateInString = "2035-03-02";
+        String dateInString = "2098-03-02";
         Time hora_entrada=Time.valueOf("15:00:00");
         Time hora_salida=Time.valueOf("18:00:00");
        

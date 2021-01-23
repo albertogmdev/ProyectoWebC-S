@@ -974,7 +974,7 @@ public class ConsultaBd {
 
             int horas_trabajadas_hoy = getHoras(hora_entrada.toString(), hora_salida.toString());
             int horas_totales = 0;
-            System.out.print(codigo);
+           
             while (resultado.next()) {
                 horas = resultado.getInt("Horas");
                 System.out.print(horas);
@@ -984,7 +984,7 @@ public class ConsultaBd {
             }
             Statement s3 = conexion.createStatement();
             int cod = s3.executeUpdate("UPDATE Proyecto_Empleado SET horas=" + horas_totales + " where proyecto_id_proyecto=" + id_proyecto + " and empleado_correo='" + correo + "';");
-            System.out.print(codigo + " " + cod);
+            
             if (codigo > 0 && cod > 0) {
 
                 hecho = true;
