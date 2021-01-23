@@ -840,7 +840,6 @@ public class ConsultaBd {
      * @return devuelve true si la empresa se ha registrado correctamente o
      * false si ha habido algún error
      */
-
     public boolean anadirEmpresa(Empresa empresa) {
         Log.logBd.info("CONSULTA AnadirEmpresa");
         try {
@@ -874,7 +873,6 @@ public class ConsultaBd {
      * @return devuelve true si la consulta se ha realizado con éxito o false si
      * ha habido algún error
      */
-
     public boolean anadirProyecto(int idProyecto, int idEmpresa) {
         boolean hecho = true;
         Log.logBd.info("CONSULTA AnadirProyecto");
@@ -962,6 +960,8 @@ public class ConsultaBd {
      */
     public boolean ficharEmpleado(Date fecha, Time hora_entrada, Time hora_salida, String correo, int id_proyecto) throws ParseException {
         boolean hecho = false;
+        int cod;
+        
 
         try {
             conexion = ConexionBd.getConexion();
@@ -974,18 +974,20 @@ public class ConsultaBd {
 
             int horas_trabajadas_hoy = getHoras(hora_entrada.toString(), hora_salida.toString());
             int horas_totales = 0;
-           
-            while (resultado.next()) {
+            Statement s3 = conexion.createStatement();
+            if (resultado.next()) {
                 horas = resultado.getInt("Horas");
-                System.out.print(horas);
 
                 horas_totales = horas + horas_trabajadas_hoy;
+                cod = s3.executeUpdate("UPDATE Proyecto_Empleado SET horas=" + horas_totales + " where proyecto_id_proyecto=" + id_proyecto + " and empleado_correo='" + correo + "';");
+
+            } else {
+                horas_totales = horas_trabajadas_hoy;
+                cod = s3.executeUpdate("INSERT INTO Proyecto_Empleado VALUES(" + horas_totales + "," + id_proyecto + ",'" + correo + "');");
 
             }
-            Statement s3 = conexion.createStatement();
-            int cod = s3.executeUpdate("UPDATE Proyecto_Empleado SET horas=" + horas_totales + " where proyecto_id_proyecto=" + id_proyecto + " and empleado_correo='" + correo + "';");
-            
-            if (codigo > 0 && cod > 0) {
+
+            if (codigo > 0 && cod>0) {
 
                 hecho = true;
             }
