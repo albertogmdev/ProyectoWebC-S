@@ -20,20 +20,20 @@ public class ConexionBd {
         String user = "root";
         String password = "admin";
         String url = "jdbc:mysql://localhost:"+ puerto +"/"+ nombreBd +"?useTimezone=true&serverTimezone=UTC";
-        //Log.logBd.log("Inicio de conexion en puerto["+ puerto + "]");
+        
+        Log.logBd.info("Inicio de conexion en puerto["+ puerto + "]");
         if (conexion != null){
-            //Log.logBd.log("Ya hay una conexion activa");
             return conexion;
         }
         else{
             try{
-                //Log.logBd.log("Conexion establecida en puerto["+ puerto +"]");
                 Class.forName(driver);
                 conexion = DriverManager.getConnection(url, user, password);
+                Log.logBd.info("Conexion establecida en puerto["+ puerto +"]");
             }catch(ClassNotFoundException error){
-                //Log.logBd.log("ERROR CONEXION: "+ error);
+                Log.logBd.error("ERROR CONEXION: "+ error);
             }catch(SQLException error){
-                //Log.logBd.log("ERROR SQL: "+ error);
+                Log.logBd.error("ERROR SQL: "+ error);
             }
             return conexion;
         }
