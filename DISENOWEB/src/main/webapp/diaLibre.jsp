@@ -66,15 +66,15 @@
                             <label for="vacaciones">Vacaciones</label><br>
                             <span id='boxDia' style="display:none;">
                             <p>Elija una fecha:</p>
-                            <input class="form-control" name="unDia" type="date" id="selectDiaLibre" required><br>
+                            <input class="form-control" name="unDia" type="date" id="selectDiaLibre"><br>
                                 
                         </span>
                             
                         <span id='boxVacaciones' style="display:none;">
                                 <p>Inicio:</p>
-                            <input class="form-control" name="dia1" type="date" id="inicioVacaciones" required><br>
+                            <input class="form-control" name="dia1" type="date" id="inicioVacaciones"><br>
                                 <p>Fin:</p>
-                            <input class="form-control" name="dia2" type="date" id="finVacaciones" required><br>
+                            <input class="form-control" name="dia2" type="date" id="finVacaciones"><br>
                         </span>
                         
                         <label>Motivo:</label><br>

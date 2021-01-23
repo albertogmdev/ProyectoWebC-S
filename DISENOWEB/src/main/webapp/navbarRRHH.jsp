@@ -34,7 +34,7 @@
                     <a class="nav-link" href="./inicioRRHH.jsp">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Peticiones</a>
+                    <a class="nav-link" href="solicitudesPendientes.jsp">Peticiones</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

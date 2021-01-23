@@ -167,18 +167,33 @@ function validarDarBajaNav() {
         ok = false;
     }
     if(ok == true){
-        alerta = correo.value + "dado de baja correctamente."
+        alerta = correo.value + "dado de baja correctamente.";
     }
     alert(alerta); //alerta con mensaje de error o de exito
     return ok;
 }
 
 function validardiaLibre() {
-    var alerta = "Corrija los siguientes campos: \n";
+    var form_elements = document.getElementById('diaLibre').elements;
+    var selected = form_elements['tiempo'].value;
     var ok = true;
+    if (selected === "diaLibre"){
+        if ( selectDiaLibre.SelectedDate === null)
+        {
+            ok = false;
+            alerta= "Seleccione una fecha";
+        }
+    } else { // cuando selecciona vacaciones no pueden estar vacios los datepickers
+        if (inicioVacaciones.SelectedDate === null || finVacaciones.SelectedDate === null )
+        {
+            ok = false;
+            alerta= "Campo obligatorio sin rellenar";
+        }
+       
+    }
     
     if(!validarLongitud(document.getElementById("motivo").value,255)){
-        alerta += "  Exceso de caracteres\n";
+        alerta += "Exceso de caracteres\n";
         ok = false;
     }
     
