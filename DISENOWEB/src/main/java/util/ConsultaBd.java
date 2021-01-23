@@ -1038,4 +1038,31 @@ public class ConsultaBd {
         return horas;
 
     }
+    
+    public boolean solicitarDiaLibre(Date fechaI, Date fechaF,String motivo,String correo){
+        boolean hecho = false;
+      
+        
+
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - solicitarDiaLibre()");
+            Statement s = conexion.createStatement();
+            int codigo = s.executeUpdate("INSERT INTO DiaLibre VALUES('"+fechaI+"','"+fechaF+"','"+motivo+"',"+null+","+false+","+null+",'"+correo+"');");
+            
+            if (codigo > 0) {
+
+                hecho = true;
+            }
+
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en solicitarDiaLibre(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return hecho;
+        
+        
+    }
+    
 }

@@ -18,6 +18,7 @@ import util.Log;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.Usuario;
@@ -36,10 +37,10 @@ public class CalendarController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * 
+     *
      */
-    
     private ConsultaBd consulta = new ConsultaBd();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,7 +49,7 @@ public class CalendarController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CalendarController</title>");            
+            out.println("<title>Servlet CalendarController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CalendarController at " + request.getContextPath() + "</h1>");
@@ -84,47 +85,74 @@ public class CalendarController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("action");
-          String siguientePagina = "";
-        
+        String siguientePagina = "";
+
         HttpSession sesion = request.getSession();
-        
-        Log.log.info("ACCION "+ accion);
-        if(accion.equalsIgnoreCase("fichar")){
-             String fecha1 = request.getParameter("hora_entrada");
-             String fecha2 = request.getParameter("hora_salida");
-             String idProyecto=request.getParameter("idProyecto");
-             
-             String fecha_1=fecha1.substring(0, 10);
-             
-             
-             String hora_entrada=fecha1.substring(11)+":00";
-             String hora_salida=fecha2.substring(11)+":00";
-             Usuario usuario=(Usuario) sesion.getAttribute("usuarioSesion");
-             
-             
+
+        Log.log.info("ACCION " + accion);
+        if (accion.equalsIgnoreCase("fichar")) {
+            String fecha1 = request.getParameter("hora_entrada");
+            String fecha2 = request.getParameter("hora_salida");
+            String idProyecto = request.getParameter("idProyecto");
+
+            String fecha_1 = fecha1.substring(0, 10);
+
+            String hora_entrada = fecha1.substring(11) + ":00";
+            String hora_salida = fecha2.substring(11) + ":00";
+            Usuario usuario = (Usuario) sesion.getAttribute("usuarioSesion");
+
             try {
-                boolean hecho=consulta.ficharEmpleado(Date.valueOf(fecha_1), Time.valueOf(hora_entrada), Time.valueOf(hora_salida),usuario.getEmail(), Integer.parseInt(idProyecto));
-            if(hecho){
-                siguientePagina="inicioUser.jsp";
-                sesion.setAttribute("mensaje", "Operación realizada con éxito.");
-            }
-            else{
-                 siguientePagina="fichar.jsp";
-                 sesion.setAttribute("mensaje", "ERROR: No se ha podido realizar la operación");
-            }
-            
-            
+                boolean hecho = consulta.ficharEmpleado(Date.valueOf(fecha_1), Time.valueOf(hora_entrada), Time.valueOf(hora_salida), usuario.getEmail(), Integer.parseInt(idProyecto));
+                if (hecho) {
+                    siguientePagina = "inicioUser.jsp";
+                    sesion.setAttribute("mensaje", "Operación realizada con éxito.");
+                } else {
+                    siguientePagina = "fichar.jsp";
+                    sesion.setAttribute("mensaje", "ERROR: No se ha podido realizar la operación");
+                }
+
             } catch (ParseException ex) {
                 Logger.getLogger(CalendarController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-           
-            
-            
+
+        } else if (accion.equalsIgnoreCase("Libre")) {
+            String boton = request.getParameter("tiempo");
+            Usuario usuario = (Usuario) sesion.getAttribute("usuarioSesion");
+
+            if (boton.equalsIgnoreCase("diaLibre")) {
+                String fecha_i = request.getParameter("unDia");
+                String motivo = request.getParameter("motivo");
+                     Log.logBd.info("ACCION " +fecha_i+"das "+ motivo);
+                boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_i), motivo, usuario.getEmail());
+                if (exito) {
+                    siguientePagina = "inicioUser.jsp";
+                    sesion.setAttribute("mensaje", "Solicitud tramitada.");
+                } else {
+                    siguientePagina = "diaLibre.jsp";
+                    sesion.setAttribute("mensaje", "Error.");
+                }
+
+            } else if (boton.equalsIgnoreCase("vacaciones")) {
+                String fecha_i = request.getParameter("dia1");
+                String fecha_f = request.getParameter("dia2");
+                String motivo = request.getParameter("motivo");
+                Log.logBd.info("ACCION " +fecha_i+"das "+ motivo);
+                boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_f), motivo, usuario.getEmail());
+                Log.logBd.info(exito+"das");
+                if (exito) {
+                    siguientePagina = "inicioUser.jsp";
+                    sesion.setAttribute("mensaje", "Solicitud tramitada.");
+                } else {
+                    siguientePagina = "diaLibre.jsp";
+                    sesion.setAttribute("mensaje", "Error.");
+                }
+
+            }
+
         }
-         RequestDispatcher vista=request.getRequestDispatcher(siguientePagina);
+        RequestDispatcher vista = request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
-        
+
     }
 
     /**

@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS DiaLibre(
     Leido BOOL,
     Aprobado BOOL,
     Tramitado BOOL,
-    PRIMARY KEY(Aprobado),
+  --  PRIMARY KEY(FechaInicio),--
     EmpleadoEmpresa_Correo VARCHAR(45),
     CONSTRAINT FKDiaLibre_EmpleadoEmpresa
     FOREIGN KEY(EmpleadoEmpresa_Correo)

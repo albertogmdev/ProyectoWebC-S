@@ -39,13 +39,14 @@ public class Pruebas {
         //System.out.println(hora_salida);
         Connection conexion;
         conexion=ConexionBd.getConexion();
+        System.out.print(consulta.solicitarDiaLibre(Date.valueOf(dateInString), Date.valueOf(dateInString), "asd", "franciscocabrera@correo.com"));
         
-        Statement s = conexion.createStatement();
+        //Statement s = conexion.createStatement();
         //int c=s.executeUpdate("INSERT INTO Calendario VALUES('"+Date.valueOf(dateInString)+"','"+hora_entrada+"','"+hora_salida+"','franciscocabrera@correo.com');");
         //System.out.print(c);
-        String correo="franciscocabrera@correo.com";
+       // String correo="franciscocabrera@correo.com";
        
-      System.out.print(consulta.ficharEmpleado(Date.valueOf(dateInString), hora_entrada, hora_salida, correo, 123456789));
+     // System.out.print(consulta.ficharEmpleado(Date.valueOf(dateInString), hora_entrada, hora_salida, correo, 123456789));
       //System.out.print(s.executeUpdate("UPDATE Proyecto_Empleado SET horas="+5+" where proyecto_id_proyecto="+123456789+" and empleado_correo='"+correo+"';"));
       /* Empresa empresa = new Empresa();
        empresa.setCodigoPostal(111111);

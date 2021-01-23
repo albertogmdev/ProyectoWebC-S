@@ -58,27 +58,27 @@
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="formulario justify-content-center">
-                    <form id="diaLibre" action="" method="get" onsubmit=diaLibre()>
-                        <input type="radio" id="diaLibre" name="tiempo" value="diaLibre" onclick="vacacionesODiaLibre()">
+                    <form id="diaLibre" action="CalendarController?action=Libre" method="POST" onsubmit=diaLibre()>
+                        <input type="radio" id="tiempo" name="tiempo" value="diaLibre" onclick="vacacionesODiaLibre()">
                             <label for="diaLibre">Día Libre</label><br>
-                            <input type="radio" id="vacaciones" name="tiempo" value="vacaciones" onclick="vacacionesODiaLibre()">
+                            <input type="radio" id="tiempo" name="tiempo" value="vacaciones" onclick="vacacionesODiaLibre()">
                           
                             <label for="vacaciones">Vacaciones</label><br>
                             <span id='boxDia' style="display:none;">
                             <p>Elija una fecha:</p>
-                            <input class="form-control" type="date" id="selectDiaLibre" required><br>
+                            <input class="form-control" name="unDia" type="date" id="selectDiaLibre" required><br>
                                 
                         </span>
                             
                         <span id='boxVacaciones' style="display:none;">
                                 <p>Inicio:</p>
-                            <input class="form-control" type="date" id="inicioVacaciones" required><br>
+                            <input class="form-control" name="dia1" type="date" id="inicioVacaciones" required><br>
                                 <p>Fin:</p>
-                            <input class="form-control" type="date" id="finVacaciones" required><br>
+                            <input class="form-control" name="dia2" type="date" id="finVacaciones" required><br>
                         </span>
                         
                         <label>Motivo:</label><br>
-                        <textarea class="form-control" id="motivo" rows="5" cols="50" placeholder="Mensaje (max 255car)."></textarea><br><br>
+                        <textarea class="form-control" id="motivo" name="motivo" rows="5" cols="50" placeholder="Mensaje (max 255car)."></textarea><br><br>
 
                         <input class="btn btn-danger float-right" type="submit" id='enviar' name="enviar" value="Enviar" style="margin:5px;" onclick="validarDiaLibre()">
                         <input class="btn btn-danger float-right" type="reset" id='borrar' name="borrar" value="Borrar" style="margin:5px;">
