@@ -843,6 +843,7 @@ public class ConsultaBd {
      */
     public boolean anadirEmpresa(Empresa empresa) {
         Log.logBd.info("CONSULTA AnadirEmpresa");
+        Boolean exito = false;
         try {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - anadirEmpresa()");
@@ -851,6 +852,7 @@ public class ConsultaBd {
             int codigo = s.executeUpdate("INSERT INTO empresa(IdEmpresa, Nombre, Calle, CodigoPostal, Correo, Telefono) VALUES (" + empresa.getIdEmpresa() + ",'" + empresa.getNombre()
                     + "','" + empresa.getDireccion() + "'," + empresa.getCodigoPostal() + ",'" + empresa.getCorreo() + "'," + empresa.getTelefono() + ")");
             if (codigo > 0) {
+                exito = true;
                 Log.logBd.info("Realizada consulta - anadirEmpresa()");
             } else {
                 Log.logBd.info("Consulta no ha alterado la tabla o consulta errónea - anadirEmpresa()");
@@ -862,7 +864,7 @@ public class ConsultaBd {
             Log.logBd.error("            ErrorCode - " + error.getErrorCode());
         }
 
-        return true;
+        return exito;
     }
 
     /**
@@ -899,6 +901,7 @@ public class ConsultaBd {
 
             if (listaEmpresas.contains(idEmpresa) && !listaProyectos.contains(idProyecto)) {
                 int codigo = s.executeUpdate("INSERT INTO proyecto(IdProyecto, Empresa_IdEmpresa) VALUES (" + idProyecto + "," + idEmpresa + ")");
+                hecho = false;
                 if (codigo > 0) {
                     Log.logBd.info("Realizada consulta - anadirProyecto()");
                 } else {

@@ -48,7 +48,7 @@ function validarAnadirEmpresa() {
     }
 
     if(ok == false){
-       alert(alerta); //lanza una alerta con mensaje de error o de éxito
+       alert(alerta); //lanza una alerta con mensaje de error
         
     }
     
