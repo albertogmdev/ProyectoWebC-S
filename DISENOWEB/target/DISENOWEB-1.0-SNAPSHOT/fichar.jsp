@@ -73,6 +73,7 @@
                         <input class="form-control" type="datetime-local" name="hora_entrada" id="entrada" required><br><br>
                         <label>Hora salida:</label>
                         <input class="form-control" type="datetime-local" name="hora_salida" id="salida" required><br><br>
+                        <label>Proyecto en el que se ha trabajado:</label><br>
                         <select class="custom-select" name="idProyecto" name="idProyecto" id="idProyecto" required>
                         <%
                             ConsultaBd consulta = new ConsultaBd();
@@ -84,7 +85,7 @@
                             while (iterador.hasNext()) {
                                 proyecto = iterador.next();
                         %>
-                            <option name="hola" value="<%= proyecto.getIdProyecto()%>">
+                            <option name="proyecto" value="<%= proyecto.getIdProyecto()%>">
                                 <%= proyecto.getIdProyecto()%>
                             </option>
                                
