@@ -47,11 +47,11 @@ function validarAnadirEmpresa() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta = "Empresa" +idEmpresa.value + "añadida correctamente";
+    if(ok == false){
+       alert(alerta); //lanza una alerta con mensaje de error o de éxito
         
     }
-    alert(alerta); //lanza una alerta con mensaje de error o de éxito
+    
     return ok;
 }
 
@@ -82,10 +82,10 @@ function validarAnadirProyecto() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta = "Proyecto " +idProyecto.value +" añadido correctamente"
+    if(ok == false){
+       alert(alerta);
     }
-    alert(alerta);
+    
     return ok;
 }
 
@@ -118,10 +118,10 @@ function validarDarAlta() {
         alerta += "  -Contraseña demasiado larga\n";
         ok = false;
     }
-    if(ok == true){
-        alerta = nombre.value + apellidos.value +"dado de alta correctamente"
+    if(ok == false){
+         alert(alerta);
     }
-    alert(alerta);
+   
     return ok;
 }
 
@@ -151,10 +151,10 @@ function validarDarBaja() {
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
-    if(ok == true){
-        alerta = correo.value + "dado de baja correctamente."
+    if(ok == false){
+        alert(alerta);
     }
-    alert(alerta);
+   
     return ok;
 }
 
@@ -166,10 +166,10 @@ function validarDarBajaNav() {
         alerta += "  Correo invalido(demasiado largo o incorrecto)\n";
         ok = false;
     }
-    if(ok == true){
-        alerta = correo.value + "dado de baja correctamente.";
+    if(ok == false){
+         alert(alerta); //alerta con mensaje de error
     }
-    alert(alerta); //alerta con mensaje de error o de exito
+   
     return ok;
 }
 
@@ -291,10 +291,10 @@ function validarEliminarEmpresa() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta += "Empresa " +idEmpresa.value + "eliminada correctamente";
+    if(ok == false){
+       alert(alerta); //alerta con mensaje de error
     }
-    alert(alerta); //alerta con mensaje de error o de exito
+    
     return ok;
 }
 
@@ -319,10 +319,10 @@ function validareliminarProyecto() {
         ok = false;
     }
 
-    if(ok == true){
-        alerta += "Proyecto " +idProyecto.value +" eliminado correctamente";
+    if(ok == false){
+       alert(alerta); //alerta con mensaje de error o de exito
     }
-    alert(alerta); //alerta con mensaje de error o de exito
+    
     return ok;
 }
 
