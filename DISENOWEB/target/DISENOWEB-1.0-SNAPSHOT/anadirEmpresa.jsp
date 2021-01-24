@@ -76,7 +76,7 @@
                         <label>Telefono:</label><br>
                         <input class="form-control" type="text"  name="telefono" id="telefono" placeholder="Introduzca telefono" required><br>
 
-                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick="validarAnadirEmpresa()">
+                        <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;" onclick=" return validarAnadirEmpresa()">
                     </form>
                 </div>
             </div>
