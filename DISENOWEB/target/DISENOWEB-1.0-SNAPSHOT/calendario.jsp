@@ -23,13 +23,12 @@
             response.sendRedirect("./index.jsp");
             sesion.setAttribute("mensaje", "ERROR: Tienes que iniciar sesión para acceder a la aplicación");
         }
-        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //Solo puede acceder un empleado de una empresa, si lo intenta un empleado de RRHH le 
         //redirige a la pagina de inicio de sesion
         else{
             String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
-            if(nombre.equalsIgnoreCase("Usuario")){
-                response.sendRedirect("./inicioUser.jsp");
-                sesion.setAttribute("mensaje", "ERROR: Tienes restringido el acceso a esta página");
+            if(nombre.equalsIgnoreCase("Empleado")){
+                response.sendRedirect("./inicioRRHH.jsp");
             }
         
     %>

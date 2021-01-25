@@ -28,7 +28,7 @@
         if(sesion.getAttribute("usuarioSesion") == null){
             response.sendRedirect("./index.jsp");
         }
-        //Solo puede acceder un empleado de RRHH, si lo intenta un empleado de una empresa le 
+        //Solo puede acceder un empleado de una empresa, si lo intenta un empleado de RRHH le 
         //redirige a la pagina de inicio de sesion
         else{
             String nombre = sesion.getAttribute("usuarioSesion").getClass().getSimpleName();
