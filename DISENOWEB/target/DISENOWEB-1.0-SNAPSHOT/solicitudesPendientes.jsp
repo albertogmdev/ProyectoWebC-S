@@ -62,25 +62,33 @@
         <!--Fin de navbar-->
         <div class="container" style="padding-top: 155px">
              <h1 class="text-center"> Solicitudes Pendientes </h1>
+             <br><br>
              <%
                         ConsultaBd consulta =new ConsultaBd();
-                        List<Solicitud> solicitudes_pendientes = consulta.mostrarSolicitudes(); //lista de todas las empresas
+                        List<Solicitud> solicitudes_pendientes = consulta.mostrarSolicitudes(); //lista de todas las solicitudes
                         Iterator<Solicitud> iterador= solicitudes_pendientes.iterator();
                          Solicitud solicitud =null;
-                        while(iterador.hasNext()){ //recorre la lista de empresas
-                            solicitud =iterador.next();    
-                    %>
+                        while(iterador.hasNext()){ //recorre la lista de solicitudes
+                            solicitud =iterador.next();
+                            if(!solicitud.isTramitado()) //si la solicitud no se ha tramitado todavia la mostramos
+                            {
+                    
+             %>
             <div class="shadow p-3 mb-5 bg-white rounded">
                 <p><%= solicitud.getUsuario().getIdUsuario() %> - <%= solicitud.getUsuario().getNombre() %></p>
                 <p>  <%= solicitud.getFechaInicio() %> - <%= solicitud.getFechaFin() %> </p>
                 <p>Motivo: <%= solicitud.getMotivo() %></p>
 
                 <div class="d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-danger btn-circle btn-sm" style="margin:5px;">Rechazar</button> 
+                    <a href="CalendarController?action=Aprobar&fecha_i=<%= solicitud.getFechaInicio() %>&fecha_f=<%= solicitud.getFechaFin() %>&correo=<%=solicitud.getUsuario().getEmail()%>">
                     <button type="button" class="btn btn-success btn-circle btn-sm" style="margin:5px;">Aprobar</button> 
+                    </a>
+                    <a href="CalendarController?action=Denegar&fecha_i=<%= solicitud.getFechaInicio() %>&fecha_f=<%= solicitud.getFechaFin() %>&correo=<%=solicitud.getUsuario().getEmail()%>">
+                        <button type="button" class="btn btn-danger btn-circle btn-sm" style="margin:5px;">Rechazar</button> 
+                    </a>      
                 </div>
             </div>
-             <% } %>
+             <% }} %>
             
         </div>
     </body>
