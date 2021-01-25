@@ -80,7 +80,6 @@ public class CalendarController extends HttpServlet {
            String correo = request.getParameter("correo");  
            Log.log.info("Solicitud de "+ correo +" aprobada");
            boolean exito = consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           Log.logBd.info("Exito: "+ exito);
            siguientePagina = "solicitudesPendientes.jsp";
         }
         else if (accion.equalsIgnoreCase("Denegar")) {
@@ -147,7 +146,7 @@ public class CalendarController extends HttpServlet {
             if (boton.equalsIgnoreCase("diaLibre")) {
                 String fecha_i = request.getParameter("unDia");
                 String motivo = request.getParameter("motivo");
-                     Log.logBd.info("ACCION " +fecha_i+"das "+ motivo);
+                Log.log.info("ACCION " +fecha_i+"das "+ motivo);
                 boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_i), motivo, usuario.getEmail());
                 if (exito) {
                     siguientePagina = "inicioUser.jsp";
@@ -161,9 +160,8 @@ public class CalendarController extends HttpServlet {
                 String fecha_i = request.getParameter("dia1");
                 String fecha_f = request.getParameter("dia2");
                 String motivo = request.getParameter("motivo");
-                Log.logBd.info("ACCION " +fecha_i+"das "+ motivo);
+                Log.log.info("ACCION " +fecha_i+" - "+ motivo);
                 boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_f), motivo, usuario.getEmail());
-                Log.logBd.info(exito+"das");
                 if (exito) {
                     siguientePagina = "inicioUser.jsp";
                     sesion.setAttribute("mensaje", "Solicitud tramitada.");
@@ -181,7 +179,6 @@ public class CalendarController extends HttpServlet {
            String correo = request.getParameter("correo");  
            Log.log.info("Solicitud de "+ correo +" aprobada");
            boolean exito = consulta.aprobarSolicitud(true, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           Log.logBd.info("Exito: "+ exito);
            siguientePagina = "solicitudesPendientes.jsp";
         }
         else if (accion.equalsIgnoreCase("Denegar")) {
