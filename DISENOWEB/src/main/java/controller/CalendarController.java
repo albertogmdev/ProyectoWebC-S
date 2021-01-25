@@ -88,8 +88,8 @@ public class CalendarController extends HttpServlet {
            String fecha_f = request.getParameter("fecha_f");
            String correo = request.getParameter("correo");  
            Log.log.info("Solicitud de "+ correo +" denegada");
-           //tramitada y leida pero aprobada es false
-           //aprobado, leido, tramitado
+           
+           //aprobado, leido, tramitado -> tramitada y leida pero aprobada es false
            consulta.aprobarSolicitud(false, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
            siguientePagina = "solicitudesPendientes.jsp";
         }
