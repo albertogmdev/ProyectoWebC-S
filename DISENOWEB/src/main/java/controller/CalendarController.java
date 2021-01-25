@@ -79,7 +79,7 @@ public class CalendarController extends HttpServlet {
            String fecha_f = request.getParameter("fecha_f");
            String correo = request.getParameter("correo");  
            Log.log.info("Solicitud de "+ correo +" aprobada");
-           boolean exito = consulta.aprobarSolicitud(true, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+           boolean exito = consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
            Log.logBd.info("Exito: "+ exito);
            siguientePagina = "solicitudesPendientes.jsp";
         }
@@ -90,7 +90,7 @@ public class CalendarController extends HttpServlet {
            Log.log.info("Solicitud de "+ correo +" denegada");
            
            //aprobado, leido, tramitado -> tramitada y leida pero aprobada es false
-           consulta.aprobarSolicitud(false, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+           consulta.aprobarSolicitud(false, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
            siguientePagina = "solicitudesPendientes.jsp";
         }
         RequestDispatcher vista = request.getRequestDispatcher(siguientePagina);

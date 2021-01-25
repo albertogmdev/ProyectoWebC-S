@@ -1088,12 +1088,49 @@ public class ConsultaBd {
                 lista_solicitudes.add(solicitud);
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL en mostrarEmpleados(): " + error);
-            Log.logBd.error("                                 SQL State - " + error.getSQLState());
-            Log.logBd.error("                                 ErrorCode - " + error.getErrorCode());
+            Log.logBd.error("ERROR SQL en mostrarSolicitudes(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
         }
 
-        Log.logBd.info("Consulta realizada con éxito - mostrarEmpleados()");
+        Log.logBd.info("Consulta realizada con éxito - mostrarSolicitudes()");
+        return lista_solicitudes;
+    }
+    
+    public List getSolicitudesUsuario(String correo) {
+        ArrayList<Solicitud> lista_solicitudes = new ArrayList<>();
+        Log.logBd.info("CONSULTA getSolicitudesUsuario");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getSolicitudesUsuario()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from DiaLibre where EmpleadoEmpresa_Correo='"+ correo +"' and Tramitado="+ true +" and Leido="+ false);
+            Log.logBd.info("Realizada consulta - getSolicitudesUsuario()");
+
+            while (resultado.next()) {
+                Solicitud solicitud = new Solicitud();
+                solicitud.setFechaFin(resultado.getDate("FechaFin"));
+                solicitud.setFechaInicio(resultado.getDate("FechaInicio"));
+                solicitud.setMotivo(resultado.getString("Motivo"));
+                solicitud.setAprobado(resultado.getBoolean("Aprobado"));
+                solicitud.setLeido(resultado.getBoolean("Leido"));
+                solicitud.setTramitado(resultado.getBoolean("Tramitado"));
+                solicitud.setUsuario(getUsuario(resultado.getString("EmpleadoEmpresa_Correo")));
+
+                lista_solicitudes.add(solicitud);
+            }
+            
+            //Ponemos como leido todos las solicitudes para no generar la alerta
+            Statement s2 = conexion.createStatement();
+            s2.executeUpdate("UPDATE DiaLibre SET Leido="+ true +" where EmpleadoEmpresa_Correo='"+ correo +"'");
+            
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getSolicitudesUsuario(): " + error);
+            Log.logBd.error("                          SQL State - " + error.getSQLState());
+            Log.logBd.error("                          ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getSolicitudesUsuario()");
         return lista_solicitudes;
     }
 

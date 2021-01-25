@@ -4,6 +4,10 @@
     Author     : MARINA
 --%>
 
+<%@page import="util.Log"%>
+<%@page import="logica.Solicitud"%>
+<%@page import="java.util.List"%>
+<%@page import="util.ConsultaBd"%>
 <%@page import="logica.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -48,6 +52,45 @@
         var mensaje = "<%=mensajeAlerta%>";
         if(mensaje.length !== 0){
             alert(mensaje);
+        }
+    </script>
+    <%
+        ConsultaBd consulta = new ConsultaBd();
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        List<Solicitud> listaSolicitudes = consulta.getSolicitudesUsuario(usuario.getEmail());
+        
+        String mensajeAprobada = "";
+        String mensajeDenegada = "";
+        
+        for(int i=0; i<listaSolicitudes.size(); i++){
+            Solicitud solicitud = listaSolicitudes.get(i);
+            
+            //De las solicitudes tramitadas vemos cuales están aprobadas o denegadas 
+            if(solicitud.isAprobado()){
+                mensajeAprobada += "   - Solicitud dia libre fecha["+ solicitud.getFechaInicio() +"] x";
+            }
+            else{
+                mensajeDenegada += "   - Solicitud dia libre fecha["+ solicitud.getFechaInicio() +"] x";
+            }
+        }
+    %>
+    <script>
+        var alertaAprobada = "<%=mensajeAprobada%>";
+        var alertaDenegada = "<%=mensajeDenegada%>";
+        
+        var alertaFinal = "";
+        
+        if(alertaAprobada.length !== 0){
+            alertaFinal += "SOLICITUDES APROBADAS: \n"+ alertaAprobada.replace('x', '\n');
+        }
+        if(alertaDenegada.length !== 0){
+            alertaFinal += "SOLICITUDES DENEGADAS: \n"+ alertaDenegada.replace('x', '\n');
+        }
+        console.log(alertaAprobada);
+        console.log(alertaDenegada);
+        console.log(alertaFinal);
+        if(alertaFinal.length !== 0){
+            alert(alertaFinal);
         }
     </script>
     <body style="height: 1500px; padding-top: 5rem;">

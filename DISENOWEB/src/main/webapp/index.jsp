@@ -21,7 +21,6 @@
         }
     </style> 
     <body style="padding-top: 10%">
-        <script src="js/login.js"></script>
             <div class="container h-100">
                 <div class="d-flex justify-content-center h-100">
                     <div class="user_card">
