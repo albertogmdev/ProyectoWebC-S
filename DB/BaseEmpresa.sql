@@ -295,3 +295,6 @@ INSERT INTO Proyecto_Empleado  VALUES (null,'098765456','ricardomucho@correo.com
 INSERT INTO Proyecto_Empleado  VALUES (null,'098765456','hectorcuriel@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'098765456','catalinamelendez@correo.com');
 INSERT INTO Proyecto_Empleado  VALUES (null,'098765456','mariaisabeljusticia@correo.com');
+
+INSERT INTO DiaLibre VALUES ('2021-01-30','2021-01-30', 'Enfermedad',null,null,false,'guillermoplata@correo.com');
+INSERT INTO DiaLibre VALUES ('2021-02-03','2021-02-05', 'Curso de formación de riesgos laborales',null,null,false,'ricardomucho@correo.com');
