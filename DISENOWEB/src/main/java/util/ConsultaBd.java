@@ -1120,7 +1120,7 @@ public class ConsultaBd {
                 lista_solicitudes.add(solicitud);
             }
             
-            //Ponemos como leido todos las solicitudes para no generar la alerta
+            //Ponemos como leido todos las solicitudes para nos generar la alerta
             Statement s2 = conexion.createStatement();
             s2.executeUpdate("UPDATE DiaLibre SET Leido="+ true +" where EmpleadoEmpresa_Correo='"+ correo +"'");
             
