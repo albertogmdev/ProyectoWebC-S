@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import logica.Empleado;
 import logica.Empresa;
+import logica.Jornada;
 import logica.Proyecto;
 import logica.ProyectoEmpleado;
 import logica.Solicitud;
@@ -1200,7 +1201,7 @@ public class ConsultaBd {
 
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("ERROR SQL en informeProyecto(): " + error);
             Log.logBd.error("                       SQL State - " + error.getSQLState());
             Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
         }
@@ -1223,11 +1224,41 @@ public class ConsultaBd {
 
             }
         } catch (SQLException error) {
-            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("ERROR SQL en informeProyecto(): " + error);
             Log.logBd.error("                       SQL State - " + error.getSQLState());
             Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
         }
         return informe;
+    }
+    
+    public List getCalendario(String correo) {
+        ArrayList<Jornada> lista_jornadas = new ArrayList<>();
+        Log.logBd.info("CONSULTA getCalendario");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getCalendario()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from Calendario where Correo ='" + correo + "';");
+            Log.logBd.info("Realizada consulta - getCalendario()");
+
+            while (resultado.next()) {
+                Jornada jornada = new Jornada();
+                jornada.setFecha(resultado.getDate("Fecha"));
+                jornada.setHora_entrada(resultado.getTime("HoraEntrada"));
+                jornada.setHora_salida(resultado.getTime("HoraSalida"));
+                jornada.setCorreo(resultado.getString("Correo"));
+                jornada.setId_proyecto(resultado.getInt("id_proyecto"));
+                
+                lista_jornadas.add(jornada);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getCalendario(): " + error);
+            Log.logBd.error("                                SQL State - " + error.getSQLState());
+            Log.logBd.error("                                ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getCalendario()");
+        return lista_jornadas;
     }
 
 }

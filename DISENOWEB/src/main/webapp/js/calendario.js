@@ -199,7 +199,7 @@ function createCalendar(calendar, element, adjuster){
         }
       }
       var number = DayNumber(i+1);
-      // Check Date against Event Dates
+      // Comprueba si hay eventos para ese dia
       for(var n = 0; n < calendar.Model.length; n++){
         var evDate = calendar.Model[n].Date;
         var toDate = new Date(calendar.Selected.Year, calendar.Selected.Month, (i+1));

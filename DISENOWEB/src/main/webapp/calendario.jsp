@@ -4,6 +4,11 @@
     Author     : MARINA
 --%>
 
+<%@page import="logica.Usuario"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="logica.Jornada"%>
+<%@page import="java.util.List"%>
+<%@page import="util.ConsultaBd"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -46,6 +51,7 @@
             alert(mensaje);
         }
     </script>
+    
     <body style="height: 1500px; padding-top: 5rem;">
         <div id="nav-placeholder"></div>
         <script>
@@ -57,7 +63,43 @@
 
         </div>
         <script type="text/javascript" src="js/calendario.js"></script>
-        <script type="text/javascript" src="js/demo.js"></script>
+        <!--<script type="text/javascript" src="js/demo.js"></script>-->
+        <script>
+        //lista de eventos que añadir al calendario
+        var events = [ //enero es el mes 0
+        ];
+        
+        </script>
+         <%
+                        ConsultaBd consulta =new ConsultaBd();
+                        Usuario usuario = (Usuario) sesion.getAttribute("usuarioSesion");
+                        String email = usuario.getEmail(); //email del empleado con la sesion iniciada
+                        List<Jornada> lista_jornadas = consulta.getCalendario(email); //lista de todas las jornadas trabajadas por este empleado
+                        Iterator<Jornada> iterador= lista_jornadas.iterator();
+                         Jornada jornada =null;
+                        while(iterador.hasNext()){ //recorre la lista de jornadas
+                            jornada =iterador.next();
+                            
+                    
+             %>
+             <script>
+                 var fechaSQL = '<%=jornada.getFecha().toString() %>';
+                 var dateParts = fechaSQL.split("-");
+                
+                 events.push({'Date': new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2)), 'Title': '<%=jornada.getHora_entrada() %> - <%= jornada.getHora_salida() %> <br> Proyecto: <%=jornada.getId_proyecto() %>'});
+             </script>
+             <% }%>
+        
+             
+       <script>
+        var settings = {};
+        var element = document.getElementById('calendario');
+        calendario(element, events, settings);
+        </script>
+    
+   
+
+        
     </body>
     <% }%>
 </html>
