@@ -199,7 +199,7 @@ function createCalendar(calendar, element, adjuster){
         }
       }
       var number = DayNumber(i+1);
-      // Check Date against Event Dates
+      // Comprueba si hay eventos para ese dia
       for(var n = 0; n < calendar.Model.length; n++){
         var evDate = calendar.Model[n].Date;
         var toDate = new Date(calendar.Selected.Year, calendar.Selected.Month, (i+1));
@@ -235,8 +235,13 @@ function createCalendar(calendar, element, adjuster){
             }
             title.appendChild(a);
           }else{
+              if( calendar.Model[n].Tipo === 'jornada'){ //jornada y dia libre con estilos diferentes
+                  title.innerHTML += '<p>'+calendar.Model[n].Title+'</p>';
+              }else{
+                  title.innerHTML += '<div class="btn btn-danger btn-block ">' + calendar.Model[n].Title + '</div>';
+              }
             //title.innerHTML += '<a href="' + calendar.Model[n].Link + '">' + calendar.Model[n].Title + '</a>';
-            title.innerHTML += '<div class="btn btn-danger btn-block ">' + calendar.Model[n].Title + '</div>';
+            
           }
           number.appendChild(title);
         }

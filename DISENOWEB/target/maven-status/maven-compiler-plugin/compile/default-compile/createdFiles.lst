@@ -14,4 +14,5 @@ controller\LoginController.class
 logica\ProyectoEmpleado.class
 util\LoggerBd.class
 logica\Proyecto.class
+logica\Jornada.class
 logica\Empresa.class

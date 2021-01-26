@@ -81,14 +81,12 @@
         var alertaFinal = "";
         
         if(alertaAprobada.length !== 0){
-            alertaFinal += "SOLICITUDES APROBADAS: \n"+ alertaAprobada.replace('x', '\n');
+            alertaFinal += "SOLICITUDES APROBADAS: \n"+ alertaAprobada.replaceAll('x', '\n');
         }
         if(alertaDenegada.length !== 0){
-            alertaFinal += "SOLICITUDES DENEGADAS: \n"+ alertaDenegada.replace('x', '\n');
+            alertaFinal += "SOLICITUDES DENEGADAS: \n"+ alertaDenegada.replaceAll('x', '\n');
         }
-        console.log(alertaAprobada);
-        console.log(alertaDenegada);
-        console.log(alertaFinal);
+        
         if(alertaFinal.length !== 0){
             alert(alertaFinal);
         }

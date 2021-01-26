@@ -1,18 +1,9 @@
 CREATE DATABASE IF NOT EXISTS M2;
 
-
 #drop table ____ para borrar tablas
 #describe ____ muestra la estructura de una tabla
 #Seleccionar base de datos
 USE M2;
-
-drop table EmpleadoRRHH;
-drop table Proyecto_Empleado;
-drop table Proyecto;
-drop table Calendario;
-drop table DiaLibre;
-drop table EmpleadoEmpresa;
-drop table Empresa;
 
 #Creamos las tablas sin relaciones
 CREATE TABLE IF NOT EXISTS EmpleadoRRHH(
