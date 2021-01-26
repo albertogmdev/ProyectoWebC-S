@@ -1260,5 +1260,36 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito - getCalendario()");
         return lista_jornadas;
     }
+    public List getDiasLibres(String correo) {
+        ArrayList<Solicitud> lista_diasLibres = new ArrayList<>();
+        Log.logBd.info("CONSULTA getDiasLibres");
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - getDiasLibres()");
+            Statement s = conexion.createStatement();
+            ResultSet resultado = s.executeQuery("select * from DiaLibre where EmpleadoEmpresa_Correo ='" + correo + "' AND Aprobado = '1';");
+            Log.logBd.info("Realizada consulta - getDiasLibres()");
+
+            while (resultado.next()) {
+                Solicitud solicitud = new Solicitud();
+                solicitud.setFechaFin(resultado.getDate("FechaFin"));
+                solicitud.setFechaInicio(resultado.getDate("FechaInicio"));
+                solicitud.setMotivo(resultado.getString("Motivo"));
+                solicitud.setAprobado(resultado.getBoolean("Aprobado"));
+                solicitud.setLeido(resultado.getBoolean("Leido"));
+                solicitud.setTramitado(resultado.getBoolean("Tramitado"));
+                solicitud.setUsuario(getUsuario(resultado.getString("EmpleadoEmpresa_Correo")));
+
+                lista_diasLibres.add(solicitud);
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en getDiasLibres(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+
+        Log.logBd.info("Consulta realizada con éxito - getDiasLibres()");
+        return lista_diasLibres;
+    }
 
 }

@@ -235,8 +235,13 @@ function createCalendar(calendar, element, adjuster){
             }
             title.appendChild(a);
           }else{
+              if( calendar.Model[n].Tipo === 'jornada'){ //jornada y dia libre con estilos diferentes
+                  title.innerHTML += '<p>'+calendar.Model[n].Title+'</p>';
+              }else{
+                  title.innerHTML += '<div class="btn btn-danger btn-block ">' + calendar.Model[n].Title + '</div>';
+              }
             //title.innerHTML += '<a href="' + calendar.Model[n].Link + '">' + calendar.Model[n].Title + '</a>';
-            title.innerHTML += '<div class="btn btn-danger btn-block ">' + calendar.Model[n].Title + '</div>';
+            
           }
           number.appendChild(title);
         }
