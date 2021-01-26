@@ -18,7 +18,7 @@ import util.Log;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.Usuario;
@@ -74,27 +74,26 @@ public class CalendarController extends HttpServlet {
         String siguientePagina = "";
         Log.log.info("CalendarController GET - ACCION " + accion);
         if (accion.equalsIgnoreCase("Aprobar")) {
-           Log.log.info("ENTRA SERVLET APROBAR");
-           String fecha_i = request.getParameter("fecha_i");
-           String fecha_f = request.getParameter("fecha_f");
-           String correo = request.getParameter("correo");  
-           Log.log.info("Solicitud de "+ correo +" aprobada");
-           boolean exito = consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           siguientePagina = "solicitudesPendientes.jsp";
-        }
-        else if (accion.equalsIgnoreCase("Denegar")) {
-           String fecha_i = request.getParameter("fecha_i");
-           String fecha_f = request.getParameter("fecha_f");
-           String correo = request.getParameter("correo");  
-           Log.log.info("Solicitud de "+ correo +" denegada");
-           
-           //aprobado, leido, tramitado -> tramitada y leida pero aprobada es false
-           consulta.aprobarSolicitud(false, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           siguientePagina = "solicitudesPendientes.jsp";
+            Log.log.info("ENTRA SERVLET APROBAR");
+            String fecha_i = request.getParameter("fecha_i");
+            String fecha_f = request.getParameter("fecha_f");
+            String correo = request.getParameter("correo");
+            Log.log.info("Solicitud de " + correo + " aprobada");
+            boolean exito = consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+            siguientePagina = "solicitudesPendientes.jsp";
+        } else if (accion.equalsIgnoreCase("Denegar")) {
+            String fecha_i = request.getParameter("fecha_i");
+            String fecha_f = request.getParameter("fecha_f");
+            String correo = request.getParameter("correo");
+            Log.log.info("Solicitud de " + correo + " denegada");
+
+            //aprobado, leido, tramitado -> tramitada y leida pero aprobada es false
+            consulta.aprobarSolicitud(false, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+            siguientePagina = "solicitudesPendientes.jsp";
         }
         RequestDispatcher vista = request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
-        
+
     }
 
     /**
@@ -146,7 +145,7 @@ public class CalendarController extends HttpServlet {
             if (boton.equalsIgnoreCase("diaLibre")) {
                 String fecha_i = request.getParameter("unDia");
                 String motivo = request.getParameter("motivo");
-                Log.log.info("ACCION " +fecha_i+"das "+ motivo);
+                Log.log.info("ACCION " + fecha_i + "das " + motivo);
                 boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_i), motivo, usuario.getEmail());
                 if (exito) {
                     siguientePagina = "inicioUser.jsp";
@@ -160,7 +159,7 @@ public class CalendarController extends HttpServlet {
                 String fecha_i = request.getParameter("dia1");
                 String fecha_f = request.getParameter("dia2");
                 String motivo = request.getParameter("motivo");
-                Log.log.info("ACCION " +fecha_i+" - "+ motivo);
+                Log.log.info("ACCION " + fecha_i + " - " + motivo);
                 boolean exito = consulta.solicitarDiaLibre(Date.valueOf(fecha_i), Date.valueOf(fecha_f), motivo, usuario.getEmail());
                 if (exito) {
                     siguientePagina = "inicioUser.jsp";
@@ -172,24 +171,93 @@ public class CalendarController extends HttpServlet {
 
             }
 
-        }else if (accion.equalsIgnoreCase("Aprobar")) {
-           Log.log.info("ENTRA SERVLET APROBAR");
-           String fecha_i = request.getParameter("fecha_i");
-           String fecha_f = request.getParameter("fecha_f");
-           String correo = request.getParameter("correo");  
-           Log.log.info("Solicitud de "+ correo +" aprobada");
-           boolean exito = consulta.aprobarSolicitud(true, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           siguientePagina = "solicitudesPendientes.jsp";
+        } else if (accion.equalsIgnoreCase("Aprobar")) {
+            Log.log.info("ENTRA SERVLET APROBAR");
+            String fecha_i = request.getParameter("fecha_i");
+            String fecha_f = request.getParameter("fecha_f");
+            String correo = request.getParameter("correo");
+            Log.log.info("Solicitud de " + correo + " aprobada");
+            boolean exito = consulta.aprobarSolicitud(true, true, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+            siguientePagina = "solicitudesPendientes.jsp";
+        } else if (accion.equalsIgnoreCase("Denegar")) {
+            String fecha_i = request.getParameter("fecha_i");
+            String fecha_f = request.getParameter("fecha_f");
+            String correo = request.getParameter("correo");
+            Log.log.info("Solicitud de " + correo + " denegada");
+            //tramitada y leida pero aprobada es false
+            consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
+            siguientePagina = "solicitudesPendientes.jsp";
+        } else if (accion.equalsIgnoreCase("InformeEmpresa")) {
+            ArrayList<String> informe;
+            String boton = request.getParameter("tiempo");
+
+            String idEmpresa = request.getParameter("idEmpresa");
+
+            if (boton.equalsIgnoreCase("semanal")) {
+
+            } else if (boton.equalsIgnoreCase("mensual")) {
+
+            } else if (boton.equalsIgnoreCase("otro")) {
+                String fecha_i = request.getParameter("inicio");
+                String i = fecha_i.substring(0, 10);
+                Date inicio = Date.valueOf(i);
+                String fecha_f = request.getParameter("fin");
+                String f = fecha_f.substring(0, 10);
+                Date fin = Date.valueOf(f);
+                informe = consulta.informeEmpresa(Integer.parseInt(idEmpresa), inicio, fin);
+                Log.log.info(informe.toString());
+
+            }
+
+        } else if (accion.equalsIgnoreCase("InformeEmpleado")) {
+            ArrayList<String> informe;
+            String boton = request.getParameter("tiempo");
+
+            String idEmpleado = request.getParameter("idEmpleado");
+
+            if (boton.equalsIgnoreCase("semanal")) {
+                
+                //coger 7 dias
+
+            } else if (boton.equalsIgnoreCase("mensual")) {
+                //coger 30 dias
+
+            } else if (boton.equalsIgnoreCase("otro")) {
+                String fecha_i = request.getParameter("inicio");
+                String i = fecha_i.substring(0, 10);
+                Date inicio = Date.valueOf(i);
+                String fecha_f = request.getParameter("fin");
+                String f = fecha_f.substring(0, 10);
+                Date fin = Date.valueOf(f);
+                informe = consulta.informeEmpleado(Integer.parseInt(idEmpleado), inicio, fin);
+                Log.log.info(informe.toString());
+
+            }
+
+        } else if (accion.equalsIgnoreCase("InformeProyecto")) {
+            ArrayList<String> informe;
+            String boton = request.getParameter("tiempo");
+
+            String idProyecto = request.getParameter("idEmpresa");
+
+            if (boton.equalsIgnoreCase("semanal")) {
+
+            } else if (boton.equalsIgnoreCase("mensual")) {
+
+            } else if (boton.equalsIgnoreCase("otro")) {
+                String fecha_i = request.getParameter("inicio");
+                String i = fecha_i.substring(0, 10);
+                Date inicio = Date.valueOf(i);
+                String fecha_f = request.getParameter("fin");
+                String f = fecha_f.substring(0, 10);
+                Date fin = Date.valueOf(f);
+                informe = consulta.informeProyecto(Integer.parseInt(idProyecto), inicio, fin);
+                Log.log.info(informe.toString());
+
+            }
+
         }
-        else if (accion.equalsIgnoreCase("Denegar")) {
-           String fecha_i = request.getParameter("fecha_i");
-           String fecha_f = request.getParameter("fecha_f");
-           String correo = request.getParameter("correo");  
-           Log.log.info("Solicitud de "+ correo +" denegada");
-           //tramitada y leida pero aprobada es false
-           consulta.aprobarSolicitud(true, false, true, Date.valueOf(fecha_i), Date.valueOf(fecha_f), correo);
-           siguientePagina = "solicitudesPendientes.jsp";
-        }
+
         RequestDispatcher vista = request.getRequestDispatcher(siguientePagina);
         vista.forward(request, response);
 

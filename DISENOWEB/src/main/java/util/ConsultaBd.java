@@ -964,13 +964,13 @@ public class ConsultaBd {
      */
     public boolean ficharEmpleado(Date fecha, Time hora_entrada, Time hora_salida, String correo, int id_proyecto) throws ParseException {
         boolean hecho = false;
-        int cod;
+        int cod = 0;
 
         try {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - ficharEmpleado()");
             Statement s = conexion.createStatement();
-            int codigo = s.executeUpdate("INSERT INTO Calendario VALUES('" + fecha + "','" + hora_entrada + "','" + hora_salida + "','" + correo + "');");
+            int codigo = s.executeUpdate("INSERT INTO Calendario VALUES('" + fecha + "','" + hora_entrada + "','" + hora_salida + "','" + correo + "'," + id_proyecto + ");");
             Statement s2 = conexion.createStatement();
             ResultSet resultado = s2.executeQuery("select Horas from Proyecto_Empleado where proyecto_id_proyecto=" + id_proyecto + " and empleado_correo='" + correo + "';");
             int horas;
@@ -978,17 +978,17 @@ public class ConsultaBd {
             int horas_trabajadas_hoy = getHoras(hora_entrada.toString(), hora_salida.toString());
             int horas_totales = 0;
             Statement s3 = conexion.createStatement();
-            if (resultado.next()) {
+            while (resultado.next()) {
                 horas = resultado.getInt("Horas");
 
                 horas_totales = horas + horas_trabajadas_hoy;
                 cod = s3.executeUpdate("UPDATE Proyecto_Empleado SET horas=" + horas_totales + " where proyecto_id_proyecto=" + id_proyecto + " and empleado_correo='" + correo + "';");
 
-            } else {
+            }/* else {
                 horas_totales = horas_trabajadas_hoy;
                 cod = s3.executeUpdate("INSERT INTO Proyecto_Empleado VALUES(" + horas_totales + "," + id_proyecto + ",'" + correo + "');");
 
-            }
+            }*/
 
             if (codigo > 0 && cod > 0) {
 
@@ -1096,7 +1096,7 @@ public class ConsultaBd {
         Log.logBd.info("Consulta realizada con éxito - mostrarSolicitudes()");
         return lista_solicitudes;
     }
-    
+
     public List getSolicitudesUsuario(String correo) {
         ArrayList<Solicitud> lista_solicitudes = new ArrayList<>();
         Log.logBd.info("CONSULTA getSolicitudesUsuario");
@@ -1104,7 +1104,7 @@ public class ConsultaBd {
             conexion = ConexionBd.getConexion();
             Log.logBd.info("Realizada conexion - getSolicitudesUsuario()");
             Statement s = conexion.createStatement();
-            ResultSet resultado = s.executeQuery("select * from DiaLibre where EmpleadoEmpresa_Correo='"+ correo +"' and Tramitado="+ true +" and Leido="+ false);
+            ResultSet resultado = s.executeQuery("select * from DiaLibre where EmpleadoEmpresa_Correo='" + correo + "' and Tramitado=" + true + " and Leido=" + false);
             Log.logBd.info("Realizada consulta - getSolicitudesUsuario()");
 
             while (resultado.next()) {
@@ -1119,11 +1119,11 @@ public class ConsultaBd {
 
                 lista_solicitudes.add(solicitud);
             }
-            
+
             //Ponemos como leido todos las solicitudes para nos generar la alerta
             Statement s2 = conexion.createStatement();
-            s2.executeUpdate("UPDATE DiaLibre SET Leido="+ true +" where EmpleadoEmpresa_Correo='"+ correo +"'");
-            
+            s2.executeUpdate("UPDATE DiaLibre SET Leido=" + true + " where EmpleadoEmpresa_Correo='" + correo + "'");
+
         } catch (SQLException error) {
             Log.logBd.error("ERROR SQL en getSolicitudesUsuario(): " + error);
             Log.logBd.error("                          SQL State - " + error.getSQLState());
@@ -1145,7 +1145,7 @@ public class ConsultaBd {
 
             Statement s3 = conexion.createStatement();
 
-            cod = s3.executeUpdate("UPDATE DiaLibre SET Leido=" + leida + ", Aprobado="+aprobada+", Tramitado="+tramitada+" where FechaInicio='" + fecha_i+"' and FechaFin='"+fecha_f +"' and EmpleadoEmpresa_Correo='" +correo+"';");
+            cod = s3.executeUpdate("UPDATE DiaLibre SET Leido=" + leida + ", Aprobado=" + aprobada + ", Tramitado=" + tramitada + " where FechaInicio='" + fecha_i + "' and FechaFin='" + fecha_f + "' and EmpleadoEmpresa_Correo='" + correo + "';");
 
             if (cod > 0) {
 
@@ -1159,6 +1159,75 @@ public class ConsultaBd {
         }
         return hecho;
 
+    }
+
+    public ArrayList informeEmpresa(int idEmpresa, Date FechaI, Date FechaF) {
+        ArrayList<String> informe = new ArrayList<>();
+
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - informeEmpresa()");
+
+            Statement s3 = conexion.createStatement();
+            ResultSet resultado = s3.executeQuery("select * from empresa inner join proyecto on empresa.IdEmpresa=proyecto.Empresa_IdEmpresa inner join Calendario on proyecto.IdProyecto=calendario.id_proyecto where (Fecha between '" + FechaI + "' and '" + FechaF + "') and IdEmpresa=" + idEmpresa + ";");
+
+            while (resultado.next()) {
+
+                informe.add("El día " + resultado.getString("Fecha") + " el empleado " + resultado.getString("Calendario.Correo") + " ha trabajado en el proyecto " + resultado.getInt("id_proyecto") + " desde las " + resultado.getTime("HoraEntrada") + " hasta las " + resultado.getTime("HoraSalida"));
+
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return informe;
+    }
+
+    public ArrayList informeProyecto(int idProyecto, Date FechaI, Date FechaF) {
+        ArrayList<String> informe = new ArrayList<>();
+
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - informeEmpresa()");
+
+            Statement s3 = conexion.createStatement();
+            ResultSet resultado = s3.executeQuery("select * from empresa inner join proyecto on empresa.IdEmpresa=proyecto.Empresa_IdEmpresa inner join Calendario on proyecto.IdProyecto=calendario.id_proyecto where (Fecha between '" + FechaI + "' and '" + FechaF + "') and id_proyecto=" + idProyecto + ";");
+
+            while (resultado.next()) {
+
+                informe.add("El día " + resultado.getString("Fecha") + " el empleado " + resultado.getString("Calendario.Correo") + " ha trabajado en el proyecto " + resultado.getInt("id_proyecto") + " en la empresa " + resultado.getString("empresa.Nombre") + " desde las " + resultado.getTime("HoraEntrada") + " hasta las " + resultado.getTime("HoraSalida"));
+
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return informe;
+    }
+
+    public ArrayList informeEmpleado(int idEmpleado, Date FechaI, Date FechaF) {
+        ArrayList<String> informe = new ArrayList<>();
+
+        try {
+            conexion = ConexionBd.getConexion();
+            Log.logBd.info("Realizada conexion - informeEmpresa()");
+
+            Statement s3 = conexion.createStatement();
+            ResultSet resultado = s3.executeQuery("select * from empresa inner join proyecto on empresa.IdEmpresa=proyecto.Empresa_IdEmpresa inner join Calendario on proyecto.IdProyecto=calendario.id_proyecto inner join EmpleadoEmpresa on empleadoempresa.Correo=calendario.Correo where (Fecha between '"+FechaI+"' and '"+FechaF+"') and IdEmpleadoEmpresa="+idEmpleado+";");
+
+            while (resultado.next()) {
+
+                informe.add("El día " + resultado.getString("Fecha") + " el empleado " + resultado.getString("Calendario.Correo") + " ha trabajado en el proyecto " + resultado.getInt("id_proyecto") + " en la empresa " + resultado.getString("empresa.Nombre") + " desde las " + resultado.getTime("HoraEntrada") + " hasta las " + resultado.getTime("HoraSalida"));
+
+            }
+        } catch (SQLException error) {
+            Log.logBd.error("ERROR SQL en ficharEmpleado(): " + error);
+            Log.logBd.error("                       SQL State - " + error.getSQLState());
+            Log.logBd.error("                       ErrorCode - " + error.getErrorCode());
+        }
+        return informe;
     }
 
 }
