@@ -62,9 +62,9 @@
                 <h1 class="text-center"> Seleccione los detalles del informe: </h1>
                 <div>
                     <br><br>
-                    <form id="informe"action="MainController?action=getInformeProyecto" method="post">
+                    <form id="informe"action="CalendarController?action=InformeProyecto" method="post">
                         <label>Proyecto:</label><br><!--SELECT con opciones de proyecto -->
-                        <select class="custom-select" name="idEmpresa" id="idEmpresa" required>
+                        <select class="custom-select" name="idProyecto" id="idEmpresa" required>
                         <%
                         ConsultaBd consulta = new ConsultaBd();
                         List<Proyecto> lista_empresas = consulta.mostrarProyecto() ;

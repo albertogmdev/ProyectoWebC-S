@@ -5,7 +5,6 @@
  */
 package util;
 
-import java.sql.Connection;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -28,18 +28,21 @@ public class Pruebas {
         String dateInString = "2098-03-02";
         Time hora_entrada=Time.valueOf("15:00:00");
         Time hora_salida=Time.valueOf("18:00:00");
-       
+       ArrayList<String> informe=consulta.informeEmpleado(1, Date.valueOf("2000-01-14"), Date.valueOf("2030-01-14"));
        LocalDate da=LocalDate.parse(dateInString);
-       
+      for(int i=0;i<informe.size();i++){
+           System.out.println(informe.get(i).toString());
      
-        
+      }
+       
         //System.out.println("S "+java.sql.Date.valueOf(da));
         //System.out.println(hora_entrada);
         //System.out.println(hora_salida);
-        Connection conexion;
+       /* Connection conexion;
         conexion=ConexionBd.getConexion();
         System.out.print(consulta.solicitarDiaLibre(Date.valueOf(dateInString), Date.valueOf(dateInString), "asd", "franciscocabrera@correo.com"));
         System.out.print(consulta.aprobarSolicitud(true, true, true, Date.valueOf(dateInString), Date.valueOf(dateInString), "franciscocabrera@correo.com"));
+       */
         //Statement s = conexion.createStatement();
         //int c=s.executeUpdate("INSERT INTO Calendario VALUES('"+Date.valueOf(dateInString)+"','"+hora_entrada+"','"+hora_salida+"','franciscocabrera@correo.com');");
         //System.out.print(c);

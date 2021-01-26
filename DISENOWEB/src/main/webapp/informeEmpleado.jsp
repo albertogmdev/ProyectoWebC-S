@@ -62,7 +62,7 @@
                 <h1 class="text-center">Seleccione los detalles del informe: </h1>
                 <div>
                     <br><br>
-                    <form id="informe" action="MainController?action=getInformeEmpleado" method="post">
+                    <form id="informe" action="CalendarController?action=InformeEmpleado" method="post">
                         <label>Empleado:</label><br><!--SELECT con opciones de empleados -->
                         
                         <select class="custom-select" name="idEmpleado" id="idEmpleado" required>
@@ -88,9 +88,9 @@
                             <label for="otro">Especificar intervalo de tiempo:</label>
                             <span id='box' style="display:none;">
                                 <p>Inicio:</p>
-                            <input class="form-control" type="datetime-local" id="inicio" required><br>
+                            <input class="form-control" name="inicio" type="datetime-local" id="inicio" required><br>
                                 <p>Fin:</p>
-                            <input class="form-control" type="datetime-local" id="fin" required><br>
+                            <input class="form-control" name="fin" type="datetime-local" id="fin" required><br>
                             </span>
                             <br><br>
                         <input class="btn btn-danger float-right" type="submit" name="accion" value="Confirmar" style="margin:5px;">
