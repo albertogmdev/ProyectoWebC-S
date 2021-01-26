@@ -8,7 +8,6 @@ util\Logger.class
 controller\CalendarController.class
 controller\MainController.class
 logica\Empleado.class
-util\Pruebas.class
 com\mycompany\disenoweb\JAXRSConfiguration.class
 controller\LoginController.class
 logica\ProyectoEmpleado.class
