@@ -1,8 +1,0 @@
-[INFO] Sistema Operativo - Windows 10
-[INFO] Creacion de nuevo log en C:\Users\ccris\OneDrive\Escritorio\ProyectoWebC-S\DISENOWEB/logs/log2021-01-26/[03··02··05]logBd.log
-[INFO] Inicio de conexion en puerto[3306]
-[INFO] Conexion establecida en puerto[3306]
-[INFO] Realizada conexion - informeEmpresa()
-[ERROR] ERROR SQL en ficharEmpleado(): java.sql.SQLSyntaxErrorException: Unknown column 'IdEmpleadoEmpresa' in 'where clause'
-[ERROR]                        SQL State - 42S22
-[ERROR]                        ErrorCode - 1054
