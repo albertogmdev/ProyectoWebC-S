@@ -100,24 +100,10 @@
                  var fechaInicio = '<%=diaLibre.getFechaInicio().toString() %>';
                  var fechaFin = '<%=diaLibre.getFechaFin().toString() %>';
                  var datePartsInicio = fechaInicio.split("-");
-                 if (fechaInicio === fechaFin){ //si solo hay un dia libre se pinta
-                    
-                    events.push({'Tipo': 'libre','Date': new Date(datePartsInicio[0], datePartsInicio[1] - 1, datePartsInicio[2].substr(0,2)), 'Title': 'DIA LIBRE'});
-                 }else{ //si son vacaciones
-                     
-                     var datePartsFin = fechaFin.split("-");
-                     var diaIni = parseInt(datePartsInicio[2].substr(0,2));
-                     var fechahoy = new Date(datePartsInicio[0], datePartsInicio[1] - 1, datePartsInicio[2].substr(0,2));
-                     var dateFechaFin = new Date(datePartsFin[0], datePartsFin[1] - 1, datePartsFin[2].substr(0,2));
-                     var diferencia = Math.abs(dateFechaFin - fechahoy);
-                     var ndias = Math.ceil(diferencia / (1000 * 60 * 60 * 24)); //numero de dias de vacaciones
-                     for(var i = 0; i<ndias; i++){ //mientras la fecha por la que vamos no es igual a la final
-                        
-                         events.push({'Tipo': 'libre','Date': new Date(fechahoy.getFullYear(), fechahoy.getMonth(), fechahoy.getDay()) , 'Title': 'DIA LIBRE'});
-                         fechahoy.setDate(fechahoy.getDate()+1); //incrementamos la fecha
-                     }
-                     
-                 }
+                 //pinta dia libre
+                 events.push({'Tipo': 'libre','Date': new Date(datePartsInicio[0], datePartsInicio[1] - 1, datePartsInicio[2].substr(0,2)), 'Title': 'DIA LIBRE'});
+                   
+                 
                  </script>
              <% }%>
              
