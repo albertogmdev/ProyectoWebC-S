@@ -13,14 +13,14 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <jakartaee>8.0</jakartaee>
+        <jakartaee>8.0.1</jakartaee>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.22</version>
+            <version>8.0.33</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>dayjs</artifactId>
-            <version>1.9.6</version>
+            <version>1.11.13</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
